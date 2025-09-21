@@ -1,5 +1,5 @@
 import React from 'react';
-import profilePlaceholder from '../../assets/Conciera_Profile_Placeholder.png';
+import profilePlaceholder from '../../../assets/Conciera_Profile_Placeholder.png';
 //import { useAppCustomer } from '../../workflow/hooks/useAppCustomer';
 
 const CustomerInformation: React.FC = () => {

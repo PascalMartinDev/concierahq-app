@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { purchaseHistory } from '../../data/sampleOrder';
+import { purchaseHistory } from '../../../data/sampleOrder';
 
 const CustomerPurchaseHistory: React.FC = () => {
   const [isExpanded, setIsExpanded] = useState(false);
