@@ -1,14 +1,12 @@
 import React from "react";
+import { Outlet } from "react-router-dom";
 
 // Component Template
 const MainAuth: React.FC = () => {
   return (
-    <div className="w-1/2 flex justify-center">
-    
-      <h2>MainAuth Componet</h2>
-
-   </div>
-    
+    <div>
+      <Outlet />
+    </div>
   );
 };
 

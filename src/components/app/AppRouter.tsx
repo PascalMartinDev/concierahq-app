@@ -11,27 +11,23 @@ import ShopifyAuth from "../auth/ShopifyAuth";
 import LightspeedAuth from "../auth/LightspeedAuth";
 
 
-export const router = createBrowserRouter([
+export const appRouter = createBrowserRouter([
   {
     path: "/",
     element: <AppLayout />,
     children: [
-      // Home - default home page route section
-      { path: "/", element: <AppHome /> },
-      // Admin - Protected multi-page route section
-      { path: "/admin", element: <AdminHome /> },
-      // Webex - Conciera webextension - SPA route section
-      { path: "/webex", element: <Webex /> },
-      // Auth - Oauth2 redirect uri route section
+      { index: true, element: <AppHome /> },
+      { path: "admin", element: <AdminHome /> },
+      { path: "webex", element: <Webex /> },
       {
-        path: "/auth",
+        path: "auth",
         element: <MainAuth />,
         children: [
-          { path:"commerce7",  element: <Commerce7Auth /> },
-          { path:"keap",  element: <KeapAuth /> },
-          { path:"klaviyo",  element: <KlaviyoAuth /> },
-          { path:"lightspeed",  element: <LightspeedAuth /> },
-          { path:"shopify",  element: <ShopifyAuth /> }
+          { path: "commerce7", element: <Commerce7Auth /> },
+          { path: "keap", element: <KeapAuth /> },
+          { path: "klaviyo", element: <KlaviyoAuth /> },
+          { path: "lightspeed", element: <LightspeedAuth /> },
+          { path: "shopify", element: <ShopifyAuth /> }
         ]
       }
     ]

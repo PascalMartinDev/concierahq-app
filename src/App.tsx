@@ -1,7 +1,10 @@
+import { RouterProvider } from "react-router-dom";
+import { appRouter } from "./components/app/AppRouter";
+
 function App() {
   return (
     <div>
-      <h1 className="text-3xl font-bold underline">ConcieraHQ Started Project</h1>
+      <RouterProvider router={ appRouter } />
     </div>
   )
 }
