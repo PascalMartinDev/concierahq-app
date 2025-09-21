@@ -1,13 +1,17 @@
 import React from "react";
+import HeaderSection from "./HeaderSection";
+import FooterMenu from "./FooterMenu";
+import CustomerDetailsSection from "./customer/CustomerDetailsSection";
 
 // Component Template
 const Webex: React.FC = () => {
   return (
-    <div className="w-1/2 flex justify-center">
-    
-      <h2>Webex Componet</h2>
-
-   </div>
+    <>
+      <HeaderSection />
+      <CustomerDetailsSection />
+      {/*<CustomerManagementSection />*/}
+      < FooterMenu />
+    </>
     
   );
 };
