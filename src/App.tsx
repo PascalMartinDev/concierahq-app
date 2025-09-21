@@ -1,7 +1,7 @@
 function App() {
   return (
     <div>
-      <h1 className="text-3xl font-bold underline">App Starter Setup</h1>
+      <h1 className="text-3xl font-bold underline">ConcieraHQ Started Project</h1>
     </div>
   )
 }
