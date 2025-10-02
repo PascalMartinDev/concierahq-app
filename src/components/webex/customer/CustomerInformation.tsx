@@ -2,8 +2,7 @@ import React from 'react';
 import profilePlaceholder from '../../../assets/Conciera_Profile_Placeholder.png';
 //import { useAppCustomer } from '../../workflow/hooks/useAppCustomer';
 
-// Declare posContext injected by LSK POS webextension
-declare const posContext: {
+interface PosContext {
   businessId: number | string;
   businessName: string;
   locationId: number | string;
@@ -11,7 +10,13 @@ declare const posContext: {
   deviceId: number | string;
   userName: string;
   userId: number | string;
-};
+}
+
+declare global {
+  interface Window {
+    posContext?: PosContext;
+  }
+}
 
 const CustomerInformation: React.FC = () => {
   // Use the custom hook to get active AppCustomer data
@@ -22,11 +27,23 @@ const CustomerInformation: React.FC = () => {
   const phone = '0400400400'; //appCustomer?.customer?.phone || 'No Phone';
   const email = 'jsmith@mymailbox.com'; //appCustomer?.customer?.email || 'No Email';
 
-  // Access injected posContext
-  const businessName = typeof posContext !== 'undefined' ? posContext.businessName : 'N/A';
-  const deviceName = typeof posContext !== 'undefined' ? posContext.deviceName : 'N/A';
-  const userName = typeof posContext !== 'undefined' ? posContext.userName : 'N/A';
-  const locationId = typeof posContext !== 'undefined' ? posContext.locationId : 'N/A';
+  // Access injected posContext safely
+  let businessName = 'N/A';
+  let deviceName = 'N/A';
+  let userName = 'N/A';
+  let locationId = 'N/A';
+
+  try {
+    if (typeof window !== 'undefined' && window.posContext) {
+      const ctx = window.posContext;
+      businessName = ctx.businessName || 'N/A - window';
+      deviceName = ctx.deviceName || 'N/A - window;
+      userName = ctx.userName || 'N/A - window';
+      locationId = String(ctx.locationId) || 'N/A - window';
+    }
+  } catch (error) {
+    console.error('Error accessing posContext:', error);
+  }
 
   return (
     <div className="flex items-start space-x-4">
