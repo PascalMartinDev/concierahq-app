@@ -12,6 +12,7 @@ class DynamoDBClientSingleton {
         region: import.meta.env.VITE_AWS_REGION,
         credentials: fromCognitoIdentityPool({
           identityPoolId: import.meta.env.VITE_COGNITO_IDENTITY_POOL_ID,
+          // No Login properties = unauthenticated access via AWS Identity Pool ID
         }),
       });
     }
