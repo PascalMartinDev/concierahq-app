@@ -15,7 +15,6 @@ interface IPosContextData extends IPosContext {
   isInitialised: boolean;
 }
 
-
 export class LskPosContext {
   private static _instance: LskPosContext;
 
@@ -40,8 +39,8 @@ export class LskPosContext {
   }
 
   public initialise(posContext: IPosContext): void {
-    if(!posContext) {
-      console.warn("LskPosContect: No posContext provided by LSK Pos");
+    if (!posContext) {
+      console.warn('LskPosContect: No posContext provided by LSK Pos');
       return;
     }
 
@@ -53,7 +52,6 @@ export class LskPosContext {
     this.userName = posContext.userName;
     this.userId = posContext.userId;
     this.isInitialised = true;
-    
   }
 
   public toJSON(): IPosContextData {
@@ -65,26 +63,24 @@ export class LskPosContext {
       deviceId: this.deviceId!,
       userName: this.userName!,
       userId: this.userId!,
-      isInitialised: this.isInitialised
+      isInitialised: this.isInitialised,
     };
   }
 
   public reset(): void {
-      this.businessId = null;
-      this.businessName = null;
-      this.locationId = null;
-      this.deviceName = null;
-      this.deviceId = null;
-      this.userName = null;
-      this.userId = null;
-      this.isInitialised = false;
+    this.businessId = null;
+    this.businessName = null;
+    this.locationId = null;
+    this.deviceName = null;
+    this.deviceId = null;
+    this.userName = null;
+    this.userId = null;
+    this.isInitialised = false;
   }
-
 }
 
 // Export singleton instance
-
-const lskPosContext = LskPosContext.getInstance();
+export const lskPosContext = LskPosContext.getInstance();
 
 // Test Class:
 // Test: Alert to verify posContext is captured
@@ -93,33 +89,12 @@ if (typeof posContext !== 'undefined') {
   lskPosContext.initialise(posContext);
 
   const data = lskPosContext.toJSON();
-  alert(`Business: ${data.businessName}\nLocation: ${data.locationId}\nDevice: ${data.deviceName}\nUser: ${data.userName}`);
+  alert(
+    `Business: ${data.businessName}\nLocation: ${data.locationId}\nDevice: ${data.deviceName}\nUser: ${data.userName}`
+  );
 } else {
   alert('posContext not found - not injected yet');
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*
 function printContext() {
