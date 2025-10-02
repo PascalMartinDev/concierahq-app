@@ -37,7 +37,7 @@ const CustomerInformation: React.FC = () => {
     if (typeof window !== 'undefined' && window.posContext) {
       const ctx = window.posContext;
       businessName = ctx.businessName || 'N/A - window';
-      deviceName = ctx.deviceName || 'N/A - window;
+      deviceName = ctx.deviceName || 'N/A - window';
       userName = ctx.userName || 'N/A - window';
       locationId = String(ctx.locationId) || 'N/A - window';
     }
