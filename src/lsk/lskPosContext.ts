@@ -1,4 +1,4 @@
-interface IPosContext {
+export interface IPosContext {
   businessId: number | string;
   businessName: string;
   locationId: number | string;
@@ -96,16 +96,3 @@ if (typeof posContext !== 'undefined') {
   alert('posContext not found - not injected yet');
 }
 
-/*
-function printContext() {
-        document.getElementById("request").innerHTML =
-          "<p>Business ID: " + posContext.businessId + "</p>"
-          + "<p>Business Name: " + posContext.businessName + "</p>"
-          + "<p>Location ID: " + posContext.locationId + "</p>"
-          + "<p>Device Name: " + posContext.deviceName + "</p>"
-          + "<p>Device ID: " + posContext.deviceId + "</p>"
-          + "<p>User Name: " + posContext.userName + "</p>"
-          + "<p>User ID: " + posContext.userId + "</p>"
-      }
-
-  */
