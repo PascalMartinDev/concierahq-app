@@ -1,8 +1,17 @@
 import React from 'react';
 import profilePlaceholder from '../../../assets/Conciera_Profile_Placeholder.png';
-import { lskPosContext } from '../../../lsk/lskPosContext';
 //import { useAppCustomer } from '../../workflow/hooks/useAppCustomer';
 
+// Declare posContext injected by LSK POS webextension
+declare const posContext: {
+  businessId: number | string;
+  businessName: string;
+  locationId: number | string;
+  deviceName: string;
+  deviceId: number | string;
+  userName: string;
+  userId: number | string;
+};
 
 const CustomerInformation: React.FC = () => {
   // Use the custom hook to get active AppCustomer data
@@ -11,8 +20,14 @@ const CustomerInformation: React.FC = () => {
   const firstName = 'John';  //appCustomer?.customer?.firstName || 'No Name';
   const lastName = 'Smith'; //appCustomer?.customer?.lastName || '';
   const phone = '0400400400'; //appCustomer?.customer?.phone || 'No Phone';
-  //const email = 'jsmith@mymailbox.com'; //appCustomer?.customer?.email || 'No Email';
-  const email = lskPosContext.deviceName || 'No Email';
+  const email = 'jsmith@mymailbox.com'; //appCustomer?.customer?.email || 'No Email';
+
+  // Access injected posContext
+  const businessName = typeof posContext !== 'undefined' ? posContext.businessName : 'N/A';
+  const deviceName = typeof posContext !== 'undefined' ? posContext.deviceName : 'N/A';
+  const userName = typeof posContext !== 'undefined' ? posContext.userName : 'N/A';
+  const locationId = typeof posContext !== 'undefined' ? posContext.locationId : 'N/A';
+
   return (
     <div className="flex items-start space-x-4">
       {/* Circular Profile Image */}
@@ -34,6 +49,14 @@ const CustomerInformation: React.FC = () => {
         </h4>
         <h4 className="text-sm/6 text-gray-500">Phone: {phone}</h4>
         <h4 className="text-sm/6 text-gray-500">Email: {email}</h4>
+
+        <h3 className="text-lg font-semibold text-gray-900 mt-4">
+          POS Context:
+        </h3>
+        <h4 className="text-sm/6 text-gray-500">Business: {businessName}</h4>
+        <h4 className="text-sm/6 text-gray-500">Device: {deviceName}</h4>
+        <h4 className="text-sm/6 text-gray-500">User: {userName}</h4>
+        <h4 className="text-sm/6 text-gray-500">Location ID: {locationId}</h4>
       </div>
     </div>
   );

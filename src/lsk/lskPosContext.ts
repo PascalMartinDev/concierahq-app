@@ -1,3 +1,5 @@
+/*
+
 export interface IPosContext {
   businessId: number | string;
   businessName: string;
@@ -82,6 +84,7 @@ export class LskPosContext {
 // Export singleton instance
 export const lskPosContext = LskPosContext.getInstance();
 
+
 // Test Class:
 // Test: Alert to verify posContext is captured
 if (typeof posContext !== 'undefined') {
@@ -96,3 +99,4 @@ if (typeof posContext !== 'undefined') {
   alert('posContext not found - not injected yet');
 }
 
+*/
