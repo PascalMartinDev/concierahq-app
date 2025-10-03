@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
+//import React, { useEffect, useState } from "react";
 import HeaderSection from "./HeaderSection";
 import FooterMenu from "./FooterMenu";
 import CustomerDetailsSection from "./customer/CustomerDetailsSection";
-import WebexUnauthorised from "./WebexUnauthorised";
-import { lskPosContext } from "../../lsk/lskPosContext";
-import WebexPosContext from "./WebexPosContext";
+//import WebexUnauthorised from "./WebexUnauthorised";
+//import { lskPosContext } from "../../lsk/lskPosContext";
+//import WebexPosContext from "./WebexPosContext";
 
 // Component Template
 const WebExtension: React.FC = () => {
+  /* ##### Commented out for Development --> uncommment all items for production 
   const [isAuthorised, setIsAuthorised] = useState<boolean>(false);
-
+ 
   useEffect(() => {
     // Check if posContext is available
     if (typeof posContext !== 'undefined') {
@@ -26,18 +27,18 @@ const WebExtension: React.FC = () => {
   if (!isAuthorised) {
     return <WebexUnauthorised />;
   }
-
+  */
   return (
     <>
       <HeaderSection />
       <CustomerDetailsSection />
       {/*<CustomerManagementSection />*/}
       < FooterMenu />
-      <WebexPosContext
+      {/*<WebexPosContext
         userName={String(lskPosContext.userName ?? "Unknown User!")}
         locationId={String(lskPosContext.locationId ?? "Unknown Location!")}
         deviceId={String(lskPosContext.deviceId ?? "Unknown Device!")}
-      />
+      />*/}
     </>
 
   );
