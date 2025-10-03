@@ -1,4 +1,5 @@
 import type { PosCallback, Consumer } from '../lsk/lsktypes';
+import type { IPosContext } from './lskPosContext';
 
 declare global {
   // Core LSK POS Functions (use consistent declaration style)
@@ -17,6 +18,9 @@ declare global {
 
   // Pos Callbacks
   var callbacks: Record<string, PosCallback>;
+
+  // POS Context Data
+  var posContext: IPosContext;
 
 }
 

@@ -1,5 +1,3 @@
-/*
-
 export interface IPosContext {
   businessId: number | string;
   businessName: string;
@@ -10,8 +8,6 @@ export interface IPosContext {
   userId: number | string;
 }
 
-// Declare global posContext injected by LSK POS webextension
-declare const posContext: IPosContext;
 
 interface IPosContextData extends IPosContext {
   isInitialised: boolean;
@@ -42,7 +38,7 @@ export class LskPosContext {
 
   public initialise(posContext: IPosContext): void {
     if (!posContext) {
-      console.warn('LskPosContect: No posContext provided by LSK Pos');
+      console.warn('LskPosContext: No posContext provided by LSK Pos');
       return;
     }
 
@@ -54,6 +50,8 @@ export class LskPosContext {
     this.userName = posContext.userName;
     this.userId = posContext.userId;
     this.isInitialised = true;
+
+    console.log('LskPosContext initialized:', this.toJSON());
   }
 
   public toJSON(): IPosContextData {
@@ -83,20 +81,3 @@ export class LskPosContext {
 
 // Export singleton instance
 export const lskPosContext = LskPosContext.getInstance();
-
-
-// Test Class:
-// Test: Alert to verify posContext is captured
-if (typeof posContext !== 'undefined') {
-  alert('posContext found!');
-  lskPosContext.initialise(posContext);
-
-  const data = lskPosContext.toJSON();
-  alert(
-    `Business: ${data.businessName}\nLocation: ${data.locationId}\nDevice: ${data.deviceName}\nUser: ${data.userName}`
-  );
-} else {
-  alert('posContext not found - not injected yet');
-}
-
-*/

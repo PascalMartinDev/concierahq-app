@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import AppLayout from "./AppLayout";
 import AdminHome from "../admin/AdminHome";
-import Webex from "../webex/webex";
+import Webex from "../webex/Webex";
 import AppHome from "./AppHome";
 import MainAuth from "../auth/MainAuth";
 import Commerce7Auth from "../auth/Commerce7Auth";

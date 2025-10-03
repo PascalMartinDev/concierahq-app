@@ -34,15 +34,15 @@
     <script>
       function printContext() {
         document.getElementById("request").innerHTML =
-          "<p>Business ID: " + posContext.businessId + "</p>"
-          + "<p>Business Name: " + posContext.businessName + "</p>"
-          + "<p>Location ID: " + posContext.locationId + "</p>"
-          + "<p>Device Name: " + posContext.deviceName + "</p>"
-          + "<p>Device ID: " + posContext.deviceId + "</p>"
-          + "<p>User Name: " + posContext.userName + "</p>"
-          + "<p>User ID: " + posContext.userId + "</p>"
+          "<p>Business ID: " + posContext.businessId + " (type: " + typeof posContext.businessId + ")</p>"
+          + "<p>Business Name: " + posContext.businessName + " (type: " + typeof posContext.businessName + ")</p>"
+          + "<p>Location ID: " + posContext.locationId + " (type: " + typeof posContext.locationId + ")</p>"
+          + "<p>Device Name: " + posContext.deviceName + " (type: " + typeof posContext.deviceName + ")</p>"
+          + "<p>Device ID: " + posContext.deviceId + " (type: " + typeof posContext.deviceId + ")</p>"
+          + "<p>User Name: " + posContext.userName + " (type: " + typeof posContext.userName + ")</p>"
+          + "<p>User ID: " + posContext.userId + " (type: " + typeof posContext.userId + ")</p>"
       }
-      
+
       </script>
  </body>
 </html>
