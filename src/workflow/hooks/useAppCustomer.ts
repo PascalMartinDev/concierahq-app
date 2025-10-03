@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { getGlobalAppCustomer, subscribeToAppCustomer } from '../context/workflowContextInstance';
 import type { AppCustomer } from '../../models/webex/business/AppCustomer';
+import { getGlobalAppCustomer, subscribeToAppCustomer } from '../context/workflowContextInstance';
 
 
 

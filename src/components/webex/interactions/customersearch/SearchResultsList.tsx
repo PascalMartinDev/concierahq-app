@@ -1,11 +1,9 @@
 import React from 'react';
 import SearchCard from './SearchCard';
-// Update the import path below to the correct location of CustomerSearchResult
-// Example: import type { CustomerSearchResult } from '../../../models/CustomerSearchResult';
-import type { CustomerSearchResult } from '../../../models/CustomerSearchResult';
-import { useAppCustomer } from '../../../workflow/hooks/useAppCustomer';
-//import { LoadSearchedCustomerProfileWorkflow } from '../../../workflow/workflows/LoadSearchedCustomerProfileWorkflow';
-//import { RaiseErrorWorkflow } from '../../../workflow/workflows/RaiseErrorWorkflow';
+import type { CustomerSearchResult } from '../../../../services/db/dynamoDBSearchCustomer';
+import { useAppCustomer } from '../../../../workflow/hooks/useAppCustomer';
+import { RaiseErrorWorkflow } from '../../../../workflow/workflows/RaiseErrorWorkflow';
+import { LoadSearchedCustomerProfileWorkflow } from '../../../../workflow/workflows/LoadSearchedCustomerProfileWorkflow';
 
 interface SearchResultsListProps {
   customerSearch: {
@@ -19,7 +17,7 @@ const SearchResultsList = ({ customerSearch }: SearchResultsListProps) => {
   const { searchResults, isLoading, hasResults } = customerSearch;
 
   // Use the custom hook to get active AppCustomer data
-  //const appCustomer = useAppCustomer();
+  const appCustomer = useAppCustomer();
 
   // Handle card click event -> add to appCustomer
   const handleContactClick = (contact: CustomerSearchResult) => {
@@ -28,12 +26,12 @@ const SearchResultsList = ({ customerSearch }: SearchResultsListProps) => {
       //Email Assigned to appCustomer for full customer profile retrieval in the next Chain workflow:
       appCustomer.customer.email = contact.email;
       //Trigger LoadSearchedCustomerProfileWorkflow:
-      //const loadSearchedCustomerProfileWorkflow = new LoadSearchedCustomerProfileWorkflow();
-      //loadSearchedCustomerProfileWorkflow.execute().catch((error) => {
-        //const errorMessage = error instanceof Error ? error.message : String(error);
-        //console.log(`TEST: Error Message: {errorMessage}`);
-        //const errorWorkflow = new RaiseErrorWorkflow(`LoadSearchedCustomerProfileWorkflow failed: ${errorMessage}`);
-        //errorWorkflow.execute();
+      const loadSearchedCustomerProfileWorkflow =
+        new LoadSearchedCustomerProfileWorkflow();
+      loadSearchedCustomerProfileWorkflow.execute().catch((error) => {
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        const errorWorkflow = new RaiseErrorWorkflow(`LoadSearchedCustomerProfileWorkflow failed: ${errorMessage}`);
+        errorWorkflow.execute();
       });
     }
   };

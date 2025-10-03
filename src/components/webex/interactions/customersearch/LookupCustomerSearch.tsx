@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'react';
 import SearchBar from "./SearchBar";
-import SearchResultsList from "./SearchResultsList";
-import { useCustomerSearch } from '../../../workflow/hooks/useCustomerSearch';
+import SearchResultsList from './SearchResultsList';
+import { useCustomerSearch } from '../../../../workflow/hooks/useCustomerSearch';
 
 const LookupCustomerSearch = () => {
   const customerSearch = useCustomerSearch();
