@@ -1,8 +1,6 @@
 import logo from '../../assets/TheBrasserieVineyardLogo500x220.png';
 import CircleButton from '../ui/CircleButton';
 
-
-
 const HeaderSection = () => {
   const onCloseWebExtension = () => {
     // Logic to be added:
