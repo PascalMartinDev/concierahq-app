@@ -32,7 +32,7 @@ const WebExtension: React.FC = () => {
     <>
       <HeaderSection />
       <CustomerDetailsSection />
-      {/*<CustomerManagementSection />*/}
+      <CustomerManagementSection />
       < FooterMenu />
       {/*<WebexPosContext
         userName={String(lskPosContext.userName ?? "Unknown User!")}
