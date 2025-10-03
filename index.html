@@ -10,8 +10,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>The Brasserie Vineyard</title>
   </head>
+  <!--
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
+  -->
+  <body>
+  <div class="p-5">
+    <div class="container text-center">
+      <img src="https://euc1-web.posios.com/management/en-US/assets/img/logos/lightspeed-vertical.png" width="200px"/>
+      <h1>LSK Web Extensions Demo</h1>
+    </div>
+    <hr/>
+    <div class="container text-left">
+      <button type="button"  onclick="printContext()">Show Context</button>
+      <div class="container text-left">
+        <pre id="request"></pre>
+      </div>
+      
+      </form>
+    </div>
+    <script>
+      function printContext() {
+        document.getElementById("request").innerHTML =
+          "<p>Business ID: " + posContext.businessId + "</p>"
+          + "<p>Business Name: " + posContext.businessName + "</p>"
+          + "<p>Location ID: " + posContext.locationId + "</p>"
+          + "<p>Device Name: " + posContext.deviceName + "</p>"
+          + "<p>Device ID: " + posContext.deviceId + "</p>"
+          + "<p>User Name: " + posContext.userName + "</p>"
+          + "<p>User ID: " + posContext.userId + "</p>"
+      }
+      
+      </script>
+ </body>
 </html>

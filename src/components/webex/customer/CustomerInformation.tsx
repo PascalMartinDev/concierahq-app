@@ -27,23 +27,6 @@ const CustomerInformation: React.FC = () => {
   const phone = '0400400400'; //appCustomer?.customer?.phone || 'No Phone';
   const email = 'jsmith@mymailbox.com'; //appCustomer?.customer?.email || 'No Email';
 
-  // Access injected posContext safely
-  let businessName = 'N/A';
-  let deviceName = 'N/A';
-  let userName = 'N/A';
-  let locationId = 'N/A';
-
-  try {
-    if (typeof window !== 'undefined' && window.posContext) {
-      const ctx = window.posContext;
-      businessName = ctx.businessName || 'N/A - window';
-      deviceName = ctx.deviceName || 'N/A - window';
-      userName = ctx.userName || 'N/A - window';
-      locationId = String(ctx.locationId) || 'N/A - window';
-    }
-  } catch (error) {
-    console.error('Error accessing posContext:', error);
-  }
 
   return (
     <div className="flex items-start space-x-4">
@@ -70,10 +53,6 @@ const CustomerInformation: React.FC = () => {
         <h3 className="text-lg font-semibold text-gray-900 mt-4">
           POS Context:
         </h3>
-        <h4 className="text-sm/6 text-gray-500">Business: {businessName}</h4>
-        <h4 className="text-sm/6 text-gray-500">Device: {deviceName}</h4>
-        <h4 className="text-sm/6 text-gray-500">User: {userName}</h4>
-        <h4 className="text-sm/6 text-gray-500">Location ID: {locationId}</h4>
       </div>
     </div>
   );
