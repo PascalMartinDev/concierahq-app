@@ -10,12 +10,15 @@ const WebExtension: React.FC = () => {
   const [isAuthorised, setIsAuthorised] = useState<boolean>(false);
 
   useEffect(() => {
-    // Initialize posContext when component mounts
-    lskPosContext.initialise(posContext);
+    // Check if posContext is available
+    if (typeof posContext !== 'undefined') {
+      // Initialize posContext when component mounts
+      lskPosContext.initialise(posContext);
 
-    // Check if businessId matches authorised ID
-    if (posContext.businessId == "65652") {
-      setIsAuthorised(true);
+      // Check if businessId matches authorised ID
+      if (posContext.businessId === import.meta.env.VITE_LSK_BUSINESS_ID) {
+        setIsAuthorised(true);
+      }
     }
   }, []);
 
@@ -28,13 +31,13 @@ const WebExtension: React.FC = () => {
       <HeaderSection />
       <CustomerDetailsSection />
       <div>
-        <p>`Business ID: {lskPosContext.businessId}`</p>
-        <p>`Business Name: {lskPosContext.businessName}`</p>
-        <p>`location ID: {lskPosContext.locationId}`</p>
-        <p>`Device Name: {lskPosContext.deviceName}`</p>
-        <p>`Device ID: {lskPosContext.deviceId}`</p>
-        <p>`User Name: {lskPosContext.userName}`</p>
-        <p>`User ID: {lskPosContext.userId}`</p>
+        <p>Business ID: {lskPosContext.businessId}</p>
+        <p>Business Name: {lskPosContext.businessName}</p>
+        <p>location ID: {lskPosContext.locationId}</p>
+        <p>Device Name: {lskPosContext.deviceName}</p>
+        <p>Device ID: {lskPosContext.deviceId}</p>
+        <p>User Name: {lskPosContext.userName}</p>
+        <p>User ID: {lskPosContext.userId}</p>
         
       </div>
 
