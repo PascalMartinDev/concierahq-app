@@ -6,7 +6,7 @@ import WebexUnauthorised from "./WebexUnauthorised";
 import { lskPosContext } from "../../lsk/lskPosContext";
 
 // Component Template
-const Webex: React.FC = () => {
+const WebExtension: React.FC = () => {
   const [isAuthorised, setIsAuthorised] = useState<boolean>(false);
 
   useEffect(() => {
@@ -34,4 +34,4 @@ const Webex: React.FC = () => {
   );
 };
 
-export default Webex;
+export default WebExtension;
