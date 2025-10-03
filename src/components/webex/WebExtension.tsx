@@ -4,6 +4,7 @@ import FooterMenu from "./FooterMenu";
 import CustomerDetailsSection from "./customer/CustomerDetailsSection";
 import WebexUnauthorised from "./WebexUnauthorised";
 import { lskPosContext } from "../../lsk/lskPosContext";
+import WebexPosContext from "./WebexPosContext";
 
 // Component Template
 const WebExtension: React.FC = () => {
@@ -30,20 +31,13 @@ const WebExtension: React.FC = () => {
     <>
       <HeaderSection />
       <CustomerDetailsSection />
-      <div>
-        <p>Business ID: {lskPosContext.businessId}</p>
-        <p>Business Name: {lskPosContext.businessName}</p>
-        <p>location ID: {lskPosContext.locationId}</p>
-        <p>Device Name: {lskPosContext.deviceName}</p>
-        <p>Device ID: {lskPosContext.deviceId}</p>
-        <p>User Name: {lskPosContext.userName}</p>
-        <p>User ID: {lskPosContext.userId}</p>
-        
-      </div>
-
-
       {/*<CustomerManagementSection />*/}
       < FooterMenu />
+      <WebexPosContext
+        userName={String(lskPosContext.userName ?? "Unknown User!")}
+        locationId={String(lskPosContext.locationId ?? "Unknown Location!")}
+        deviceId={String(lskPosContext.deviceId ?? "Unknown Device!")}
+      />
     </>
 
   );
