@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { WorkflowContextInstance } from './workflowContextInstance';
 import type { AppCustomer } from '../../models/webex/business/AppCustomer';
 
@@ -53,27 +53,30 @@ export const WorkflowProvider = ({
     setLoadingMessage('Loading Customer Profile');
   };
 
-  return WorkflowContextInstance.Provider({
-    value: {
-      appCustomer,
-      searchResults,
-      isLoading,
-      error,
-      loadingMessage,
-      showError,
-      showCreateForm,
-      showSearchBox,
-      setAppCustomer,
-      setSearchResults,
-      setIsLoading,
-      setError,
-      setShowCreateForm,
-      setShowSearchBox,
-      setLoadingMessage,
-      setShowError,
-      clearAll,
-    },
-    children,
-  });
+  return (
+    <WorkflowContextInstance.Provider
+      value={{
+        appCustomer,
+        searchResults,
+        isLoading,
+        error,
+        loadingMessage,
+        showError,
+        showCreateForm,
+        showSearchBox,
+        setAppCustomer,
+        setSearchResults,
+        setIsLoading,
+        setError,
+        setShowCreateForm,
+        setShowSearchBox,
+        setLoadingMessage,
+        setShowError,
+        clearAll,
+      }}
+    >
+      {children}
+    </WorkflowContextInstance.Provider>
+  );
 };
 

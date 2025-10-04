@@ -3,15 +3,16 @@ import HeaderSection from "./HeaderSection";
 import FooterMenu from "./FooterMenu";
 import CustomerDetailsSection from "./customer/CustomerDetailsSection";
 import CustomerManagementSection from "./interactions/CustomerManagementSection";
+import { WorkflowProvider } from "../../workflow/context/workflowContext.tsx";
 //import WebexUnauthorised from "./WebexUnauthorised";
 //import { lskPosContext } from "../../lsk/lskPosContext";
 //import WebexPosContext from "./WebexPosContext";
 
 // Component Template
 const WebExtension: React.FC = () => {
-  /* ##### Commented out for Development --> uncommment all items for production 
+  /* ##### Commented out for Development --> uncommment all items for production
   const [isAuthorised, setIsAuthorised] = useState<boolean>(false);
- 
+
   useEffect(() => {
     // Check if posContext is available
     if (typeof posContext !== 'undefined') {
@@ -30,7 +31,7 @@ const WebExtension: React.FC = () => {
   }
   */
   return (
-    <>
+    <WorkflowProvider>
       <HeaderSection />
       <CustomerDetailsSection />
       <CustomerManagementSection />
@@ -40,7 +41,7 @@ const WebExtension: React.FC = () => {
         locationId={String(lskPosContext.locationId ?? "Unknown Location!")}
         deviceId={String(lskPosContext.deviceId ?? "Unknown Device!")}
       />*/}
-    </>
+    </WorkflowProvider>
 
   );
 };
