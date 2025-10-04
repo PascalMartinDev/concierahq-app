@@ -2,6 +2,7 @@
 import HeaderSection from "./HeaderSection";
 import FooterMenu from "./FooterMenu";
 import CustomerDetailsSection from "./customer/CustomerDetailsSection";
+import CustomerManagementSection from "./interactions/CustomerManagementSection";
 //import WebexUnauthorised from "./WebexUnauthorised";
 //import { lskPosContext } from "../../lsk/lskPosContext";
 //import WebexPosContext from "./WebexPosContext";
