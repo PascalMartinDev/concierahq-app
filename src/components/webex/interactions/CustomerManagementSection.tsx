@@ -14,7 +14,8 @@ const CustomerManagementSection: React.FC = () => {
       {/*{showCreateForm && <AddUpdateCustomerForm /> } */}
       
       {/* Display Lookup Search Box when needed */}
-      {showSearchBox && <LookupCustomerSearch /> }
+      {/*{showSearchBox && <LookupCustomerSearch /> }*/}
+      <LookupCustomerSearch />
       
     </>
   );
