@@ -1,26 +1,21 @@
 import type { IWorkflow } from "../context/workflowInterface";
-
-/*
 import dynamoDBGetItem from '../../services/db/dynamoDBGetItem';
-import type { CustomerRecord } from '../../services/db/dynamoDBTableConfigurations';
-import { createDynamoDBItem } from '../../services/db/dynamoDBTableConfigurations';
 import {
   getGlobalAppCustomer,
   getGlobalWorkflowContext,
   setGlobalAppCustomer,
 } from '../context/workflowContextInstance';
 import { appCustomerProfileMapper } from '../../utils/appCustomerProfileMapper';
-import { RaiseErrorWorkflow } from './RaiseErrorWorkflow';
-import { debugLog } from '../../utils/debugLogger';
-import { AppCustomer } from '../../models/business/AppCustomer';
-import type { WorkflowContextType } from '../context/WorkflowContext';
-*/
+import { AppCustomer } from "../../models/webex/business/AppCustomer";
+import type { WorkflowContextType } from "../context/workflowContext"
+import { createDynamoDBItem, type CustomerRecord } from "../../services/db/dynamoDBTableConfiguration";
+import { RaiseErrorWorkflow } from "./RaiseErrorWorkflow";
+
 
 export class LoadSearchedCustomerProfileWorkflow implements IWorkflow {
   async execute(): Promise<void> {
-    console.log("TEST: Workfloow triggered");
     
-    /*
+    
     try {
       const { workflowContext, appCustomer } = await this.validateDependencies();
       
@@ -33,14 +28,14 @@ export class LoadSearchedCustomerProfileWorkflow implements IWorkflow {
       }
 
       this.updateCustomerData(customerProfile, appCustomer, workflowContext);
-      debugLog('✅ LoadSearchedCustomerProfile workflow completed successfully');
+    
       
     } catch (error) {
       await this.handleError(error);
-    } */
+    }
   }
 
-  /*
+  
   private async validateDependencies() {
     const workflowContext = getGlobalWorkflowContext();
     if (!workflowContext) {
@@ -57,24 +52,16 @@ export class LoadSearchedCustomerProfileWorkflow implements IWorkflow {
 
   private extractCustomerEmail(appCustomer: AppCustomer): string {
     const customerEmail = appCustomer.customer.email;
-    debugLog(`📧 Using manually entered email: ${customerEmail}`);
+  
     return customerEmail;
   }
 
   private async retrieveCustomerProfile(email: string): Promise<CustomerRecord | null> {
     try {
-      const searchItem = createDynamoDBItem('CUSTOMER', email);
+      const searchItem = createDynamoDBItem('CUSTOMER', email); //createDynamoDBItem('CUSTOMER', email);
       const dbCustomerProfile = await dynamoDBGetItem<CustomerRecord>(searchItem);
-      
-      if (!dbCustomerProfile) {
-        debugLog(`❌ No customer profile found for searched email: ${email}`);
-      } else {
-        debugLog(`✅ Customer profile retrieved for searched email: ${email}`);
-      }
-      
       return dbCustomerProfile;
     } catch (error) {
-      debugLog(`💥 Database query failed for searched email: ${email}`);
       throw new Error(`Database query failed: ${error}`);
     }
   }
@@ -83,7 +70,6 @@ export class LoadSearchedCustomerProfileWorkflow implements IWorkflow {
     workflowContext.setIsLoading(false);
     workflowContext.setShowSearchBox(false);
     workflowContext.setShowCreateForm(true);
-    debugLog('➕ Triggered create mode - customer not found, opening create form');
   }
 
   private updateCustomerData(customerProfile: CustomerRecord, appCustomer: AppCustomer, workflowContext: WorkflowContextType): void {
@@ -91,21 +77,16 @@ export class LoadSearchedCustomerProfileWorkflow implements IWorkflow {
     
     setGlobalAppCustomer(appCustomer);
     workflowContext.setAppCustomer(appCustomer);
-    
     workflowContext.setShowCreateForm(false);
     workflowContext.setShowSearchBox(false);
     workflowContext.setIsLoading(false);
-    
-    debugLog('📝 Customer data updated and search interface closed');
   }
 
   private async handleError(error: unknown): Promise<void> {
     const errorMessage = error instanceof Error ? error.message : String(error);
     const errorWorkflow = new RaiseErrorWorkflow(`LoadSearchedCustomerProfileWorkflow failed: ${errorMessage}`);
-    
     await errorWorkflow.execute();
-    debugLog(`❌ LoadSearchedCustomerProfileWorkflow failed: ${errorMessage}`);
-  } */
+  }
 } 
 
 /**

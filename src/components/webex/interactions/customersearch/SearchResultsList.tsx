@@ -26,8 +26,7 @@ const SearchResultsList = ({ customerSearch }: SearchResultsListProps) => {
       //Email Assigned to appCustomer for full customer profile retrieval in the next Chain workflow:
       appCustomer.customer.email = contact.email;
       //Trigger LoadSearchedCustomerProfileWorkflow:
-      const loadSearchedCustomerProfileWorkflow =
-        new LoadSearchedCustomerProfileWorkflow();
+      const loadSearchedCustomerProfileWorkflow = new LoadSearchedCustomerProfileWorkflow();
       loadSearchedCustomerProfileWorkflow.execute().catch((error) => {
         const errorMessage = error instanceof Error ? error.message : String(error);
         const errorWorkflow = new RaiseErrorWorkflow(`LoadSearchedCustomerProfileWorkflow failed: ${errorMessage}`);
