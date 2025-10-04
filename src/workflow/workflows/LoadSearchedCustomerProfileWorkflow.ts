@@ -18,6 +18,7 @@ import type { WorkflowContextType } from '../context/WorkflowContext';
 
 export class LoadSearchedCustomerProfileWorkflow implements IWorkflow {
   async execute(): Promise<void> {
+    console.log("TEST: Workfloow triggered");
     
     /*
     try {

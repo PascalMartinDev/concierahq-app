@@ -1,12 +1,12 @@
 
 //import AddUpdateCustomerForm from './customerform/AddUpdateCustomerForm';
-import { useWorkflow } from '../../../workflow/hooks/useWorkflow';
+//import { useWorkflow } from '../../../workflow/hooks/useWorkflow';
 import LookupCustomerSearch from './customersearch/LookupCustomerSearch';
 
 
 const CustomerManagementSection: React.FC = () => {
   //const { showCreateForm, showSearchBox } = useWorkflow();
-  const { showSearchBox } = useWorkflow();   // Delete once line above is uncommented
+  
 
   return (
     <>

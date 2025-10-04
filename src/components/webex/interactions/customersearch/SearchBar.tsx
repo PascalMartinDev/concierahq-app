@@ -10,7 +10,6 @@ interface SearchBarProps {
   customerSearch: {
     searchQuery: string;
     setSearchQuery: (query: string) => void;
-    isLoading: boolean;
   };
 }
 
@@ -21,7 +20,7 @@ interface SearchBarRef {
 // SearchBar Component
 const SearchBar = forwardRef<SearchBarRef, SearchBarProps>(
   ({ customerSearch }, ref) => {
-    const { searchQuery, setSearchQuery, isLoading } = customerSearch;
+    const { searchQuery, setSearchQuery } = customerSearch;
     const inputRef = useRef<HTMLInputElement>(null);
     const wasTyping = useRef(false);
 
@@ -61,8 +60,7 @@ const SearchBar = forwardRef<SearchBarRef, SearchBarProps>(
           value={searchQuery}
           onChange={handleInputChange}
           placeholder={'Search by name, email or phone number...'}
-          className="w-full rounded-lg border-2 border-gray-300 bg-white py-4 px-6 pr-12 text-lg text-gray-900 placeholder-gray-400 shadow-lg focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 disabled:bg-gray-100 disabled:text-gray-500"
-          disabled={isLoading}
+          className="w-full rounded-lg border-2 border-gray-300 bg-white py-4 px-6 pr-12 text-lg text-gray-900 placeholder-gray-400 shadow-lg focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
         />
       </div>
     );
@@ -73,8 +71,7 @@ export default memo(SearchBar, (prevProps, nextProps) => {
   // Only re-render if the props SearchBar actually uses have changed
   return (
     prevProps.customerSearch.searchQuery ===
-      nextProps.customerSearch.searchQuery &&
-    prevProps.customerSearch.isLoading === nextProps.customerSearch.isLoading
+      nextProps.customerSearch.searchQuery
   );
 });
 
