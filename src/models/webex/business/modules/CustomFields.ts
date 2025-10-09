@@ -1,4 +1,4 @@
-export class CustomerFields {
+export class CustomFields {
   protected _customField1: string = '';
   protected _customField2: string = '';
   protected _customField3: string = '';

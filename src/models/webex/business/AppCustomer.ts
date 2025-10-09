@@ -1,7 +1,8 @@
 import BusinessCustomer from "./BusinessCustomer";
 import type { Bookings } from "./modules/Bookings";
+import type { CommerceSeven } from "./modules/CommerceSeven";
 import type { Crm } from "./modules/Crm";
-import type { CustomerFields } from "./modules/CustomFields";
+import type { CustomFields } from "./modules/CustomFields";
 import type { ECommerce } from "./modules/ECommerce";
 
 interface IAppCustomer {
@@ -9,35 +10,35 @@ interface IAppCustomer {
   eCommerce?: ECommerce
   crm?: Crm
   bookings?: Bookings
-  customFields?: CustomerFields
+  customFields?: CustomFields
+  commerceSeven?: CommerceSeven
 }
 
 export class AppCustomer extends BusinessCustomer implements IAppCustomer{
   protected _group: string = '';
   protected _eCommerce: ECommerce | undefined = undefined;
+  protected _customFields: CustomFields | undefined = undefined;
   protected _crm: Crm | undefined = undefined;
   protected _bookings: Bookings | undefined = undefined;
-  protected _customFields: CustomerFields | undefined = undefined;
-
-
+  protected _commerceSeven: CommerceSeven | undefined = undefined;
+  
   // Getter:
   get group(): string {
     return this._group;
   }
-
   get eCommerce(): ECommerce | undefined {
     return this._eCommerce;
   }
-
+  get commerceSeven(): CommerceSeven | undefined {
+    return this._commerceSeven;
+  }
   get crm(): Crm | undefined {
     return this._crm;
   }
-
   get bookings(): Bookings | undefined {
     return this._bookings;
   }
-
-  get customFields(): CustomerFields | undefined {
+  get customFields(): CustomFields | undefined {
     return this._customFields;
   }
 
@@ -48,13 +49,16 @@ export class AppCustomer extends BusinessCustomer implements IAppCustomer{
   set eCommerce(value: ECommerce | undefined) {
     this._eCommerce = value;
   }
+  set commerceSeven(value: CommerceSeven | undefined) {
+    this._commerceSeven = value;
+  }
   set crm(value: Crm | undefined) {
     this._crm = value;
   }
   set bookings(value: Bookings | undefined) {
     this._bookings = value;
   }
-  set customFields(value: CustomerFields | undefined) {
+  set customFields(value: CustomFields | undefined) {
     this._customFields = value;
   }
 }

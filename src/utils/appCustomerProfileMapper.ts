@@ -1,5 +1,7 @@
-import type { AppCustomer } from "../models/business/AppCustomer";
-import type { CustomerRecord } from "../services/db/dynamoDBTableConfigurations";
+
+import type { AppCustomer } from "../models/webex/business/AppCustomer";
+import type { CustomerRecord } from "../services/db/dynamoDBTableConfiguration";
+
 
 
 export const appCustomerProfileMapper = (customerProfile: CustomerRecord, appCustomer: AppCustomer): void => {
