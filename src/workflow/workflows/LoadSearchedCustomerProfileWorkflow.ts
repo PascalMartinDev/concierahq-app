@@ -26,6 +26,8 @@ export class LoadSearchedCustomerProfileWorkflow implements IWorkflow {
         this.triggerCreateMode(workflowContext);
         return;
       }
+      console.log("TEST: DynamodDB returned object");
+      console.log(customerProfile);
 
       this.updateCustomerData(customerProfile, appCustomer, workflowContext);
     

@@ -69,6 +69,7 @@ export class SetConsumerWorkflow implements IWorkflow {
     const errorWorkflow = new RaiseErrorWorkflow(`SetConsumerWorkflow failed: ${errorMessage}`);
     
     await errorWorkflow.execute();
+  }
 }
 
 /**

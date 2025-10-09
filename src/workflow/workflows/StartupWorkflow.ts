@@ -3,7 +3,7 @@ import {
   setGlobalWorkflowContext,
   setGlobalAppCustomer,
 } from '../context/workflowContextInstance';
-import getCurrentAccountCallback from '../../utils/getCurrentAccountCallback';
+//import getCurrentAccountCallback from '../../utils/getCurrentAccountCallback';
 import { BusinessCustomerFactory } from '../../models/webex/business/BusinessCustomerFactory';
 import type { WorkflowContextType } from '../context/workflowContext';
 
@@ -24,7 +24,7 @@ export class StartupWorkflow implements IWorkflow {
     // Set global context reference
     setGlobalWorkflowContext(this.workflowContext);
     // Call POS Current Account with debuglog:
-    pos_getCurrentAccount(getCurrentAccountCallback);
+    //pos_getCurrentAccount(getCurrentAccountCallback);
     // Set loading to false after half second to allow everything to load
     setTimeout(() => {
       this.workflowContext.setIsLoading(false);
