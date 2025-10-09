@@ -1,14 +1,14 @@
 export class Bookings {
   protected _bookingStatus: string = '';
   protected _bookingDateTime: string = '';
-  protected _bookingNoPeople: string = '';
+  protected _bookingNoPeople: number = 0;
   protected _bookingNotes: string = '';
   protected _bookingServiceName: string = '';
   protected _bookingTableNameNumber: string = '';
   protected _bookingTableSection: string = '';
-  protected _bookingDuration: string = '';
+  protected _bookingDuration: number = 0;
   protected _bookingTagList: string[] = [];
-  protected _bookingIsVip: boolean = false;
+  protected _bookingIsVip: string = "false";
 
   // Getters:
   get bookingStatus(): string {
@@ -19,7 +19,7 @@ export class Bookings {
     return this._bookingDateTime;
   }
 
-  get bookingNoPeople(): string {
+  get bookingNoPeople(): number {
     return this._bookingNoPeople;
   }
 
@@ -39,7 +39,7 @@ export class Bookings {
     return this._bookingTableSection;
   }
 
-  get bookingDuration(): string {
+  get bookingDuration(): number {
     return this._bookingDuration;
   }
 
@@ -52,7 +52,7 @@ export class Bookings {
     this._bookingDateTime = value;
   }
 
-  set bookingNoPeople(value: string) {
+  set bookingNoPeople(value: number) {
     this._bookingNoPeople = value;
   }
 
@@ -71,7 +71,7 @@ export class Bookings {
     this._bookingTableSection = value;
   }
   
-  set bookingDuration(value: string) {
+  set bookingDuration(value: number) {
     this._bookingDuration = value;
   }
   
@@ -79,7 +79,7 @@ export class Bookings {
     this._bookingTagList = value;
   }
   
-  set bookingIsVip(value: boolean) {
+  set bookingIsVip(value: string) {
     this._bookingIsVip = value;
   } 
 }

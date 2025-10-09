@@ -3,8 +3,8 @@ export class Address {
   private _address2: string = '';
   private _city: string = '';
   private _state: string = '';
-  private _stateCode: string = '';
   private _postcode: string = '';
+  private _country: string = '';
 
     // Getters:
     get address1(): string {
@@ -23,12 +23,11 @@ export class Address {
       return this._state;
     }
 
-    get stateCode(): string {
-      return this._stateCode;
-    }
-
     get postcode (): string {
       return this._postcode;
+    }
+    get country(): string {
+      return this._country;
     }
 
     // Setters:
@@ -48,12 +47,11 @@ export class Address {
       this._state = value;
     }
 
-    set stateCode(value: string) {
-      this._stateCode = value;
-    }
-
     set postcode(value: string) {
       this._postcode = value;
+    }
+    set country(value: string) {
+      this._country = value;
     }
 
 }

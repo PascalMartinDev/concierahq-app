@@ -3,6 +3,7 @@ export class Subscription {
   protected _subscriptionNextDate: string = '';
   protected _subscriptionCancelledDate: string = '';
   protected _subscriptionJoinedDate: string = '';
+  protected _subscriptionLevel: string = '';
   
   // Getters:
   get subscriptionStatus(): string {
@@ -19,7 +20,10 @@ export class Subscription {
   get subscriptionJoinedDate(): string {
     return this._subscriptionJoinedDate;
   }
-
+  get subscriptionLevel(): string {
+    return this._subscriptionLevel;
+  }
+  
   // Setters:
   set subscriptionStatus(value: string) {
     this._subscriptionStatus = value;
@@ -35,5 +39,8 @@ export class Subscription {
   
   set subscriptionJoinedDate(value: string) {
     this._subscriptionJoinedDate = value;
+  }
+  set subscriptionLevel(value: string) {
+    this._subscriptionLevel = value;
   }
 }

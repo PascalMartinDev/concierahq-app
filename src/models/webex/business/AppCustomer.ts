@@ -7,11 +7,11 @@ import type { ECommerce } from "./modules/ECommerce";
 
 interface IAppCustomer {
   group: string
-  eCommerce?: ECommerce
-  crm?: Crm
-  bookings?: Bookings
-  customFields?: CustomFields
-  commerceSeven?: CommerceSeven
+  eCommerce: ECommerce | undefined;
+  crm: Crm | undefined;
+  bookings: Bookings | undefined;
+  customFields: CustomFields | undefined;
+  commerceSeven: CommerceSeven | undefined
 }
 
 export class AppCustomer extends BusinessCustomer implements IAppCustomer{
