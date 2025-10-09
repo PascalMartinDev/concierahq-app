@@ -1,6 +1,6 @@
 import React from 'react';
 import profilePlaceholder from '../../../assets/Conciera_Profile_Placeholder.png';
-//import { useAppCustomer } from '../../workflow/hooks/useAppCustomer';
+import { useAppCustomer } from '../../../workflow/hooks/useAppCustomer';
 
 interface PosContext {
   businessId: number | string;
@@ -19,13 +19,13 @@ declare global {
 }
 
 const CustomerInformation: React.FC = () => {
-  // Use the custom hook to get active AppCustomer data
-  //const appCustomer = useAppCustomer();
+  const appCustomer = useAppCustomer();
 
-  const firstName = 'John';  //appCustomer?.customer?.firstName || 'No Name';
-  const lastName = 'Smith'; //appCustomer?.customer?.lastName || '';
-  const phone = '0400400400'; //appCustomer?.customer?.phone || 'No Phone';
-  const email = 'jsmith@mymailbox.com'; //appCustomer?.customer?.email || 'No Email';
+  const firstName = appCustomer?.customer?.firstName || 'No Name';
+  const lastName = appCustomer?.customer?.lastName || '';
+  const phone = appCustomer?.customer?.phone || 'No Phone';
+  const email = appCustomer?.customer?.email || 'No Email';
+  const marketingStatus = appCustomer?.crm?.emailStatus || 'Unknown!'
 
 
   return (
@@ -49,10 +49,7 @@ const CustomerInformation: React.FC = () => {
         </h4>
         <h4 className="text-sm/6 text-gray-500">Phone: {phone}</h4>
         <h4 className="text-sm/6 text-gray-500">Email: {email}</h4>
-
-        <h3 className="text-lg font-semibold text-gray-900 mt-4">
-          POS Context:
-        </h3>
+        <h4 className="text-sm/6 text-gray-500">Marketing Status: {marketingStatus}</h4>
       </div>
     </div>
   );

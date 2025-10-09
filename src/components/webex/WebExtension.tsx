@@ -8,7 +8,7 @@ import { WorkflowProvider } from "../../workflow/context/workflowContext.tsx";
 //import { lskPosContext } from "../../lsk/lskPosContext";
 //import WebexPosContext from "./WebexPosContext";
 
-// Component Template
+
 const WebExtension: React.FC = () => {
   /* ##### Commented out for Development --> uncommment all items for production
   const [isAuthorised, setIsAuthorised] = useState<boolean>(false);

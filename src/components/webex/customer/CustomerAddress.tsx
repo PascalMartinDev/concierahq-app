@@ -1,15 +1,15 @@
 import React from 'react';
-//import { useAppCustomer } from '../../workflow/hooks/useAppCustomer';
+import { useAppCustomer } from '../../../workflow/hooks/useAppCustomer';
 
 const CustomerAddress: React.FC = () => {
-  // use the customer hook to get reactive AppCustomer data
-  //const appCustomer = useAppCustomer();
+  const appCustomer = useAppCustomer();
 
-  const street = 'Unit 2'; // appCustomer?.address.address1;
-  const street2 = '54 High End Road'; //appCustomer?.address.address2;
-  const city = 'Ascot'; //appCustomer?.address.city;
-  const state = 'Queensland'; //appCustomer?.address.state;
-  const postcode = '4012'; //appCustomer?.address.postcode;
+  const street = appCustomer?.customer.address?.address1;
+  const street2 = appCustomer?.customer.address?.address2;
+  const city = appCustomer?.customer.address?.city;
+  const state = appCustomer?.customer.address?.state;
+  const postcode = appCustomer?.customer.address?.postcode;
+  const country = appCustomer?.customer.address?.country;
 
   return (
     <div>
@@ -19,6 +19,7 @@ const CustomerAddress: React.FC = () => {
       <h4 className="text-sm/6  text-gray-500">City: {city}</h4>
       <h4 className="text-sm/6  text-gray-500">State: {state}</h4>
       <h4 className="text-sm/6  text-gray-500">Postcode: {postcode}</h4>
+      <h4 className="text-sm/6  text-gray-500">Country: {country}</h4>
     </div>
   );
 };
