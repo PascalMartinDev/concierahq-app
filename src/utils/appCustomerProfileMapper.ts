@@ -27,36 +27,8 @@ export const appCustomerProfileMapper = (customerProfile: CustomerRecord, appCus
         if (customerProfile.phone) {
           appCustomer.customer.phone = customerProfile.phone;
         }
-        // Set Street
-        if (customerProfile.street) {
-          appCustomer.address.address1 = customerProfile.street;
-        }
-        // Set City
-        if (customerProfile.city) {
-          appCustomer.address.city = customerProfile.city;
-        }
-        // Set State
-        if (customerProfile.customer_state) {
-          appCustomer.address.state = customerProfile.customer_state;
-        }
-        // Set Postcode
-        if (customerProfile.postcode) {
-          appCustomer.address.postcode = customerProfile.postcode;
-        }
-        // Set First Joined Date
-        if (customerProfile.wine_club_first_joined_date) {
-          appCustomer.dateJoined = customerProfile.wine_club_first_joined_date;
-        }
-        // Set Last Order Items
-        if (customerProfile.last_order_items) {
-          appCustomer.lastPurchaseActivity = customerProfile.last_order_items;
-        }
-        if (customerProfile.is_vip) {
-          appCustomer.isVip = customerProfile.is_vip;
-        }
-        if (customerProfile.pos_last_visit_date) {
-          appCustomer.lastVenueVisitDate = customerProfile.pos_last_visit_date;
-        }
+        // Set ADDITIONAL FIELDS HERE!
+        
 }
 
 
