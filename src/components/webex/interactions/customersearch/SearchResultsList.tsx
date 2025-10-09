@@ -23,6 +23,7 @@ const SearchResultsList = ({ customerSearch }: SearchResultsListProps) => {
   const handleContactClick = (contact: CustomerSearchResult) => {
     console.log('Contact clicked:', contact);
     if (appCustomer && appCustomer.customer) {
+      console.log("TEST: AppCustomer is active ready to load")
       //Email Assigned to appCustomer for full customer profile retrieval in the next Chain workflow:
       appCustomer.customer.email = contact.email;
       //Trigger LoadSearchedCustomerProfileWorkflow:

@@ -1,8 +1,7 @@
 import { QueryCommand } from '@aws-sdk/client-dynamodb';
 import { marshall, unmarshall } from '@aws-sdk/util-dynamodb';
 import DynamoDBClientSingleton from './dynamoDBClientSingleton';
-
-//import { RaiseErrorWorkflow } from '../../workflow/workflows/RaiseErrorWorkflow';
+import { RaiseErrorWorkflow } from '../../workflow/workflows/RaiseErrorWorkflow';
 
 // Get Instance of DynamoDB Client connection:
 const client = DynamoDBClientSingleton.getInstance();
@@ -80,7 +79,6 @@ const dynamoDBSearchCustomer = async (
 
     // If Items Found, map and ensure required properties exist:
     if (response.Items && response.Items.length > 0) {
-      console.log('response mapping!');
       return response.Items.map((item) => {
         const unmarshalled = unmarshall(item);
         return {
@@ -97,8 +95,8 @@ const dynamoDBSearchCustomer = async (
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
     console.error('TEST: DynamoDB Search Error:', errorMessage);
-    //const errorWorkflow = new RaiseErrorWorkflow(`DynamoDB Error: ${errorMessage}`);
-    //errorWorkflow.execute();
+    const errorWorkflow = new RaiseErrorWorkflow(`DynamoDB Error: ${errorMessage}`);
+    errorWorkflow.execute();
     return [];
   }
 };
