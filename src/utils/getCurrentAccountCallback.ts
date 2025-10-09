@@ -1,7 +1,7 @@
 import type { PosCallback, PosResponse, LSKData } from '../lsk/lsktypes';
 import { getGlobalAppCustomer } from '../workflow/context/workflowContextInstance';
 import { RaiseErrorWorkflow } from '../workflow/workflows/RaiseErrorWorkflow';
-import { GetCustomerProfileWorkflow } from '../workflow/workflows/';
+import { GetCustomerProfileWorkflow } from '../workflow/workflows/GetCustomerProfileWorkflow';
 
 // Global variable to store response for React component access
 let globalPosResponseSetter: ((data: unknown) => void) | null = null;

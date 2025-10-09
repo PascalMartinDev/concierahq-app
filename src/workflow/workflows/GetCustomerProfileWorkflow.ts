@@ -50,18 +50,14 @@ export class GetCustomerProfileWorkflow implements IWorkflow {
     const consumerEmail = appCustomer.currentAccount?.consumer?.email;
     
     if (!appCustomer.currentAccount || !appCustomer.currentAccount.consumer || !consumerEmail || consumerEmail.trim() === '') {
-      debugLog('⚠️ No valid consumer email found in currentAccount');
       return null;
     }
-
-    debugLog(`📧 Found consumer email: ${consumerEmail}`);
     return consumerEmail;
   }
 
   private triggerSearchMode(workflowContext: WorkflowContextType): void {
     workflowContext.setIsLoading(false);
     workflowContext.setShowSearchBox(true);
-    debugLog('🔎 Triggered search mode - opening search box');
   }
 
   private async retrieveCustomerProfile(email: string): Promise<CustomerRecord | null> {
