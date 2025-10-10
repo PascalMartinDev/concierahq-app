@@ -1,9 +1,9 @@
 //import React, { useEffect, useState } from "react";
 import HeaderSection from "./HeaderSection";
 import FooterMenu from "./FooterMenu";
-import CustomerDetailsSection from "./customer/CustomerDetailsSection";
 import CustomerManagementSection from "./interactions/CustomerManagementSection";
 import { WorkflowProvider } from "../../workflow/context/workflowContext.tsx";
+import CustomerMainSection from "./customer/CustomerMainSection.tsx";
 //import WebexUnauthorised from "./WebexUnauthorised";
 //import { lskPosContext } from "../../lsk/lskPosContext";
 //import WebexPosContext from "./WebexPosContext";
@@ -33,7 +33,7 @@ const WebExtension: React.FC = () => {
   return (
     <WorkflowProvider>
       <HeaderSection />
-      <CustomerDetailsSection />
+      <CustomerMainSection />
       <CustomerManagementSection />
       < FooterMenu />
       {/*<WebexPosContext

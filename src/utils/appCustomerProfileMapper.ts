@@ -92,8 +92,8 @@ export const appCustomerProfileMapper = (customerProfile: CustomerRecord, appCus
             appCustomer.bookings.bookingStatus = customerProfile.booking.booking_status;
           }
           // Set Booking table Name Number
-          if(customerProfile.booking.booking_table_number_name) {
-            appCustomer.bookings.bookingTableNameNumber = customerProfile.booking.booking_table_number_name;
+          if(customerProfile.booking.booking_table_name_number) {
+            appCustomer.bookings.bookingTableNameNumber = customerProfile.booking.booking_table_name_number;
           }
           // Set Booking Table Section
           if(customerProfile.booking.booking_table_section) {

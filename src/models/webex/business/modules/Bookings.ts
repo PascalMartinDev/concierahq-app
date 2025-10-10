@@ -43,6 +43,14 @@ export class Bookings {
     return this._bookingDuration;
   }
 
+  get bookingTagList(): string[] {
+    return this._bookingTagList;
+  }
+
+  get bookingIsVip(): string {
+    return this._bookingIsVip;
+  }
+
   // Setters:
   set bookingStatus(value: string) {
     this._bookingStatus = value;

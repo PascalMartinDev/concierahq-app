@@ -25,7 +25,7 @@ const CustomerInformation: React.FC = () => {
       </div> */}
       {/* Avatar and Name */}
         <div className="flex items-center">
-          <div className="w-24 h-24 bg-blue-500 rounded-full flex items-center justify-center text-white text-4xl font-semibold mr-4">
+          <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-blue-500 rounded-full flex items-center justify-center text-white text-2xl sm:text-3xl md:text-4xl font-semibold mr-2 sm:mr-3 md:mr-4">
             {firstName.charAt(0)}{lastName.charAt(0)}
           </div>
           
@@ -34,9 +34,9 @@ const CustomerInformation: React.FC = () => {
       {/* Customer Information */}
       <div className="flex-1">
         <h3 className="text-lg font-semibold text-gray-900">{firstName} {lastName}</h3>
-        <h4 className="text-sm/6 text-gray-500">Phone: {phone}</h4>
-        <h4 className="text-sm/6 text-gray-500">Email: {email}</h4>
-        <h4 className="text-sm/6 text-gray-500">Marketing Status: {marketingStatus}</h4>
+        <h4 className="text-sm/6 text-gray-500"><b>Phone:</b> {phone}</h4>
+        <h4 className="text-sm/6 text-gray-500"><b>Email:</b> {email}</h4>
+        <h4 className="text-sm/6 text-gray-500"><b>Marketing Status:</b> {marketingStatus}</h4>
       </div>
     </div>
   );

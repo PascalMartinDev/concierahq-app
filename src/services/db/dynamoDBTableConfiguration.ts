@@ -33,7 +33,7 @@ export interface IBooking {
   booking_no_people?: number;
   booking_service_name?: string;
   booking_status?: string;
-  booking_table_number_name?: string;
+  booking_table_name_number?: string;
   booking_table_section?: string;
   booking_tags_list?:string[];
 }

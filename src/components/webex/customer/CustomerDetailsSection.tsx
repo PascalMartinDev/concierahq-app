@@ -1,8 +1,7 @@
 import CustomerInformation from './CustomerInformation';
-import CustomerAddress from './CustomerAddress';
-import CustomerStatus from './CustomerStatus';
-import CustomerPurchaseHistory from './CustomerPurchaseHistory';
-import CustomerSubscriptionDetails from './CustomerSubscriptionDetails';
+
+import CustomerMembershipInformation from './CustomerMembershipInformation';
+
 
 
 // Grid item wrapper
@@ -17,10 +16,7 @@ const GridCard: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 const CustomerDetailsSection: React.FC = () => {
   const customerComponents = [
     { component: CustomerInformation, key: 'customer-info' },
-    { component: CustomerStatus, key: 'customer-status' },
-    { component: CustomerAddress, key: 'customer-address' },
-    { component: CustomerSubscriptionDetails, key: 'customer-subscription' }
-
+    { component: CustomerMembershipInformation, key: 'customer-memb-info' },
   ];
 
   return (
@@ -32,7 +28,6 @@ const CustomerDetailsSection: React.FC = () => {
           </GridCard>
         ))}
       </div>
-      <CustomerPurchaseHistory />
     </section>
   );
 };

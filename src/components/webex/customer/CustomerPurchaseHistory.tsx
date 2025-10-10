@@ -6,7 +6,7 @@ const CustomerPurchaseHistory: React.FC = () => {
   const [visibleOrders, setVisibleOrders] = useState(2);
 
   return (
-    <div className='my-5'>
+    <div className='my-5 mx-10'>
       {/* Full Row Grid Container Layout  */}
       <div className="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-xs focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400 w-full">
         <div className="min-w-0 flex-1">
