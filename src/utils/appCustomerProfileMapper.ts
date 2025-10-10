@@ -154,4 +154,7 @@ export const appCustomerProfileMapper = (customerProfile: CustomerRecord, appCus
             appCustomer.commerceSeven.groups = customerProfile.commerce_seven.groups;
           }
         }
+
+        // Set Custom Fields
+        
 }

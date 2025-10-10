@@ -14,6 +14,7 @@ export interface CustomerRecord {
   booking: IBooking;
   commerce_seven: ICommerceSeven;
   ecommerce: IeCommerce;
+  custom_fields: ICustomFields;
 }
 
 export interface ICustomerAddress {
@@ -55,6 +56,14 @@ export interface ISubscription {
   subscription_joined_date?: string;
   subscription_status?: string;
   subscription_level?: string;
+}
+
+export interface ICustomFields {
+  customField1?: string;
+  customField2?: string;
+  customField3?: string;
+  customField4?: string;
+  customField5?: string;
 }
 
 
