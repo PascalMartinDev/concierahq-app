@@ -1,44 +1,53 @@
 import BusinessCustomer from "./BusinessCustomer";
-import type { Bookings } from "./modules/Bookings";
-import type { CommerceSeven } from "./modules/CommerceSeven";
-import type { Crm } from "./modules/Crm";
-import type { CustomFields } from "./modules/CustomFields";
-import type { ECommerce } from "./modules/ECommerce";
+import { Bookings } from "./modules/Bookings";
+import { CommerceSeven } from "./modules/CommerceSeven";
+import { Crm } from "./modules/Crm";
+import { CustomFields } from "./modules/CustomFields";
+import { ECommerce } from "./modules/ECommerce";
 
 interface IAppCustomer {
   group: string
-  eCommerce: ECommerce | undefined;
-  crm: Crm | undefined;
-  bookings: Bookings | undefined;
-  customFields: CustomFields | undefined;
-  commerceSeven: CommerceSeven | undefined
+  eCommerce: ECommerce;
+  crm: Crm;
+  bookings: Bookings;
+  customFields: CustomFields;
+  commerceSeven: CommerceSeven
 }
 
 export class AppCustomer extends BusinessCustomer implements IAppCustomer{
   protected _group: string = '';
-  protected _eCommerce: ECommerce | undefined = undefined;
-  protected _customFields: CustomFields | undefined = undefined;
-  protected _crm: Crm | undefined = undefined;
-  protected _bookings: Bookings | undefined = undefined;
-  protected _commerceSeven: CommerceSeven | undefined = undefined;
+  protected _eCommerce: ECommerce;
+  protected _customFields: CustomFields;
+  protected _crm: Crm;
+  protected _bookings: Bookings;
+  protected _commerceSeven: CommerceSeven;
+
+  constructor() {
+    super();
+    this._eCommerce = new ECommerce();
+    this._customFields = new CustomFields();
+    this._crm = new Crm();
+    this._bookings = new Bookings();
+    this._commerceSeven = new CommerceSeven();
+  }
   
   // Getter:
   get group(): string {
     return this._group;
   }
-  get eCommerce(): ECommerce | undefined {
+  get eCommerce(): ECommerce {
     return this._eCommerce;
   }
-  get commerceSeven(): CommerceSeven | undefined {
+  get commerceSeven(): CommerceSeven {
     return this._commerceSeven;
   }
-  get crm(): Crm | undefined {
+  get crm(): Crm {
     return this._crm;
   }
-  get bookings(): Bookings | undefined {
+  get bookings(): Bookings {
     return this._bookings;
   }
-  get customFields(): CustomFields | undefined {
+  get customFields(): CustomFields {
     return this._customFields;
   }
 
@@ -46,19 +55,19 @@ export class AppCustomer extends BusinessCustomer implements IAppCustomer{
   set group(value: string) {
     this._group = value;
   }
-  set eCommerce(value: ECommerce | undefined) {
+  set eCommerce(value: ECommerce) {
     this._eCommerce = value;
   }
-  set commerceSeven(value: CommerceSeven | undefined) {
+  set commerceSeven(value: CommerceSeven) {
     this._commerceSeven = value;
   }
-  set crm(value: Crm | undefined) {
+  set crm(value: Crm) {
     this._crm = value;
   }
-  set bookings(value: Bookings | undefined) {
+  set bookings(value: Bookings) {
     this._bookings = value;
   }
-  set customFields(value: CustomFields | undefined) {
+  set customFields(value: CustomFields) {
     this._customFields = value;
   }
 }

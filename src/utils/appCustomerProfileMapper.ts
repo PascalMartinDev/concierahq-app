@@ -1,6 +1,7 @@
 
 import type { AppCustomer } from "../models/webex/business/AppCustomer";
 import type { CustomerRecord } from "../services/db/dynamoDBTableConfiguration";
+import { Subscription } from "../models/webex/business/modules/Subscription";
 
 export const appCustomerProfileMapper = (customerProfile: CustomerRecord, appCustomer: AppCustomer): void => {  
         // Update AppCustomer Model values:
@@ -24,17 +25,16 @@ export const appCustomerProfileMapper = (customerProfile: CustomerRecord, appCus
         if (customerProfile.phone) {
           appCustomer.customer.phone = customerProfile.phone;
         }
-        // Set CRM:
-        if (appCustomer.crm != undefined) {
-          if (customerProfile.email_status) {
-            appCustomer.crm.emailStatus = customerProfile.email_status;
-          }
-          if (customerProfile.crm_customer_id) {  
-            appCustomer.crm.crmCustomerId = customerProfile.crm_customer_id;
-          }
+        // Set CRM ID and Email Status:
+        if (customerProfile.email_status) {
+          appCustomer.crm.emailStatus = customerProfile.email_status;
         }
+        if (customerProfile.crm_customer_id) {
+          appCustomer.crm.crmCustomerId = customerProfile.crm_customer_id;
+        }
+        
         // Set Address:
-        if (appCustomer.customer.address != undefined && customerProfile.address) {
+        if (customerProfile.address) {
           // Set Street1:
           if(customerProfile.address.street1) {
             appCustomer.customer.address.address1 = customerProfile.address.street1;
@@ -60,10 +60,11 @@ export const appCustomerProfileMapper = (customerProfile: CustomerRecord, appCus
             appCustomer.customer.address.country = customerProfile.address.country;
           }
         }
+        
         // Set Booking:
-        if (appCustomer.bookings != undefined && customerProfile.booking) {
+        if (customerProfile.booking) {
           // Set Booking Date Time
-          if(customerProfile.booking.booking_date_time) { 
+          if(customerProfile.booking.booking_date_time) {
             appCustomer.bookings.bookingDateTime = customerProfile.booking.booking_date_time;
           }
           // Set Booking Duration
@@ -88,7 +89,7 @@ export const appCustomerProfileMapper = (customerProfile: CustomerRecord, appCus
           }
           // Set Booking Status
           if(customerProfile.booking.booking_status) {
-            appCustomer.bookings.bookingStatus = customerProfile.booking.booking_status; 
+            appCustomer.bookings.bookingStatus = customerProfile.booking.booking_status;
           }
           // Set Booking table Name Number
           if(customerProfile.booking.booking_table_number_name) {
@@ -105,13 +106,16 @@ export const appCustomerProfileMapper = (customerProfile: CustomerRecord, appCus
         }
         
         // Set E-Commerce:
-        if (appCustomer.eCommerce != undefined && customerProfile.ecommerce) {
+        if (customerProfile.ecommerce) {
           // Set E-Commerce ID:
           if(customerProfile.ecommerce.e_commerce_customer_id) {
             appCustomer.eCommerce.eCommerceCustomerId = customerProfile.ecommerce.e_commerce_customer_id;
           }
           // Set Subscription:
-          if(appCustomer.eCommerce.subscription != null && customerProfile.ecommerce.subscription) {
+          if(customerProfile.ecommerce.subscription) {
+            if(appCustomer.eCommerce.subscription === null) {
+              appCustomer.eCommerce.subscription = new Subscription();
+            }
             // Set Next Subscription Date:
             if(customerProfile.ecommerce.subscription.next_subscription_date) {
               appCustomer.eCommerce.subscription.subscriptionNextDate = customerProfile.ecommerce.subscription.next_subscription_date;
@@ -132,10 +136,11 @@ export const appCustomerProfileMapper = (customerProfile: CustomerRecord, appCus
             if(customerProfile.ecommerce.subscription.subscription_level) {
               appCustomer.eCommerce.subscription.subscriptionLevel = customerProfile.ecommerce.subscription.subscription_level;
             }
+          }
         }
 
         // Set Commerce Seven:
-        if (appCustomer.commerceSeven != undefined && customerProfile.commerce_seven) {
+        if (customerProfile.commerce_seven) {
           // Set Clubs:
           if(customerProfile.commerce_seven.clubs){
              appCustomer.commerceSeven.clubs = customerProfile.commerce_seven.clubs;
@@ -149,7 +154,4 @@ export const appCustomerProfileMapper = (customerProfile: CustomerRecord, appCus
             appCustomer.commerceSeven.groups = customerProfile.commerce_seven.groups;
           }
         }
-        
-      }   
-        
 }

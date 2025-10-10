@@ -14,8 +14,6 @@ import { RaiseErrorWorkflow } from "./RaiseErrorWorkflow";
 
 export class LoadSearchedCustomerProfileWorkflow implements IWorkflow {
   async execute(): Promise<void> {
-    
-    
     try {
       const { workflowContext, appCustomer } = await this.validateDependencies();
       

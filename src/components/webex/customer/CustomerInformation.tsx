@@ -1,22 +1,7 @@
 import React from 'react';
-import profilePlaceholder from '../../../assets/Conciera_Profile_Placeholder.png';
 import { useAppCustomer } from '../../../workflow/hooks/useAppCustomer';
 
-interface PosContext {
-  businessId: number | string;
-  businessName: string;
-  locationId: number | string;
-  deviceName: string;
-  deviceId: number | string;
-  userName: string;
-  userId: number | string;
-}
 
-declare global {
-  interface Window {
-    posContext?: PosContext;
-  }
-}
 
 const CustomerInformation: React.FC = () => {
   const appCustomer = useAppCustomer();
@@ -30,23 +15,25 @@ const CustomerInformation: React.FC = () => {
 
   return (
     <div className="flex items-start space-x-4">
-      {/* Circular Profile Image */}
+      {/* Circular Profile Image (UPDATE BY IMPORTING LINK TO CUSTOMER IMAGE STORED POSSIBLY IN S3 Bucket)
       <div className="flex-shrink-0">
         <img
           src={profilePlaceholder}
           alt="Customer Profile"
           className="w-24 h-24 rounded-full object-cover border-2 border-gray-300"
         />
-      </div>
+      </div> */}
+      {/* Avatar and Name */}
+        <div className="flex items-center">
+          <div className="w-24 h-24 bg-blue-500 rounded-full flex items-center justify-center text-white text-4xl font-semibold mr-4">
+            {firstName.charAt(0)}{lastName.charAt(0)}
+          </div>
+          
+        </div>
 
       {/* Customer Information */}
       <div className="flex-1">
-        <h3 className="text-lg font-semibold text-gray-900">
-          Customer Information:
-        </h3>
-        <h4 className="text-sm/6 text-gray-500">
-          Name: {firstName} {lastName}
-        </h4>
+        <h3 className="text-lg font-semibold text-gray-900">{firstName} {lastName}</h3>
         <h4 className="text-sm/6 text-gray-500">Phone: {phone}</h4>
         <h4 className="text-sm/6 text-gray-500">Email: {email}</h4>
         <h4 className="text-sm/6 text-gray-500">Marketing Status: {marketingStatus}</h4>

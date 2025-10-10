@@ -1,4 +1,4 @@
-import type { Address } from "./Address";
+import { Address } from "./Address";
 
 export class Customer {
   protected _customerId: string = '';
@@ -6,8 +6,11 @@ export class Customer {
   protected _lastName: string = '';
   protected _email: string = '';
   protected _phone: string = '';
-  protected _address: Address | null = null;
+  protected _address: Address;
 
+  constructor() {
+    this._address = new Address();
+  }
 
   // Getters:
   get customerId(): string {
@@ -29,7 +32,7 @@ export class Customer {
     return this._phone;
   }
   
-  get address(): Address | null {
+  get address(): Address {
     return this._address;
   }
 
@@ -37,7 +40,7 @@ export class Customer {
   set customerId(value: string) {
     this._customerId = value;
   }
-  
+
   set firstName(value: string) {
     this._firstName = value;
   }
@@ -54,7 +57,7 @@ export class Customer {
     this._phone = value;
   }
 
-  set address(value: Address | null ) {
+  set address(value: Address) {
     this._address = value;
   }
 
