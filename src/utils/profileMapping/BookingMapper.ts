@@ -30,20 +30,20 @@ export class BookingMapper extends BaseCustomerMapper {
     // Additional Booking Platform Parameters
     const bookingIntegration = import.meta.env.VITE_INTEGRATION_BOOKING;
     if (
-      bookingIntegration == 'OpenTable' ||
-      bookingIntegration == 'NowBookIt'
+      bookingIntegration === 'OpenTable' ||
+      bookingIntegration === 'NowBookIt'
     ) {
       if (booking.booking_service_name)
         target.bookingServiceName = booking.booking_service_name;
     }
 
-    if (bookingIntegration == 'SevenRooms') {
+    if (bookingIntegration === 'SevenRooms') {
       if (booking.booking_is_vip) target.bookingIsVip = booking.booking_is_vip;
     }
 
     if (
-      bookingIntegration == 'SevenRooms' ||
-      bookingIntegration == 'NowBookIt'
+      bookingIntegration === 'SevenRooms' ||
+      bookingIntegration === 'NowBookIt'
     ) {
       if (booking.booking_duration)
         target.bookingDuration = booking.booking_duration;
