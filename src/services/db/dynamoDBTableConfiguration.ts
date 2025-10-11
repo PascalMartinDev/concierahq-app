@@ -60,11 +60,11 @@ export interface ISubscription {
 }
 
 export interface ICustomFields {
-  customField1?: string;
-  customField2?: string;
-  customField3?: string;
-  customField4?: string;
-  customField5?: string;
+  custom_field_1?: string;
+  custom_field_2?: string;
+  custom_field_3?: string;
+  custom_field_4?: string;
+  custom_field_5?: string;
 }
 
 

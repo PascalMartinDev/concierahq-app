@@ -17,10 +17,6 @@ const CustomerBookings: React.FC = () => {
   const bookingTableSection = appCustomer?.bookings.bookingTableSection || '';
   const bookingTagList = appCustomer?.bookings.bookingTagList || [];
 
-  // Debug logging
-  console.log('BookingTableNameNumber:', bookingTableNameNumber);
-  console.log('Full appCustomer.bookings:', appCustomer?.bookings);
-
   return (
     <div className="p-6 bg-white rounded-lg border border-gray-300 shadow-sm">
       <div className="flex flex-col md:flex-row md:space-x-6 space-y-6 md:space-y-0">
@@ -46,7 +42,7 @@ const CustomerBookings: React.FC = () => {
           <p className="text-gray-600"><b>Notes:</b> {bookingNotes}</p>
         </div>
         <div className="flex-1 space-y-2">
-          <TagList tags={bookingTagList}/>
+          <TagList title={"Bookings Tags"} tags={bookingTagList}/>
         </div>
       </div>
     </div>
