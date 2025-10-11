@@ -30,9 +30,9 @@ function classNames(...classes: (string | boolean | undefined)[]): string {
 
 const CustomerTabDetailsSection: React.FC = () => {
   const tabs: Tab[] = [
-    { name: 'Address', component: CustomerAddress, icon: MapPinIcon },
     { name: 'Commerce', component: CustomerCommerce, icon: ShoppingCartIcon },
     { name: 'Bookings', component: CustomerBookings, icon: CalendarIcon },
+    { name: 'Address', component: CustomerAddress, icon: MapPinIcon },
     { name: 'Custom Fields', component: CustomerCustomFields, icon: AdjustmentsHorizontalIcon },
   ];
 

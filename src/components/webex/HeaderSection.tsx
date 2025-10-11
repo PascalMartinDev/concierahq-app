@@ -16,7 +16,6 @@ const HeaderSection: React.FC<HeaderProps> = ({
   logoSrc = logo,
   logoAlt = 'logo',
   onCloseWebExtension = async () => {
-    // Pass in Function to trigger applying discounts to current account and closing the webextension
     try {
 	  const closeWorkflow = new CloseExtensionWorkflow();
 	  await closeWorkflow.execute();
