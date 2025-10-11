@@ -1,16 +1,14 @@
 import React, { useEffect, useState } from "react";
 import HeaderSection from "./HeaderSection";
 import FooterMenu from "./FooterMenu";
-//import { WorkflowProvider } from "../../workflow/context/workflowContext.tsx";
 import WebexMainSection from "./WebexMainSection.tsx";
-//import WebexUnauthorised from "./WebexUnauthorised";
-import { lskPosContext } from "../../lsk/lskPosContext";
 import WebexPosContext from "./WebexPosContext";
-//import LoadingApp from "./LoadingApp.tsx";
-//import { useWorkflow } from "../../workflow/hooks/useWorkflow";
+import LoadingApp from "./LoadingApp.tsx";
+import WebexUnauthorised from "./WebexUnauthorised";
+import { lskPosContext } from "../../lsk/lskPosContext";
+import { useWorkflow } from "../../workflow/hooks/useWorkflow";
 
 const WebexApp: React.FC = () => {
-  /*
   const { isLoading, showError} = useWorkflow();
   const [isAuthorised, setIsAuthorised] = useState<boolean>(false);
 
@@ -27,17 +25,18 @@ const WebexApp: React.FC = () => {
     }
   }, []);
 
+  // Check if business ID is Authorised
   if (!isAuthorised) {
     return <WebexUnauthorised />;
   }
-  */
+
   return (
     <>
       <HeaderSection />
       {/* Show is Loading while fetchg data */}
-      {/*{isLoading && <LoadingApp /> } */}
+      {isLoading && <LoadingApp /> }
       {/* Show main content when customer data is loaded */}
-      {/*{!isLoading && !showError && <WebexMainSection /> }*/}
+      {!isLoading && !showError && <WebexMainSection /> }
       <WebexMainSection />
       < FooterMenu />
       <WebexPosContext
