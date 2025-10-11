@@ -2,14 +2,14 @@ import type { AppCustomer } from "../../models/webex/business/AppCustomer";
 import { BaseCustomerMapper } from "./BaseCustomerMapper";
 
 
-export class KeapCustomerMapper extends BaseCustomerMapper {
+export class CRMMapper extends BaseCustomerMapper {
   public override map(): AppCustomer {
     const mapped = super.map();
-    this.mapKeap();
+    this.mapCRM();
     return mapped;
   }
 
-  private mapKeap(): void {
+  private mapCRM(): void {
     const { customerProfile, appCustomer } = this;
     if (customerProfile.crm_customer_id)
       appCustomer.crm.crmCustomerId = customerProfile.crm_customer_id;

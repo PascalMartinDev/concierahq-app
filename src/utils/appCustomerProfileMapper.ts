@@ -1,7 +1,19 @@
 import type { AppCustomer } from '../models/webex/business/AppCustomer';
 import type { CustomerRecord } from '../services/db/dynamoDBTableConfiguration';
-import { Subscription } from '../models/webex/business/modules/Subscription';
+//import { Subscription } from '../models/webex/business/modules/Subscription';
+import { CustomerMapperFactory } from './profileMapping/CustomerMapperFactory';
 
+
+export const appCustomerProfileMapper = (
+  customerProfile: CustomerRecord,
+  appCustomer: AppCustomer
+): void => {
+  const mappers = CustomerMapperFactory.createMappers(customerProfile, appCustomer);
+}
+
+
+
+/*
 export const appCustomerProfileMapper = (
   customerProfile: CustomerRecord,
   appCustomer: AppCustomer
@@ -180,6 +192,6 @@ export const appCustomerProfileMapper = (
     }
   }
 };
-
+*/
 
 

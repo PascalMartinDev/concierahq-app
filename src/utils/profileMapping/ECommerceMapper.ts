@@ -1,15 +1,15 @@
 import type { AppCustomer } from "../../models/webex/business/AppCustomer";
 import { BaseCustomerMapper } from "./BaseCustomerMapper";
 
-export class ShopifyCustomerMapper extends BaseCustomerMapper {
+export class ECommerceMapper extends BaseCustomerMapper {
   public override map(): AppCustomer {
     const mapped = super.map();
-    this.mapShopify();
+    this.mapECommerce();
     return mapped;
   }
 
-  private mapShopify(): void {
-    const { ecommerce } = this.customerProfile;
+  private mapECommerce(): void {
+    const { ecommerce, commerce_seven } = this.customerProfile;
     if (!ecommerce) return;
 
     const target = this.appCustomer.eCommerce;
@@ -31,6 +31,27 @@ export class ShopifyCustomerMapper extends BaseCustomerMapper {
         sub.subscriptionStatus = ecommerce.subscription.subscription_status;
       if (ecommerce.subscription.subscription_level)
         sub.subscriptionLevel = ecommerce.subscription.subscription_level;
+    }
+
+    // Additonal ECommerce Domain Fields:
+    const ecommerceIntegration = import.meta.env.VITE_INTEGRATION_ECOMMERCE;
+    if (ecommerceIntegration == 'Commerce7') {
+      if (!commerce_seven) return;
+
+      const commerce7 = this.appCustomer.commerceSeven;
+      
+      // Set Clubs:
+      if (commerce_seven.clubs) {
+        commerce7.clubs = commerce_seven.clubs;
+      }
+      // Set Flags:
+      if (commerce_seven.flags) {
+        commerce7.flags = commerce_seven.flags;
+      }
+      // Set Groups:
+      if (commerce_seven.groups) {
+        commerce7.groups = commerce_seven.groups;
+      }
     }
   }
 }
