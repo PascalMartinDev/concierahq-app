@@ -5,9 +5,6 @@ export class CustomFields {
   protected _customField4: string = '';
   protected _customField5: string = '';
 
-  // ADD MORE CUSTOMER FIELDS FOR INDIVIDUAL BUSINESS NEEDS
-
-  
   // Getters:
   get customField1(): string {
     return this._customField1;
@@ -30,23 +27,23 @@ export class CustomFields {
   }
 
   // Setters:
-  set customerField1(value: string) {
+  set customField1(value: string) {
     this._customField1 = value;
   }
 
-  set customerField2(value: string) {
+  set customField2(value: string) {
     this._customField2 = value;
   }
 
-  set customerField3(value: string) {
+  set customField3(value: string) {
     this._customField3 = value;
   }
 
-  set customerField4(value: string) {
+  set customField4(value: string) {
     this._customField4 = value;
   }
 
-  set customerField5(value: string) {
+  set customField5(value: string) {
     this._customField5 = value;
   }
 }

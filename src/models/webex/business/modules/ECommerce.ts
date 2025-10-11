@@ -1,10 +1,14 @@
-import type { Subscription } from "./Subscription";
+import { Subscription } from './Subscription';
 
 export class ECommerce {
   protected _eCommerceCustomerId: string = '';
   protected _tags: string[] = [];
-  protected _subscription: Subscription | null = null;
-  
+  protected _subscription: Subscription;
+
+  constructor() {
+    this._subscription = new Subscription();
+  }
+
   // Getters:
   get eCommerceCustomerId(): string {
     return this._eCommerceCustomerId;
@@ -14,10 +18,9 @@ export class ECommerce {
     return this._tags;
   }
 
-  get subscription(): Subscription | null {
+  get subscription(): Subscription {
     return this._subscription;
   }
-
 
   // Setters:
   set eCommerceCustomerId(value: string) {
@@ -28,7 +31,7 @@ export class ECommerce {
     this._tags = value;
   }
 
-  set subscription(value: Subscription | null) {
+  set subscription(value: Subscription) {
     this._subscription = value;
   }
 }
