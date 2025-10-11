@@ -8,7 +8,7 @@ export const appCustomerProfileMapper = (
   customerProfile: CustomerRecord,
   appCustomer: AppCustomer
 ): void => {
-  const mappers = CustomerMapperFactory.createMappers(customerProfile, appCustomer);
+  CustomerMapperFactory.createMappers(customerProfile, appCustomer);
 }
 
 
