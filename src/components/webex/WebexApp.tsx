@@ -7,6 +7,7 @@ import LoadingApp from "./LoadingApp.tsx";
 import WebexUnauthorised from "./WebexUnauthorised";
 import { lskPosContext } from "../../lsk/lskPosContext";
 import { useWorkflow } from "../../workflow/hooks/useWorkflow";
+import ErrorAlert from "./ErrorAlert.tsx";
 
 const WebexApp: React.FC = () => {
   const { isLoading, showError} = useWorkflow();
@@ -37,7 +38,8 @@ const WebexApp: React.FC = () => {
       {isLoading && <LoadingApp /> }
       {/* Show main content when customer data is loaded */}
       {!isLoading && !showError && <WebexMainSection /> }
-      <WebexMainSection />
+      {/* Show Error component and message */}
+      {showError && <ErrorAlert />}
       < FooterMenu />
       <WebexPosContext
         userName={String(lskPosContext.userName ?? "Unknown User!")}
