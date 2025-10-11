@@ -47,6 +47,7 @@ export interface ICommerceSeven {
 
 export interface IeCommerce {
   e_commerce_customer_id?: string;
+  tags?: string[];
   subscription: ISubscription;
 }
 

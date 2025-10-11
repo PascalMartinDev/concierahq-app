@@ -1,14 +1,14 @@
 import type { AppCustomer } from "../../models/webex/business/AppCustomer";
 import { BaseCustomerMapper } from "./BaseCustomerMapper";
 
-export class ShopifyCustomerMapper extends BaseCustomerMapper {
+export class Commerce7CustomerMapper extends BaseCustomerMapper {
   public override map(): AppCustomer {
     const mapped = super.map();
-    this.mapShopify();
+    this.mapCommerce7();
     return mapped;
   }
 
-  private mapShopify(): void {
+  private mapCommerce7(): void {
     const { ecommerce } = this.customerProfile;
     if (!ecommerce) return;
 
