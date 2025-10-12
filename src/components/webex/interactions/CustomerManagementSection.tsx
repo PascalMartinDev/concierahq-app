@@ -1,22 +1,18 @@
-
-//import AddUpdateCustomerForm from './customerform/AddUpdateCustomerForm';
-//import { useWorkflow } from '../../../workflow/hooks/useWorkflow';
+import { useWorkflow } from '../../../workflow/hooks/useWorkflow';
+import FormAddUpdateCustomer from './customerform/FormAddUpdateCustomer';
 import LookupCustomerSearch from './customersearch/LookupCustomerSearch';
 
 
 const CustomerManagementSection: React.FC = () => {
-  //const { showCreateForm, showSearchBox } = useWorkflow();
+  const { showCreateForm, showSearchBox } = useWorkflow();
   
-
   return (
     <>
       {/* Display Add Update Customer Form when needed */}
-      {/*{showCreateForm && <AddUpdateCustomerForm /> } */}
+      {showCreateForm && <FormAddUpdateCustomer /> }
       
       {/* Display Lookup Search Box when needed */}
-      {/*{showSearchBox && <LookupCustomerSearch /> }*/}
-      <LookupCustomerSearch />
-      
+      {showSearchBox && <LookupCustomerSearch /> }
     </>
   );
 };
