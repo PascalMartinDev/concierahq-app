@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { purchaseHistory } from '../../../data/sampleOrder';
 
 const CustomerPurchaseHistory: React.FC = () => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
   const [visibleOrders, setVisibleOrders] = useState(2);
 
   return (
@@ -10,6 +10,7 @@ const CustomerPurchaseHistory: React.FC = () => {
       {/* Full Row Grid Container Layout  */}
       <div className="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-xs focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400 w-full">
         <div className="min-w-0 flex-1">
+          {/* Header with Expand/Collapse Button
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-lg font-semibold text-gray-900">Purchase History</h3>
             <button
@@ -18,7 +19,7 @@ const CustomerPurchaseHistory: React.FC = () => {
             >
               {isExpanded ? '−' : '+'}
             </button>
-          </div>
+          </div>  */}
 
 
           {/* Purchase History List - Collapsible */}
