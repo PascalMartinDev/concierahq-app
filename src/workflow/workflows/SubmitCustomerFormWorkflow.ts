@@ -1,7 +1,7 @@
 import type { IWorkflow } from '../context/workflowInterface';
 import { RaiseErrorWorkflow } from './RaiseErrorWorkflow';
 import { getGlobalAppCustomer } from '../context/workflowContextInstance';
-//import apiGatewayPostCustomer from '../../services/api/apiGateWayPostCustomer';
+import apiGatewayPostCustomer from '../../services/api/apiGateWayPostCustomer';
 import { CloseExtensionWorkflow } from './CloseExtensionWorkflow';
 
 export class SubmitCustomerFormWorkflow implements IWorkflow {
@@ -39,7 +39,7 @@ export class SubmitCustomerFormWorkflow implements IWorkflow {
 
   private async sendCustomerInformation(): Promise<void> {
     try {
-      //await apiGatewayPostCustomer();
+      await apiGatewayPostCustomer();
     } catch {
       throw new Error('Failed to send Customer Information');
     }
