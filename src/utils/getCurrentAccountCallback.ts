@@ -3,22 +3,7 @@ import { getGlobalAppCustomer } from '../workflow/context/workflowContextInstanc
 import { RaiseErrorWorkflow } from '../workflow/workflows/RaiseErrorWorkflow';
 import { GetCustomerProfileWorkflow } from '../workflow/workflows/GetCustomerProfileWorkflow';
 
-// Global variable to store response for React component access
-//let globalPosResponseSetter: ((data: unknown) => void) | null = null;
-
-// Function to set the global response setter from React context
-//export const setPosResponseSetter = (setter: (data: unknown) => void): void => {
-//  globalPosResponseSetter = setter;
-//};
-
 const getCurrentAccountCallback: PosCallback = (response: PosResponse): void => {
-  // Store the response data for React component display
-  //if (globalPosResponseSetter) {
-  //  globalPosResponseSetter(response);
-  //} else {
-  //  console.log("TEST: gobal Pos Error");
-  //}
-
   // Check for errors:
   if (response.error) {
     const errorWorkflow = new RaiseErrorWorkflow(`getCurrentAccount LSK Error: ${response.error}`);

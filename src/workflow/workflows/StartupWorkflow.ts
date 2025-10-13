@@ -16,6 +16,7 @@ export class StartupWorkflow implements IWorkflow {
 
   // Main execution method
   async execute(): Promise<void> {
+    this.workflowContext.setIsLoading(true);
     // Create appCustomer instance and store in both global storage and context
     const appCustomerInstance = BusinessCustomerFactory.createAppCustomer();
     setGlobalAppCustomer(appCustomerInstance);

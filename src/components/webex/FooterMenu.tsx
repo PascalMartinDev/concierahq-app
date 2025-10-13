@@ -8,20 +8,21 @@ const FooterMenu = () => {
   const { setShowCreateForm } = useWorkflow();
 
   // Open Customer Form onButtonClick function:
-  const handleOpenFormButtonClicked = () => {}; 
-  setShowCreateForm(true);
+  const handleOpenFormButtonClicked = () => setShowCreateForm(true);
   // Close Profile Page onButtonClick function
   const handleCloseProfilePageClicked = async () => {
     try {
       const closeWorkflow = new CloseExtensionWorkflow();
       await closeWorkflow.execute();
     } catch (error) {
-      
-      const errorMessage = error instanceof Error ? error.message : String(error);
-      const errorWorkflow = new RaiseErrorWorkflow(`Error executing CloseExtensionWorkflow: ${errorMessage}`);
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
+      const errorWorkflow = new RaiseErrorWorkflow(
+        `Error executing CloseExtensionWorkflow: ${errorMessage}`
+      );
       errorWorkflow.execute();
     }
-  }
+  };
 
   return (
     <div className="flex w-full my-10">
