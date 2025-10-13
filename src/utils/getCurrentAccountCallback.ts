@@ -11,7 +11,6 @@ export const setPosResponseSetter = (setter: (data: unknown) => void): void => {
   globalPosResponseSetter = setter;
 };
 
-
 const getCurrentAccountCallback: PosCallback = (response: PosResponse): void => {
   // Store the response data for React component display
   if (globalPosResponseSetter) {
