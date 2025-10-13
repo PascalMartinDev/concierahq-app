@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/16/solid';
 import { 
+  TagIcon,
   MapPinIcon, 
   ShoppingCartIcon, 
   CalendarIcon, 
@@ -31,7 +32,7 @@ function classNames(...classes: (string | boolean | undefined)[]): string {
 
 const CustomerTabDetailsSection: React.FC = () => {
   const tabs: Tab[] = [
-    { name: 'Segments', component: CustomerSegments, icon: AdjustmentsHorizontalIcon },
+    { name: 'Segments', component: CustomerSegments, icon: TagIcon },
     { name: 'Bookings', component: CustomerBookings, icon: CalendarIcon },
     { name: 'Custom Fields', component: CustomerCustomFields, icon: AdjustmentsHorizontalIcon },
     { name: 'Address', component: CustomerAddress, icon: MapPinIcon },
