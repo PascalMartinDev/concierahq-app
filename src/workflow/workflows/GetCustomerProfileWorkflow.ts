@@ -1,6 +1,5 @@
 import type { IWorkflow } from "../context/workflowInterface";
 import dynamoDBGetItem from "../../services/db/dynamoDBGetItem";
-
 import { getGlobalAppCustomer, getGlobalWorkflowContext, setGlobalAppCustomer } from "../context/workflowContextInstance";
 import { appCustomerProfileMapper } from "../../utils/appCustomerProfileMapper";
 import { RaiseErrorWorkflow } from "./RaiseErrorWorkflow";

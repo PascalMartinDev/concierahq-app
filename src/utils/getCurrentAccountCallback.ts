@@ -17,7 +17,9 @@ const getCurrentAccountCallback: PosCallback = (response: PosResponse): void => 
   if (globalPosResponseSetter) {
     globalPosResponseSetter(response);
   } else {
-    console.log("TEST: no globalposresponsesetter"); // REMOVE AND RESET THIS IF STATEMENT
+    const errorWorkflow = new RaiseErrorWorkflow('globalPosResponseSetter failed to load!');
+    errorWorkflow.execute();
+    return;
   }
 
   // Check for errors:
