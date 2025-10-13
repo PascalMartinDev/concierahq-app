@@ -7,9 +7,10 @@ import {
   AdjustmentsHorizontalIcon 
 } from '@heroicons/react/20/solid';
 import CustomerAddress from './CustomerAddress';
-import CustomerCommerce from './CustomerCommerce';
+import CustomerPurchaseHistory from './CustomerPurchaseHistory';
 import CustomerCustomFields from './CustomerCustomFields';
 import CustomerBookings from './CustomerBookings';
+import CustomerSegments from './CustomerSegments';
 
 // Type definitions
 interface Tab {
@@ -30,10 +31,12 @@ function classNames(...classes: (string | boolean | undefined)[]): string {
 
 const CustomerTabDetailsSection: React.FC = () => {
   const tabs: Tab[] = [
-    { name: 'Commerce', component: CustomerCommerce, icon: ShoppingCartIcon },
+    { name: 'Segments', component: CustomerSegments, icon: AdjustmentsHorizontalIcon },
     { name: 'Bookings', component: CustomerBookings, icon: CalendarIcon },
-    { name: 'Address', component: CustomerAddress, icon: MapPinIcon },
     { name: 'Custom Fields', component: CustomerCustomFields, icon: AdjustmentsHorizontalIcon },
+    { name: 'Address', component: CustomerAddress, icon: MapPinIcon },
+    { name: 'Purchase History', component: CustomerPurchaseHistory, icon: ShoppingCartIcon },
+    
   ];
 
   const [currentTab, setCurrentTab] = useState<string>(tabs[0].name);
