@@ -5,7 +5,9 @@ const CustomerPurchaseHistory: React.FC = () => {
   const [visibleOrders, setVisibleOrders] = useState(2);
 
   return (
-    <div className="space-y-4">
+    <div className="p-6 bg-white rounded-lg border border-gray-300 shadow-sm">
+      <div className="flex flex-col md:flex-row md:space-x-6 space-y-6 md:space-y-0"></div>
+
       {/* Single Header for All Items */}
       <div className="flex gap-4">
         <div className="w-1/4"></div>
