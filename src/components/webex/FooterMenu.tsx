@@ -1,24 +1,25 @@
 import Button from '../ui/Button';
-//import { useWorkflow } from '../../workflow/hooks/useWorkflow';
-//import { CloseExtensionWorkflow } from '../../workflow/workflows/CloseExtensionWorkflow';
-//import { RaiseErrorWorkflow } from '../../workflow/workflows/RaiseErrorWorkflow';
+import { useWorkflow } from '../../workflow/hooks/useWorkflow';
+import { CloseExtensionWorkflow } from '../../workflow/workflows/CloseExtensionWorkflow';
+import { RaiseErrorWorkflow } from '../../workflow/workflows/RaiseErrorWorkflow';
 
 const FooterMenu = () => {
   // Destructure showCreateForm from useWorkflow hook
-  //const { setShowCreateForm } = useWorkflow();
+  const { setShowCreateForm } = useWorkflow();
 
   // Open Customer Form onButtonClick function:
-  const handleOpenFormButtonClicked = () => {}; //setShowCreateForm(true);
+  const handleOpenFormButtonClicked = () => {}; 
+  setShowCreateForm(true);
   // Close Profile Page onButtonClick function
   const handleCloseProfilePageClicked = async () => {
     try {
-      //const closeWorkflow = new CloseExtensionWorkflow();
-      //await closeWorkflow.execute();
+      const closeWorkflow = new CloseExtensionWorkflow();
+      await closeWorkflow.execute();
     } catch (error) {
-      console.log(`TEST ONLY: ${error}`);
-      //const errorMessage = error instanceof Error ? error.message : String(error);
-      //const errorWorkflow = new RaiseErrorWorkflow(`Error executing CloseExtensionWorkflow: ${errorMessage}`);
-      //errorWorkflow.execute();
+      
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      const errorWorkflow = new RaiseErrorWorkflow(`Error executing CloseExtensionWorkflow: ${errorMessage}`);
+      errorWorkflow.execute();
     }
   }
 
