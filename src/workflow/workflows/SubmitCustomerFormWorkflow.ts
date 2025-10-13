@@ -30,9 +30,13 @@ export class SubmitCustomerFormWorkflow implements IWorkflow {
   private async executeWorkflowChain(appCustomer: {
     group?: string;
   }): Promise<void> {
+    alert(`TEST: appCustomer Group - ${appCustomer.group || 'NO GROUP SET'}`);
     if (appCustomer.group) {
+      alert('TEST: Calling sendCustomerInformation');
       await this.sendCustomerInformation();
-      alert(`TEST: appCustomer Group - ${appCustomer.group}`);
+      alert('TEST: sendCustomerInformation completed');
+    } else {
+      alert('TEST: No group found, skipping API call');
     }
     const closeExtenstionWorfklow = new CloseExtensionWorkflow();
     await closeExtenstionWorfklow.execute();
@@ -40,10 +44,15 @@ export class SubmitCustomerFormWorkflow implements IWorkflow {
 
   private async sendCustomerInformation(): Promise<void> {
     try {
+      alert('TEST: Getting ApiGateway instance');
       const apiGateway = ApiGateway.getInstance();
+      alert('TEST: Calling submitWebexForm');
       await apiGateway.submitWebexForm();
-    } catch {
-      throw new Error('Failed to send Customer Information');
+      alert('TEST: submitWebexForm completed successfully');
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      alert(`TEST ERROR: ${errorMessage}`);
+      throw new Error(`Failed to send Customer Information: ${errorMessage}`);
     }
   }
 }

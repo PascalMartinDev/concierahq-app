@@ -43,7 +43,8 @@ class ApiGateway {
   //API Gateway Methods:
   // WebexForm Submission:
   async submitWebexForm(): Promise<void> {
-    try { 
+    alert('TEST: ApiGateway submitWebexForm called');
+    try {
       const appCustomer = getGlobalAppCustomer();
       if (!appCustomer || !appCustomer.customer) {
         throw new Error('App Customer data is missing or incomplete');
@@ -57,6 +58,7 @@ class ApiGateway {
         phone: appCustomer.customer.phone,
         group: appCustomer.group
       }
+      alert(`TEST: Webex Form Data - ${JSON.stringify(webexFormData)}`);
       alert("TEST: WebexFormData");
 
       // Generate URL:
@@ -93,6 +95,7 @@ class ApiGateway {
 
      } catch (error) {
       const errorMessage = error instanceof Error ? error.message : String(error);
+      alert(`TEST: ApiGateway ERROR - ${errorMessage}`);
       const errorWorkflow = new RaiseErrorWorkflow(`ApiGateway submitWebexForm failed: ${errorMessage}`);
       errorWorkflow.execute();
      }
