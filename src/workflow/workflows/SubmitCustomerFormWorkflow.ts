@@ -32,6 +32,7 @@ export class SubmitCustomerFormWorkflow implements IWorkflow {
   }): Promise<void> {
     if (appCustomer.group) {
       await this.sendCustomerInformation();
+      alert(`TEST: appCustomer Group - ${appCustomer.group}`);
     }
     const closeExtenstionWorfklow = new CloseExtensionWorkflow();
     await closeExtenstionWorfklow.execute();

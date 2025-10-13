@@ -57,7 +57,7 @@ class ApiGateway {
         phone: appCustomer.customer.phone,
         group: appCustomer.group
       }
-      alert("TEST: WebexFormData")
+      alert("TEST: WebexFormData");
 
       // Generate URL:
       const url = new URL('/webex/form', this.apiBaseUrl);
@@ -78,7 +78,7 @@ class ApiGateway {
       // Sign the request with AWS Credentials:
       const signedRequest = await this.signer.sign(request);
 
-      alert("TEST: Signed Request Successful")
+      alert("TEST: Signed Request Successful");
 
       // Make the API Call:
       const response = await fetch(url.toString(), {
@@ -87,7 +87,7 @@ class ApiGateway {
         body: signedRequest.body,
       });
 
-      alert(`TEST: Response Status: ${response.status} ${response.body}`)
+      alert(`TEST: Response Status: ${response.status} ${response.body}`);
 
       if(!response.ok) throw new Error(`API Request failed: ${response.status} ${response.statusText}`); 
 
