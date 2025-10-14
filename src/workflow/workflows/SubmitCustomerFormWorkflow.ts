@@ -2,7 +2,7 @@ import type { IWorkflow } from '../context/workflowInterface';
 import { RaiseErrorWorkflow } from './RaiseErrorWorkflow';
 import { getGlobalAppCustomer } from '../context/workflowContextInstance';
 import { CloseExtensionWorkflow } from './CloseExtensionWorkflow';
-import ApiGateway from '../../services/api/ApiGateway';
+import ApiGatewayClient from '../../services/api/ApiGatewayClient';
 
 export class SubmitCustomerFormWorkflow implements IWorkflow {
   async execute(): Promise<void> {
@@ -39,8 +39,8 @@ export class SubmitCustomerFormWorkflow implements IWorkflow {
 
   private async sendCustomerInformation(): Promise<void> {
     try {
-      const apiGateway = ApiGateway.getInstance();
-      await apiGateway.submitWebexForm();
+      const apiGatewayClient = ApiGatewayClient.getInstance();
+      await apiGatewayClient.postWebexForm();
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : String(error);
       throw new Error(`Failed to send Customer Information: ${errorMessage}`);

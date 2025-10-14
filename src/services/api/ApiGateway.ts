@@ -8,7 +8,9 @@ import type { WebexFormData } from './ApiGatewayTypes';
 
 class ApiGateway {
   private static instance: ApiGateway;
-  private credentials: import('@aws-sdk/types').AwsCredentialIdentityProvider;
+  private credentialsProvider: import('@aws-sdk/types').AwsCredentialIdentityProvider;
+  private cachedCredentials: import('@aws-sdk/types').AwsCredentialIdentity | null = null;
+  private credentialsExpiry: Date | null = null;
   private signer: SignatureV4;
   private apiGatewayId: string;
   private region: string;
@@ -33,17 +35,17 @@ class ApiGateway {
 
     this.apiBaseUrl = `https://${this.apiGatewayId}.execute-api.${this.region}.amazonaws.com/${this.gatewayStage}`;
 
-    // Initialize AWS Cognito credentials
-    this.credentials = fromCognitoIdentityPool({
+    // Initialize AWS Cognito credentials provider (created once)
+    this.credentialsProvider = fromCognitoIdentityPool({
       identityPoolId: import.meta.env.VITE_COGNITO_IDENTITY_POOL_ID,
       clientConfig: {
         region: this.region,
       },
     });
 
-    // Initialize AWS SigV4 signer
+    // Initialize AWS SigV4 signer with cached credentials getter
     this.signer = new SignatureV4({
-      credentials: this.credentials,
+      credentials: async () => this.getCredentials(),
       region: this.region,
       service: 'execute-api',
       sha256: Sha256,
@@ -61,6 +63,39 @@ class ApiGateway {
       ApiGateway.instance = new ApiGateway();
     }
     return ApiGateway.instance;
+  }
+
+  /**
+   * Get AWS credentials with caching
+   * Credentials are cached and only refreshed when expired
+   */
+  private async getCredentials(): Promise<import('@aws-sdk/types').AwsCredentialIdentity> {
+    const now = new Date();
+
+    // Check if we have valid cached credentials
+    if (this.cachedCredentials && this.credentialsExpiry && now < this.credentialsExpiry) {
+      console.log('Using cached AWS credentials');
+      return this.cachedCredentials;
+    }
+
+    // Fetch new credentials
+    console.log('Fetching new AWS credentials...');
+    const credentials = await this.credentialsProvider();
+
+    // Cache the credentials
+    this.cachedCredentials = credentials;
+
+    // Set expiry time - AWS Cognito credentials typically expire after 1 hour
+    // We'll refresh 5 minutes before expiry to be safe
+    if (credentials.expiration) {
+      this.credentialsExpiry = new Date(credentials.expiration.getTime() - 5 * 60 * 1000);
+    } else {
+      // If no expiration provided, cache for 55 minutes
+      this.credentialsExpiry = new Date(now.getTime() + 55 * 60 * 1000);
+    }
+
+    console.log('AWS credentials cached until:', this.credentialsExpiry);
+    return credentials;
   }
 
   /**
