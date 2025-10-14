@@ -6,7 +6,6 @@ import { getGlobalAppCustomer } from '../../workflow/context/workflowContextInst
 import { RaiseErrorWorkflow } from '../../workflow/workflows/RaiseErrorWorkflow';
 import type { WebexFormData } from './ApiGatewayTypes';
 
-
 class ApiGateway {
   private static instance: ApiGateway;
   private credentials: import('@aws-sdk/types').AwsCredentialIdentityProvider;
@@ -17,89 +16,152 @@ class ApiGateway {
   private apiBaseUrl: string;
 
   private constructor() {
+    // Validate required environment variables
     this.apiGatewayId = import.meta.env.VITE_API_GATEWAY_ID;
     this.region = import.meta.env.VITE_AWS_REGION;
-    this.gatewayStage = import.meta.env.VITE_API_GATEWAY_STAGE;
+    this.gatewayStage = import.meta.env.VITE_API_GATEWAY_STAGE || 'prod';
+
+    if (!this.apiGatewayId) {
+      throw new Error('VITE_API_GATEWAY_ID is not defined in environment variables');
+    }
+    if (!this.region) {
+      throw new Error('VITE_AWS_REGION is not defined in environment variables');
+    }
+    if (!import.meta.env.VITE_COGNITO_IDENTITY_POOL_ID) {
+      throw new Error('VITE_COGNITO_IDENTITY_POOL_ID is not defined in environment variables');
+    }
+
     this.apiBaseUrl = `https://${this.apiGatewayId}.execute-api.${this.region}.amazonaws.com/${this.gatewayStage}`;
-	  this.credentials = fromCognitoIdentityPool({
-	    identityPoolId: import.meta.env.VITE_COGNITO_IDENTITY_POOL_ID,
-	  });
-	
-	  this.signer = new SignatureV4({
+
+    // Initialize AWS Cognito credentials
+    this.credentials = fromCognitoIdentityPool({
+      identityPoolId: import.meta.env.VITE_COGNITO_IDENTITY_POOL_ID,
+      clientConfig: {
+        region: this.region,
+      },
+    });
+
+    // Initialize AWS SigV4 signer
+    this.signer = new SignatureV4({
       credentials: this.credentials,
-      region: import.meta.env.VITE_AWS_REGION,
+      region: this.region,
       service: 'execute-api',
       sha256: Sha256,
+    });
+
+    console.log('ApiGateway initialized:', {
+      apiBaseUrl: this.apiBaseUrl,
+      region: this.region,
+      stage: this.gatewayStage,
     });
   }
 
   public static getInstance(): ApiGateway {
-	if (!ApiGateway.instance) {
-	  ApiGateway.instance = new ApiGateway();
-	}
-	return ApiGateway.instance;
+    if (!ApiGateway.instance) {
+      ApiGateway.instance = new ApiGateway();
+    }
+    return ApiGateway.instance;
   }
 
-  //API Gateway Methods:
-  // WebexForm Submission:
+  /**
+   * Submit Webex form data to API Gateway
+   */
   async submitWebexForm(): Promise<void> {
-    alert('TEST: ApiGateway submitWebexForm called');
     try {
+      alert('TEST: Starting submitWebexForm');
+
+      // Get customer data
       const appCustomer = getGlobalAppCustomer();
       if (!appCustomer || !appCustomer.customer) {
         throw new Error('App Customer data is missing or incomplete');
       }
 
-      // Webex Form Data from AppCustomer:
+      // Prepare form data
       const webexFormData: WebexFormData = {
         firstName: appCustomer.customer.firstName,
         lastName: appCustomer.customer.lastName,
         email: appCustomer.customer.email,
         phone: appCustomer.customer.phone,
-        group: appCustomer.group
-      }
-      alert(`TEST: Webex Form Data - ${JSON.stringify(webexFormData)}`);
-      alert("TEST: WebexFormData");
+        group: appCustomer.group,
+      };
 
-      // Generate URL:
-      const url = new URL('/webex/form', this.apiBaseUrl);
+      alert(`TEST: Form Data Ready - ${JSON.stringify(webexFormData)}`);
 
-      // Generate Request:
+      // Construct the full URL
+      const endpoint = '/webex/form';
+      const fullUrl = `${this.apiBaseUrl}${endpoint}`;
+      const url = new URL(fullUrl);
+
+      alert(`TEST: URL - ${fullUrl}`);
+
+      // Prepare request body
+      const requestBody = JSON.stringify(webexFormData);
+
+      // Create HTTP request for signing
       const request = new HttpRequest({
         method: 'POST',
+        protocol: url.protocol,
         hostname: url.hostname,
-        path: url.pathname,
+        path: `${url.pathname}${url.search}`,
         headers: {
-		      'Content-Type': 'application/json',
+          'Content-Type': 'application/json',
+          'host': url.hostname,
         },
-        body: JSON.stringify(webexFormData),
+        body: requestBody,
       });
 
-      alert("TEST: Request Successful")
+      alert('TEST: Request created, signing...');
 
-      // Sign the request with AWS Credentials:
+      // Sign the request with AWS SigV4
       const signedRequest = await this.signer.sign(request);
 
-      alert("TEST: Signed Request Successful");
+      alert('TEST: Request signed successfully');
 
-      // Make the API Call:
-      const response = await fetch(url.toString(), {
-        method: signedRequest.method,
-        headers: signedRequest.headers,
-        body: signedRequest.body,
+      // Convert headers to fetch-compatible format
+      const fetchHeaders: Record<string, string> = {};
+      for (const [key, value] of Object.entries(signedRequest.headers)) {
+        if (typeof value === 'string') {
+          fetchHeaders[key] = value;
+        } else if (value !== undefined) {
+          fetchHeaders[key] = String(value);
+        }
+      }
+
+      alert(`TEST: Making fetch request to ${fullUrl}`);
+
+      // Make the API call
+      const response = await fetch(fullUrl, {
+        method: 'POST',
+        headers: fetchHeaders,
+        body: requestBody,
       });
 
-      alert(`TEST: Response Status: ${response.status} ${response.body}`);
+      alert(`TEST: Response received - Status: ${response.status}`);
 
-      if(!response.ok) throw new Error(`API Request failed: ${response.status} ${response.statusText}`); 
+      // Parse response
+      const responseData = await response.text();
 
-     } catch (error) {
+      if (!response.ok) {
+        throw new Error(
+          `API Request failed: ${response.status} ${response.statusText}. Response: ${responseData}`
+        );
+      }
+
+      alert(`TEST: Success! Response: ${responseData}`);
+      console.log('Webex form submitted successfully:', responseData);
+
+    } catch (error) {
       const errorMessage = error instanceof Error ? error.message : String(error);
-      alert(`TEST: ApiGateway ERROR - ${errorMessage}`);
-      const errorWorkflow = new RaiseErrorWorkflow(`ApiGateway submitWebexForm failed: ${errorMessage}`);
-      errorWorkflow.execute();
-     }
+      console.error('ApiGateway submitWebexForm error:', error);
+      alert(`TEST: ERROR - ${errorMessage}`);
 
+      const errorWorkflow = new RaiseErrorWorkflow(
+        `ApiGateway submitWebexForm failed: ${errorMessage}`
+      );
+      errorWorkflow.execute();
+
+      throw error;
+    }
   }
 }
 
