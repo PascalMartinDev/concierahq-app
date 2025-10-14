@@ -230,9 +230,13 @@ class ApiGatewayClient {
         group: appCustomer.group,
       };
 
+      // TODO: Verify this is the correct endpoint path in your API Gateway
+      const endpoint = 'webex/contactform'; // Change this to match your API Gateway resource path
+      console.log('Calling endpoint:', endpoint);
+
       const request = this.buildRequest(
         'POST',
-        'webex/contactform',
+        endpoint,
         webexFormData
       );
       const signedRequest = await this.signRequest(request);
