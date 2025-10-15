@@ -36,7 +36,7 @@ export interface WebexFormResponse {
 class AuthenticationAPIClient {
   private static instance: AuthenticationAPIClient;
   private signer: SignatureV4;
-  private readonly baseUrl = 'https://fmi5zd0pyg.execute-api.us-east-1.amazonaws.com/prod';
+  private readonly baseUrl = 'https://fmi5zd0pyg.execute-api.us-east-1.amazonaws.com/prod/';
   private readonly region: string;
   private readonly identityPoolId: string;
 
