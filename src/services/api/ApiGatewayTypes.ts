@@ -13,3 +13,9 @@ export interface APIResponse<T = unknown> {
   message?: string;
   statusCode?: number;
 }
+
+export interface RequestInformation {
+  pathway: string;
+  method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+  body?: object;
+}

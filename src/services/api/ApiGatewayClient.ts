@@ -1,66 +1,28 @@
-import { fromCognitoIdentityPool } from '@aws-sdk/credential-providers';
-import { HttpRequest } from '@aws-sdk/protocol-http';
-import { SignatureV4 } from '@aws-sdk/signature-v4';
-import { Sha256 } from '@aws-crypto/sha256-js';
 import { getGlobalAppCustomer } from '../../workflow/context/workflowContextInstance';
 import { RaiseErrorWorkflow } from '../../workflow/workflows/RaiseErrorWorkflow';
-import type { WebexFormData } from './ApiGatewayTypes';
+import type { RequestInformation, WebexFormData } from './ApiGatewayTypes';
 
 class ApiGatewayClient {
   private static instance: ApiGatewayClient;
   private region: string;
   private apiGatewayId: string;
-  private identityPoolId: string;
-  private service = 'execute-api';
   private stage: string;
-  private credentialsProvider: import('@aws-sdk/types').AwsCredentialIdentityProvider;
-  private cachedCredentials:
-    | import('@aws-sdk/types').AwsCredentialIdentity
-    | null = null;
-  private credentialsExpiry: Date | null = null;
-  private signer: SignatureV4;
+  private apiKey: string;
+  private headers: HeadersInit;
+  private baselineUrl: string;
+  
 
   private constructor() {
-    // Validate required environment variables
+    // Set required environment variables
     this.region = import.meta.env.VITE_AWS_REGION;
     this.apiGatewayId = import.meta.env.VITE_API_GATEWAY_ID;
-    this.identityPoolId = import.meta.env.VITE_COGNITO_IDENTITY_POOL_ID;
     this.stage = import.meta.env.VITE_API_GATEWAY_STAGE;
-
-    if (!this.apiGatewayId) {
-      throw new Error(
-        'VITE_API_GATEWAY_ID is not defined in environment variables'
-      );
-    }
-    if (!this.region) {
-      throw new Error(
-        'VITE_AWS_REGION is not defined in environment variables'
-      );
-    }
-    if (!this.identityPoolId) {
-      throw new Error(
-        'VITE_COGNITO_IDENTITY_POOL_ID is not defined in environment variables'
-      );
-    }
-
-    // Initialize AWS Cognito credentials provider (created once)
-    this.credentialsProvider = fromCognitoIdentityPool({
-      identityPoolId: this.identityPoolId,
-      clientConfig: { region: this.region },
-    });
-
-    // Initialize AWS SigV4 signer with cached credentials
-    this.signer = new SignatureV4({
-      credentials: async () => this.getCredentials(),
-      region: this.region,
-      service: this.service,
-      sha256: Sha256,
-    });
-
-    console.log('ApiGatewayClient initialized:', {
-      region: this.region,
-      stage: this.stage,
-    });
+    this.apiKey = import.meta.env.VITE_API_GATEWAY_API_KEY;
+    this.baselineUrl = `https://${this.apiGatewayId}.execute-api.${this.region}.amazonaws.com/${this.stage}/`;
+    this.headers = {
+      'Content-Type': 'application/json',
+      'x-api-key': this.apiKey
+    };
   }
 
   public static getInstance(): ApiGatewayClient {
@@ -69,120 +31,17 @@ class ApiGatewayClient {
     }
     return ApiGatewayClient.instance;
   }
-
-  /**
-   * Get AWS credentials with caching
-   * Credentials are cached and only refreshed when expired
-   */
-  private async getCredentials(): Promise<
-    import('@aws-sdk/types').AwsCredentialIdentity
-  > {
-    const now = new Date();
-
-    // Check if we have valid cached credentials
-    if (
-      this.cachedCredentials &&
-      this.credentialsExpiry &&
-      now < this.credentialsExpiry
-    ) {
-      console.log('Using cached AWS credentials');
-      return this.cachedCredentials;
-    }
-
-    // Fetch new credentials
-    console.log('Fetching new AWS credentials...');
-    const credentials = await this.credentialsProvider();
-
-    // Cache the credentials
-    this.cachedCredentials = credentials;
-
-    // Set expiry time - AWS Cognito credentials typically expire after 1 hour
-    // We'll refresh 5 minutes before expiry to be safe
-    if (credentials.expiration) {
-      this.credentialsExpiry = new Date(
-        credentials.expiration.getTime() - 5 * 60 * 1000
-      );
-    } else {
-      // If no expiration provided, cache for 55 minutes
-      this.credentialsExpiry = new Date(now.getTime() + 55 * 60 * 1000);
-    }
-
-    console.log('AWS credentials cached until:', this.credentialsExpiry);
-    return credentials;
-  }
-
-  /**
-   * Build the base request object
-   */
-  private buildRequest(
-    method: string,
-    path: string,
-    body?: object
-  ): HttpRequest {
-    // Remove leading slash from path if present to avoid double slashes
-    const cleanPath = path.startsWith('/') ? path.slice(1) : path;
-    const hostname = `${this.apiGatewayId}.execute-api.${this.region}.amazonaws.com`;
-
-    return new HttpRequest({
-      method,
-      protocol: 'https:',
-      hostname,
-      path: `/${this.stage}/${cleanPath}`,
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        host: hostname,
-      },
-      body: body ? JSON.stringify(body) : undefined,
-    });
-  }
-
-  /**
-   * Sign the request with AWS SigV4
-   */
-  private async signRequest(
-    request: HttpRequest
-  ): Promise<HttpRequest & { headers: Record<string, string> }> {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const signed = await this.signer.sign(request as any);
-    return signed as unknown as HttpRequest & {
-      headers: Record<string, string>;
-    };
-  }
-
-  /**
-   * Make the HTTP request
-   */
-  private async makeRequest(
-    signedRequest: HttpRequest & { headers: Record<string, string> }
-  ) {
-    const url = `https://${signedRequest.hostname}${signedRequest.path}`;
-
-    // Convert headers to fetch-compatible format
-    const fetchHeaders: Record<string, string> = {};
-    for (const [key, value] of Object.entries(signedRequest.headers)) {
-      if (typeof value === 'string') {
-        fetchHeaders[key] = value;
-      } else if (value !== undefined) {
-        fetchHeaders[key] = String(value);
+  /*** Make the HTTP request ***/
+  private async makeRequest(requestInformation: RequestInformation) {
+      const url = `${this.baselineUrl}${requestInformation.pathway}`;
+      const parameters = {
+        method: requestInformation.method,
+        headers: this.headers,
+        body: requestInformation.body ? JSON.stringify(requestInformation.body) : undefined,
       }
-    }
-
-    console.log('Making API request:', {
-      url,
-      method: signedRequest.method,
-      headers: fetchHeaders,
-      bodyLength: signedRequest.body?.length || 0,
-    });
-
+    
     try {
-      const response = await fetch(url, {
-        method: signedRequest.method,
-        headers: fetchHeaders,
-        body: signedRequest.body,
-        mode: 'cors',
-        credentials: 'omit',
-      });
+      const response = await fetch(url, parameters);
 
       console.log('API response received:', {
         status: response.status,
@@ -206,7 +65,7 @@ class ApiGatewayClient {
         error,
         message: error instanceof Error ? error.message : String(error),
         url,
-        method: signedRequest.method,
+        
       });
       throw error;
     }
@@ -215,7 +74,7 @@ class ApiGatewayClient {
   /**
    * POST / Webex Form
    */
-  async postWebexForm() {
+  async postWebexForm(): Promise<void> {
     try {
       const appCustomer = getGlobalAppCustomer();
       if (!appCustomer || !appCustomer.customer) {
@@ -230,20 +89,16 @@ class ApiGatewayClient {
         group: appCustomer.group,
       };
 
-      // TODO: Verify this is the correct endpoint path in your API Gateway
-      const endpoint = 'webex/contactform'; // Change this to match your API Gateway resource path
+      const endpoint = 'webex/customerform';
       console.log('Calling endpoint:', endpoint);
+      const requestInformation: RequestInformation = {
+        pathway: endpoint,
+        method: 'POST',
+        body: webexFormData,
+      };
 
-      const request = this.buildRequest(
-        'POST',
-        endpoint,
-        webexFormData
-      );
-      const signedRequest = await this.signRequest(request);
-      const result = await this.makeRequest(signedRequest);
-
+      const result = await this.makeRequest(requestInformation);
       console.log('Webex form submitted successfully:', result);
-      return result;
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : String(error);
