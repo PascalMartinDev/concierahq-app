@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+//import React, { useEffect, useState } from "react";
 import HeaderSection from "./HeaderSection";
 import FooterMenu from "./FooterMenu";
 import WebexMainSection from "./WebexMainSection.tsx";
@@ -6,11 +6,12 @@ import WebexPosContext from "./WebexPosContext";
 //import LoadingApp from "./LoadingApp.tsx";
 //import WebexUnauthorised from "./WebexUnauthorised";
 import { lskPosContext } from "../../lsk/lskPosContext";
-import { useWorkflow } from "../../workflow/hooks/useWorkflow";
-import ErrorAlert from "./ErrorAlert.tsx";
+//import { useWorkflow } from "../../workflow/hooks/useWorkflow";
+//import ErrorAlert from "./ErrorAlert.tsx";
 
 const WebexApp: React.FC = () => {
-  const { isLoading, showError} = useWorkflow();
+  //const { isLoading, showError} = useWorkflow();
+  
   //const [isAuthorised, setIsAuthorised] = useState<boolean>(false);
   /*
   useEffect(() => {
@@ -41,7 +42,7 @@ const WebexApp: React.FC = () => {
       {/*{!isLoading && !showError && <WebexMainSection /> }*/}
       <WebexMainSection />
       {/* Show Error component and message */}
-      {showError && <ErrorAlert />}
+      {/*{showError && <ErrorAlert />}*/}
       < FooterMenu />
       <WebexPosContext
         userName={String(lskPosContext.userName ?? "Unknown User!")}
