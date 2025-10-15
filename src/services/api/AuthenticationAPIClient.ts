@@ -78,13 +78,13 @@ class AuthenticationAPIClient {
 
   private async makeRequest<T = unknown>(
     method: 'GET' | 'POST' | 'PUT' | 'DELETE',
-    endpoint: string,
+    fullUrl: string,
     body?: unknown,
     additionalHeaders: Record<string, string> = {}
   ): Promise<APIResponse<T>> {
     try {
-      const url = new URL(endpoint, this.baseUrl);
-      
+      const url = new URL(fullUrl);
+
       console.log(`🚀 Making authenticated ${method} request to: ${url.toString()}`);
 
       const request = new HttpRequest({
@@ -218,7 +218,7 @@ class AuthenticationAPIClient {
 
   // Health check endpoint
   public async healthCheck(): Promise<APIResponse<HealthCheckResponse>> {
-    return this.makeRequest<HealthCheckResponse>('GET', 'health');
+    return this.makeRequest<HealthCheckResponse>('GET', 'https://fmi5zd0pyg.execute-api.us-east-1.amazonaws.com/prod/health');
   }
 
   // Submit Webex form
@@ -228,27 +228,27 @@ class AuthenticationAPIClient {
       timestamp: new Date().toISOString(),
     };
 
-    return this.makeRequest<WebexFormResponse>('POST', 'webex/contactform', dataWithTimestamp);
+    return this.makeRequest<WebexFormResponse>('POST', 'https://fmi5zd0pyg.execute-api.us-east-1.amazonaws.com/prod/webex/contactform', dataWithTimestamp);
   }
 
   // Generic GET request
   public async get<T = unknown>(endpoint: string): Promise<APIResponse<T>> {
-    return this.makeRequest<T>('GET', endpoint);
+    return this.makeRequest<T>('GET', `${this.baseUrl}${endpoint}`);
   }
 
   // Generic POST request
   public async post<T = unknown>(endpoint: string, data: T): Promise<APIResponse<T>> {
-    return this.makeRequest<T>('POST', endpoint, data);
+    return this.makeRequest<T>('POST', `${this.baseUrl}${endpoint}`, data);
   }
 
   // Generic PUT request
   public async put<T = unknown>(endpoint: string, data: T): Promise<APIResponse<T>> {
-    return this.makeRequest<T>('PUT', endpoint, data);
+    return this.makeRequest<T>('PUT', `${this.baseUrl}${endpoint}`, data);
   }
 
   // Generic DELETE request
   public async delete<T = unknown>(endpoint: string): Promise<APIResponse<T>> {
-    return this.makeRequest<T>('DELETE', endpoint);
+    return this.makeRequest<T>('DELETE', `${this.baseUrl}${endpoint}`);
   }
 
   // Get current configuration
