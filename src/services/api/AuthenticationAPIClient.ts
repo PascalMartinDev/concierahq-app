@@ -218,7 +218,7 @@ class AuthenticationAPIClient {
 
   // Health check endpoint
   public async healthCheck(): Promise<APIResponse<HealthCheckResponse>> {
-    return this.makeRequest<HealthCheckResponse>('GET', '/health');
+    return this.makeRequest<HealthCheckResponse>('GET', 'health');
   }
 
   // Submit Webex form
@@ -228,7 +228,7 @@ class AuthenticationAPIClient {
       timestamp: new Date().toISOString(),
     };
 
-    return this.makeRequest<WebexFormResponse>('POST', '/webex/contactform', dataWithTimestamp);
+    return this.makeRequest<WebexFormResponse>('POST', 'webex/contactform', dataWithTimestamp);
   }
 
   // Generic GET request
