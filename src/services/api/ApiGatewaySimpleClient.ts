@@ -7,22 +7,26 @@ import { getGlobalAppCustomer } from '../../workflow/context/workflowContextInst
 
 class ApiGatewaySimpleClient {
   private static instance: ApiGatewaySimpleClient;
-  private credentials: import("@aws-sdk/types").AwsCredentialIdentityProvider;
+  private credentials: import('@aws-sdk/types').AwsCredentialIdentityProvider;
   private signer: SignatureV4;
   private readonly region: string;
   private readonly apiGatewayId: string;
   private readonly baseUrl: string;
-    //'https://fmi5zd0pyg.execute-api.us-east-1.amazonaws.com/prod/webex/contactform';
+  //'https://fmi5zd0pyg.execute-api.us-east-1.amazonaws.com/prod/webex/contactform';
 
   private constructor() {
     // Get Identity Pool ID
     const identityPoolId = import.meta.env.VITE_COGNITO_IDENTITY_POOL_ID;
     this.region = import.meta.env.VITE_AWS_REGION;
+    console.log('TEST:', this.region);
     this.apiGatewayId = import.meta.env.VITE_API_GATEWAY_ID;
     this.baseUrl = `https://${this.apiGatewayId}.execute-api.${this.region}.amazonaws.com/prod/`;
     console.log('TEST: BASE URL:', this.baseUrl);
     this.credentials = fromCognitoIdentityPool({
       identityPoolId: identityPoolId,
+      clientConfig: {
+        region: this.region,
+      },
     });
     this.signer = new SignatureV4({
       credentials: this.credentials,
@@ -64,9 +68,8 @@ class ApiGatewaySimpleClient {
         hostname: url.hostname,
         path: url.pathname + url.search,
         headers: headers,
-        body: body ? JSON.stringify(body) : undefined,   
-        }
-      );
+        body: body ? JSON.stringify(body) : undefined,
+      });
 
       // Sign the request with AWS Credentails:
       const signedRequest = await this.signer.sign(request);
@@ -95,31 +98,34 @@ class ApiGatewaySimpleClient {
         console.error('❌ API Error:', responseData);
         if (response.status === 403) {
           return {
-          success: false,
-          error: 'Access Denied - Check your Cognito Identity Pool permissions',
-          message: 'Your app is not authorized to access this API',
-          statusCode: response.status,
+            success: false,
+            error:
+              'Access Denied - Check your Cognito Identity Pool permissions',
+            message: 'Your app is not authorized to access this API',
+            statusCode: response.status,
           };
         } else if (response.status === 401) {
           return {
-          success: false,
-          error: 'Unauthorized - Authentication failed',
-          message: 'Failed to authenticate with Cognito Identity Pool',
-          statusCode: response.status,
+            success: false,
+            error: 'Unauthorized - Authentication failed',
+            message: 'Failed to authenticate with Cognito Identity Pool',
+            statusCode: response.status,
           };
-	    	} else {
+        } else {
           return {
             success: false,
             error: `HTTP ${response.status}: ${response.statusText}`,
             message:
               typeof responseData === 'string'
                 ? responseData
-                : (typeof responseData === 'object' && responseData !== null && 'message' in responseData
-                    ? (responseData as { message?: string }).message
-                    : undefined),
-            statusCode: response.status
+                : typeof responseData === 'object' &&
+                  responseData !== null &&
+                  'message' in responseData
+                ? (responseData as { message?: string }).message
+                : undefined,
+            statusCode: response.status,
           };
-        }    
+        }
       }
 
       // Success API Response:
@@ -165,8 +171,9 @@ class ApiGatewaySimpleClient {
       console.error('Failed to submit Webex form:', error);
       return {
         success: false,
-        error: error instanceof Error ? error.message : 'Unknown error occurred',
-        message: 'Failed to submit Webex form'
+        error:
+          error instanceof Error ? error.message : 'Unknown error occurred',
+        message: 'Failed to submit Webex form',
       };
     }
   }

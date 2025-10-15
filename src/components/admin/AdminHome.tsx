@@ -1,4 +1,5 @@
 import React from "react";
+import ApiTest from "../webex/ApiTest";
 
 // Component Template
 const AdminHome: React.FC = () => {
@@ -6,6 +7,7 @@ const AdminHome: React.FC = () => {
     <div className="w-1/2 flex justify-center">
     
       <h2>AdminHome Componet</h2>
+      <ApiTest />
 
    </div>
     
