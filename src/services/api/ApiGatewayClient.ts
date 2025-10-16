@@ -43,12 +43,6 @@ class ApiGatewayClient {
     try {
       const response = await fetch(url, parameters);
 
-      console.log('API response received:', {
-        status: response.status,
-        statusText: response.statusText,
-        ok: response.ok,
-      });
-
       if (!response.ok) {
         const errorText = await response.text();
         console.error('API error response:', errorText);

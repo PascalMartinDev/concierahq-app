@@ -53,5 +53,11 @@ export class ECommerceMapper extends BaseCustomerMapper {
         commerce7.groups = commerce_seven.groups;
       }
     }
+
+    // Credit Card Mapping
+    if (ecommerce.credit_cards && ecommerce.credit_cards.length > 0) {
+      const ccList = target.creditCardList;
+      ccList.CreditCardList = ecommerce.credit_cards;
+    }
   }
 }

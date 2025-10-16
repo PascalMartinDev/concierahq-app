@@ -1,4 +1,6 @@
 // Database record interfaces:
+import type { CreditCard } from "../../models/webex/business/modules/CreditCards";
+
 // Customer interfaces:
 export interface CustomerRecord {
   crm_customer_id?: string;
@@ -48,7 +50,8 @@ export interface ICommerceSeven {
 export interface IeCommerce {
   e_commerce_customer_id?: string;
   tags?: string[];
-  subscription: ISubscription;
+  subscription?: ISubscription;
+  credit_cards?: CreditCard[];
 }
 
 export interface ISubscription {

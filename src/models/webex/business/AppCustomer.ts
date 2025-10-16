@@ -4,6 +4,7 @@ import { CommerceSeven } from "./modules/CommerceSeven";
 import { Crm } from "./modules/Crm";
 import { CustomFields } from "./modules/CustomFields";
 import { ECommerce } from "./modules/ECommerce";
+import { Shopify } from "./modules/Shopify";
 
 interface IAppCustomer {
   group: string
@@ -11,7 +12,8 @@ interface IAppCustomer {
   crm: Crm;
   bookings: Bookings;
   customFields: CustomFields;
-  commerceSeven: CommerceSeven
+  commerceSeven: CommerceSeven;
+  shopify: Shopify;
 }
 
 export class AppCustomer extends BusinessCustomer implements IAppCustomer{
@@ -21,6 +23,7 @@ export class AppCustomer extends BusinessCustomer implements IAppCustomer{
   protected _crm: Crm;
   protected _bookings: Bookings;
   protected _commerceSeven: CommerceSeven;
+  protected _shopify: Shopify;
 
   constructor() {
     super();
@@ -29,6 +32,7 @@ export class AppCustomer extends BusinessCustomer implements IAppCustomer{
     this._crm = new Crm();
     this._bookings = new Bookings();
     this._commerceSeven = new CommerceSeven();
+    this._shopify = new Shopify();
   }
   
   // Getter:
@@ -41,6 +45,9 @@ export class AppCustomer extends BusinessCustomer implements IAppCustomer{
   get commerceSeven(): CommerceSeven {
     return this._commerceSeven;
   }
+  get shopify(): Shopify {
+    return this._shopify;
+  } 
   get crm(): Crm {
     return this._crm;
   }
@@ -60,6 +67,9 @@ export class AppCustomer extends BusinessCustomer implements IAppCustomer{
   }
   set commerceSeven(value: CommerceSeven) {
     this._commerceSeven = value;
+  }
+  set shopify(value: Shopify ) {
+    this._shopify = value;
   }
   set crm(value: Crm) {
     this._crm = value;

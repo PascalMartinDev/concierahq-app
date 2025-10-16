@@ -8,6 +8,7 @@ export class Customer {
   protected _phone: string = '';
   protected _address: Address;
 
+
   constructor() {
     this._address = new Address();
   }
@@ -35,7 +36,7 @@ export class Customer {
   get address(): Address {
     return this._address;
   }
-
+  
   // Setters:
   set customerId(value: string) {
     this._customerId = value;
@@ -60,6 +61,5 @@ export class Customer {
   set address(value: Address) {
     this._address = value;
   }
-
 }
 
