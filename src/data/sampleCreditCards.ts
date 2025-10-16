@@ -1,0 +1,42 @@
+export const SamplCreditCards = [
+  {
+    card_id: 'GHYIMNNBY',
+    card_brand: 'VISA',
+    masked_Card_Number: '4567',
+    expiry_month: '12',
+    expiry_year: '2026',
+    is_default: 'true',
+  },
+  {
+    card_id: 'ISSIBINGDVXX',
+    card_brand: 'MASTERCARD',
+    masked_Card_Number: '4671',
+    expiry_month: '10',
+    expiry_year: '2027',
+    is_default: 'false',
+  },
+  {
+    card_id: 'ISSIBINGDVXX',
+    card_brand: 'MASTERCARD',
+    masked_Card_Number: '4671',
+    expiry_month: '10',
+    expiry_year: '2027',
+    is_default: 'false',
+  },
+  {
+    card_id: 'ISSIBINGDVXX',
+    card_brand: 'VISA',
+    masked_Card_Number: '4671',
+    expiry_month: '10',
+    expiry_year: '2027',
+    is_default: 'false',
+  },
+  {
+    card_id: 'ISSIBINGDVXX',
+    card_brand: 'AMERICAN EXPRESS',
+    masked_Card_Number: '4671',
+    expiry_month: '10',
+    expiry_year: '2027',
+    is_default: 'false',
+  },
+];
