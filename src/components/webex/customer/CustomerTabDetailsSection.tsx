@@ -5,13 +5,15 @@ import {
   MapPinIcon, 
   ShoppingCartIcon, 
   CalendarIcon, 
-  AdjustmentsHorizontalIcon 
+  AdjustmentsHorizontalIcon,
+  CreditCardIcon
 } from '@heroicons/react/20/solid';
 import CustomerAddress from './CustomerAddress';
 import CustomerPurchaseHistory from './CustomerPurchaseHistory';
 import CustomerCustomFields from './CustomerCustomFields';
 import CustomerBookings from './CustomerBookings';
 import CustomerSegments from './CustomerSegments';
+import CustomerCreditCards from './CustomerCreditCards';
 
 // Type definitions
 interface Tab {
@@ -36,6 +38,7 @@ const CustomerTabDetailsSection: React.FC = () => {
     { name: 'Bookings', component: CustomerBookings, icon: CalendarIcon },
     { name: 'Custom Fields', component: CustomerCustomFields, icon: AdjustmentsHorizontalIcon },
     { name: 'Address', component: CustomerAddress, icon: MapPinIcon },
+    { name: 'Credit Cards', component: CustomerCreditCards, icon: CreditCardIcon },
     { name: 'Purchase History', component: CustomerPurchaseHistory, icon: ShoppingCartIcon },
     
   ];
