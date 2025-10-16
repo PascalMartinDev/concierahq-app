@@ -1,5 +1,15 @@
 // Database record interfaces:
-import type { CreditCard } from "../../models/webex/business/modules/CreditCards";
+
+// DynamoDB raw credit card structure (snake_case from DB)
+export interface DynamoDBCreditCard {
+  card_id?: string;
+  card_brand?: string;
+  masked_card_number?: string;
+  masked_Card_Number?: string; // handle inconsistent casing
+  expiry_month?: number;
+  expiry_year?: number;
+  is_default?: string;
+}
 
 // Customer interfaces:
 export interface CustomerRecord {
@@ -51,7 +61,7 @@ export interface IeCommerce {
   e_commerce_customer_id?: string;
   tags?: string[];
   subscription?: ISubscription;
-  credit_cards?: CreditCard[];
+  credit_cards?: DynamoDBCreditCard[];
 }
 
 export interface ISubscription {

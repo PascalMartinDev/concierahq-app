@@ -1,5 +1,7 @@
 import type { AppCustomer } from "../../models/webex/business/AppCustomer";
 import { BaseCustomerMapper } from "./BaseCustomerMapper";
+import type { DynamoDBCreditCard } from "../../services/db/dynamoDBTableConfiguration";
+import type { CreditCard } from "../../models/webex/business/modules/CreditCards";
 
 export class ECommerceMapper extends BaseCustomerMapper {
   public override map(): AppCustomer {
@@ -57,7 +59,15 @@ export class ECommerceMapper extends BaseCustomerMapper {
     // Credit Card Mapping
     if (ecommerce.credit_cards && ecommerce.credit_cards.length > 0) {
       const ccList = target.creditCardList;
-      ccList.CreditCardList = ecommerce.credit_cards;
+      // Transform snake_case DynamoDB fields to camelCase TypeScript properties
+      ccList.CreditCardList = ecommerce.credit_cards.map((card: DynamoDBCreditCard): CreditCard => ({
+        cardId: card.card_id || '',
+        cardBrand: card.card_brand || '',
+        maskedCardNumber: card.masked_card_number || card.masked_Card_Number || '',
+        expiryMonth: card.expiry_month || 0,
+        expiryYear: card.expiry_year || 0,
+        isDefault: card.is_default || ''
+      }));
     }
   }
 }
