@@ -10,7 +10,15 @@ declare global {
   // POS Business Functions
   var pos_getCurrentAccount: (callback: PosCallback) => void;
   var pos_setConsumer: (consumer: Consumer) => void;
-  var pos_toggleDiscount: (discountCode: string, lineId: string, callback: PosCallback) => void;
+  var pos_toggleDiscount: (
+    discountCode: string,
+    lineId: string,
+    callback: PosCallback
+  ) => void;
+  var pos_toggleGlobalDiscount: (
+    discountCode: string,
+    callback: PosCallback
+  ) => void;
   var pos_addExternalReference: (reference: string, prefix: string) => void;
 
   // Pos Message
@@ -21,7 +29,6 @@ declare global {
 
   // POS Context Data
   var posContext: IPosContext;
-
 }
 
 export {};
@@ -52,7 +59,7 @@ export {};
  * - pos_close(): void - Closes the web extension
  * - pos_generateCallbackId(): string - Generates unique callback identifier
  * - pos_disableCloseButton(): void - Disables the default close button
- * 
+ *
  * Business POS Functions:
  * - pos_getCurrentAccount(callback): void - Retrieves current transaction account data
  * - pos_setConsumer(consumer): void - Sets customer data for current transaction
