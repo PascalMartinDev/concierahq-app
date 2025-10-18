@@ -11,7 +11,6 @@ const StateSelectInput = React.forwardRef<HTMLSelectElement, object>(
       colSpan="sm:col-span-2"
       selectRef={ref}
       options={[
-        "",
         { value: "AU-WA", label: "Western Australia" },
         { value: "AU-SA", label: "South Australia" },
         { value: "AU-VIC", label: "Victoria" },
