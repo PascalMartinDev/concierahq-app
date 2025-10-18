@@ -2,7 +2,8 @@ import type { IWorkflow } from '../context/workflowInterface';
 import { RaiseErrorWorkflow } from './RaiseErrorWorkflow';
 import { SetConsumerWorkflow } from '../workflows/SetConsumerWorkflow'
 import { getGlobalAppCustomer } from '../context/workflowContextInstance';
-//import { DiscountStrategyRegistry } from '../../discounts/DiscountStrategyRegistry';
+import DiscountStrategyRegistry from '../../services/discount/DiscountStrategyRegistry';
+
 
 export class CloseExtensionWorkflow implements IWorkflow {
   async execute(): Promise<void> { 
@@ -27,7 +28,6 @@ export class CloseExtensionWorkflow implements IWorkflow {
   }
 
   private async executeWorkflowChain(appCustomer: { group?: string }): Promise<void> {
-    console.log(appCustomer.group);
     const setConsumerWorkflow = new SetConsumerWorkflow();
     await setConsumerWorkflow.execute();
 
@@ -38,13 +38,12 @@ export class CloseExtensionWorkflow implements IWorkflow {
 
   private async applyDiscountStrategy(customerGroup: string): Promise<void> {
     try {
-      const strategy = true;//DiscountStrategyRegistry.getStrategy(customerGroup);
+      const strategy = DiscountStrategyRegistry.getStrategy(customerGroup);
       if (strategy) {
-        console.log(`TEST: Applying discount strategy for group ${customerGroup}`);
-        //await strategy.execute();
+        await strategy.execute();
       }
     } catch (error) {
-      console.log(`TEST: Error no strategy ${error}`); // REMOVE TO LOGGER
+      throw new Error(`Discount Strategy Failed: ${error}`);
     }
   }
 
@@ -52,7 +51,7 @@ export class CloseExtensionWorkflow implements IWorkflow {
     try {
       pos_close();
     } catch (error) {
-      console.log(`TEST: closeextension ${error}`)
+      throw new Error(`Failed to close the Webextension: ${error}`);
     }
   }
   
