@@ -20,6 +20,11 @@ declare global {
     callback: PosCallback
   ) => void;
   var pos_addExternalReference: (reference: string, prefix: string) => void;
+  var pos_addSpecialItemToCurrentAccount: (
+    itemId: string,
+    priceCents: number,
+    name: string
+  ) => void;
 
   // Pos Message
   var pos_postMessage: (data: { name: string; args: unknown }) => void;
