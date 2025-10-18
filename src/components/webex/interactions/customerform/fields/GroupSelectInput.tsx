@@ -10,13 +10,14 @@ const GroupSelectInput = React.forwardRef<HTMLSelectElement, object>(
       required={true}
       colSpan="sm:col-span-2"
       selectRef={ref}
-      defaultValue="VIP"
+      defaultValue="Loyalty"
       options={[
-        "Subscription Club A",
-        "Subscription Club B",
+        "Club Platinum",
+        "Club Gold",
+        "Club Silver",
         "VIP",
-        "Staff",
-        "Frieds and Family"
+        "Loyalty",
+        "Friends and Family"
       ]}
     />
   )
