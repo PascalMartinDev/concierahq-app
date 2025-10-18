@@ -6,7 +6,8 @@ import ApplyLineDiscountsByAccountingGroup from "../helpers/ApplyLineDiscountsBy
 
 class ClubGoldDiscountStrategy implements DiscountStrategy {
   _currentAccount!: CurrentAccount;
-  private discountCode: string = "ClubGold";
+  private _discountCode: string = "ClubGold";
+  private _accountingGroup: string = "Wine";
 
   async execute(): Promise<void> {
     try {
@@ -35,8 +36,9 @@ class ClubGoldDiscountStrategy implements DiscountStrategy {
 
   async applyDiscountStrategy(): Promise<void> {
     const applyDiscounts = new ApplyLineDiscountsByAccountingGroup(
-      this.discountCode,
-      this._currentAccount.transactionLines
+      this._discountCode,
+      this._currentAccount.transactionLines,
+      this._accountingGroup
     );
     applyDiscounts.applyDiscounts();
   }

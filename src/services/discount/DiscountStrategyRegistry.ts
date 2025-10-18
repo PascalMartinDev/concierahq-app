@@ -1,9 +1,12 @@
 import type { DiscountStrategy } from "./DiscountStrategy";
-//mport FotbDiscountStrategy from "./strategies/FotbDiscountStrategy";
-//import InternationalDiscountStrategy from "./strategies/InternationalDiscountStrategy";
-//import StaffDiscountStrategy from "./strategies/StaffDiscountStrategy";
-//import WineClubDiscountStrategy from "./strategies/WineClubDiscountStrategy";
+
 import { RaiseErrorWorkflow } from "../../workflow/workflows/RaiseErrorWorkflow";
+import ClubSilverDiscountStrategy from "./strategies/ClubSilverDiscountStrategy";
+import ClubGoldDiscountStrategy from "./strategies/ClubGoldDiscountStrategy";
+import ClubPlatinumDiscountStrategy from "./strategies/ClubPlatinumDiscountStrategy";
+import LoyaltyDiscountStrategy from "./strategies/LoyaltyDiscountStrategy";
+import VIPDiscountStrategy from "./strategies/VIPDiscountStrategy";
+import FriendsAndFamilyDiscountStrategy from "./strategies/FriendsAndFamilyDiscountStrategy";
 
 //Customer Group Types:
 export type CustomerGroup = string;
@@ -12,10 +15,13 @@ export type CustomerGroup = string;
 class DiscountStrategyRegistry {
   private static strategies = new Map<CustomerGroup, () => DiscountStrategy>(
     [
-      //['Wine Club', () => new WineClubDiscountStrategy()],
-      //['Staff', () => new StaffDiscountStrategy()],
-      //['Friends of The Burches', () => new FotbDiscountStrategy()],
-      //['International sales', () => new InternationalDiscountStrategy()]
+      ['Club Silver', () => new ClubSilverDiscountStrategy()],
+      ['Club Gold', () => new ClubGoldDiscountStrategy()],
+      ['Club Platinum', () => new ClubPlatinumDiscountStrategy()],
+      ['VIP', () => new VIPDiscountStrategy()],
+      ['Loyalty', () => new LoyaltyDiscountStrategy()],
+      ['Friends and Family', () => new FriendsAndFamilyDiscountStrategy()],
+
     ]
   );
 

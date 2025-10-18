@@ -5,22 +5,23 @@ const handleDiscountCallback = () => {};
 class ApplyLineDiscountsByAccountingGroup {
   private _items: TransactionLine[];
   private _discountCode: string;
-
-  constructor(discountCode: string, items: TransactionLine[]) {
+  private _accountingGroup: string;
+ 
+  constructor(discountCode: string, items: TransactionLine[], accountingGroup: string) {
     this._discountCode = discountCode;
     this._items = items;
+    this._accountingGroup = accountingGroup;
   }
 
   applyDiscounts() {
     this._items.forEach((item)=> {
       const { identifier, accountingGroupName, discounts} = item;
-      if (accountingGroupName === import.meta.env.VITE_DISCOUNT_STRATEGY_LINE_ITEM_ACCOUNTING_GROUP) {
+      if (accountingGroupName === this._accountingGroup) {
         if(!discounts.includes(this._discountCode)){
           pos_toggleDiscount(this._discountCode, identifier, handleDiscountCallback);
         }
       }
     });
-
   }  
 }
 
