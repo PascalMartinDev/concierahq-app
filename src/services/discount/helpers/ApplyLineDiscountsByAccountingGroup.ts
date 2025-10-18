@@ -12,6 +12,7 @@ class ApplyLineDiscountsByAccountingGroup {
     this._items = items;
     this._accountingGroup = accountingGroup;
   }
+  
 
   applyDiscounts() {
     this._items.forEach((item)=> {

@@ -35,21 +35,21 @@ class FriendsAndFamilyDiscountStrategy implements DiscountStrategy {
   async applyDiscountStrategy(): Promise<void> {
     // Apply Wine discounts
     const applyDiscountsWine = new ApplyLineDiscountsByAccountingGroup(
-      'FamilyandFriendsWine',
+      'FriendsandFamilyWine',
       this._currentAccount.transactionLines,
-      'Wine'
+      'Wines'
     );
     applyDiscountsWine.applyDiscounts();
     // Apply Beer discounts
     const applyDiscountsBeer = new ApplyLineDiscountsByAccountingGroup(
-      'FamilyandFriendsBeer',
+      'FriendsandFamilyBeer',
       this._currentAccount.transactionLines,
-      'Beer'
+      'Beers'
     );
     applyDiscountsBeer.applyDiscounts();
     // Apply Food discounts
     const applyDiscountsFood = new ApplyLineDiscountsByAccountingGroup(
-      'FamilyandFriendsFood',
+      'FriendsandFamilyFood',
       this._currentAccount.transactionLines,
       'Food'
     );

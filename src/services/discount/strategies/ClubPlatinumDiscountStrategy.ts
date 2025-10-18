@@ -1,13 +1,13 @@
-import type { CurrentAccount } from "../../../models/webex/customer/CurrentAccount";
-import { getGlobalAppCustomer } from "../../../workflow/context/workflowContextInstance";
-import type { DiscountStrategy } from "../DiscountStrategy";
-import { RaiseErrorWorkflow } from "../../../workflow/workflows/RaiseErrorWorkflow";
-import ApplyLineDiscountsByAccountingGroup from "../helpers/ApplyLineDiscountsByAccountingGroup";
+import type { CurrentAccount } from '../../../models/webex/customer/CurrentAccount';
+import { getGlobalAppCustomer } from '../../../workflow/context/workflowContextInstance';
+import type { DiscountStrategy } from '../DiscountStrategy';
+import { RaiseErrorWorkflow } from '../../../workflow/workflows/RaiseErrorWorkflow';
+import ApplyLineDiscountsByAccountingGroup from '../helpers/ApplyLineDiscountsByAccountingGroup';
 
 class ClubPlatinumDiscountStrategy implements DiscountStrategy {
   _currentAccount!: CurrentAccount;
-  private discountCode: string = "ClubPlatinum";
-  private _accountingGroup: string = "Wine";
+  private discountCode: string = 'ClubPlatinum';
+  private _accountingGroup: string = 'Wines';
   async execute(): Promise<void> {
     try {
       this.getCurrentAccount();
@@ -18,8 +18,11 @@ class ClubPlatinumDiscountStrategy implements DiscountStrategy {
 
       await this.applyDiscountStrategy();
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : String(error);
-      const errorWorkflow = new RaiseErrorWorkflow(`Wine Club discount strategy failed: ${errorMessage}`);
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
+      const errorWorkflow = new RaiseErrorWorkflow(
+        `Wine Club discount strategy failed: ${errorMessage}`
+      );
       await errorWorkflow.execute();
       throw error;
     }
@@ -28,7 +31,9 @@ class ClubPlatinumDiscountStrategy implements DiscountStrategy {
   getCurrentAccount(): void {
     const appCustomer = getGlobalAppCustomer();
     if (!appCustomer?.currentAccount) {
-      throw new Error('No AppCustomer or CurrentAccount found in global storage');
+      throw new Error(
+        'No AppCustomer or CurrentAccount found in global storage'
+      );
     }
     this._currentAccount = appCustomer.currentAccount;
   }

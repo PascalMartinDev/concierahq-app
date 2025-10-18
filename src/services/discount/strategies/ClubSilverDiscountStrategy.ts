@@ -7,7 +7,7 @@ import ApplyLineDiscountsByAccountingGroup from "../helpers/ApplyLineDiscountsBy
 class ClubSilverDiscountStrategy implements DiscountStrategy {
   _currentAccount!: CurrentAccount;
   private discountCode: string = "ClubSilver";
-  private _accountingGroup: string = "Wine";
+  private _accountingGroup: string = "Wines";
 
   async execute(): Promise<void> {
     try {
