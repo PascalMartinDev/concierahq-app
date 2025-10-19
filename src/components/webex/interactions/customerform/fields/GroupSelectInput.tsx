@@ -1,8 +1,12 @@
 import React from 'react';
 import FormSelect from '../FormSelect';
 
-const GroupSelectInput = React.forwardRef<HTMLSelectElement, object>(
-  (_props, ref) => (
+interface GroupSelectInputProps {
+  onChange?: (value: string) => void;
+}
+
+const GroupSelectInput = React.forwardRef<HTMLSelectElement, GroupSelectInputProps>(
+  ({ onChange }, ref) => (
     <FormSelect
       id="group"
       name="group"
@@ -12,6 +16,7 @@ const GroupSelectInput = React.forwardRef<HTMLSelectElement, object>(
       selectRef={ref}
       defaultValue="Loyalty"
       options={['Loyalty', 'VIP', 'Club Platinum', 'Club Gold', 'Club Silver']}
+      onChange={onChange}
     />
   )
 );

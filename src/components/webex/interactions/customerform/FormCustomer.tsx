@@ -1,5 +1,5 @@
 // src/components/interactions/AddUpdateCustomerForm.tsx
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useWorkflow } from '../../../../workflow/hooks/useWorkflow';
 import { useAppCustomer } from '../../../../workflow/hooks/useAppCustomer';
 import { SubmitCustomerFormWorkflow } from '../../../../workflow/workflows/SubmitCustomerFormWorkflow';
@@ -49,11 +49,21 @@ const FormCustomer: React.FC = () => {
   const formInputPostcode = useRef<HTMLInputElement>(null);
   const [selectedCountry, setSelectedCountry] = React.useState<{ name: string; isoCode: string }>({
     name: 'Australia',
-    isoCode: 'AU',  
+    isoCode: 'AU',
   });
   const [selectedState, setSelectedState] = React.useState<string>('');
+  const [selectedGroup, setSelectedGroup] = React.useState<string>('Loyalty');
+  const [isAddressRequired, setIsAddressRequired] = React.useState<boolean>(false);
 
+  // Update address required state when group changes
+  useEffect(() => {
+    setIsAddressRequired(selectedGroup !== 'Loyalty');
+  }, [selectedGroup]);
 
+  // Handler for group selection change
+  const handleGroupChange = (value: string) => {
+    setSelectedGroup(value);
+  };
 
   const submitHandler = async (
     event: React.FormEvent<HTMLFormElement>
@@ -215,13 +225,14 @@ const FormCustomer: React.FC = () => {
                   ref={formInputPhone}
                 />
                 {/* Group input field */}
-                <GroupSelectInput 
-                  ref={formInputGroup} 
+                <GroupSelectInput
+                  ref={formInputGroup}
+                  onChange={handleGroupChange}
                 />
                 
                 {/* Address Component */}
                 <AddressInput
-                  isRequired={formInputGroup.current?.value !== "Loyalty"}
+                  isRequired={isAddressRequired}
                   formInputStreet1={formInputStreet1}
                   formInputStreet2={formInputStreet2}
                   formInputCity={formInputCity}
