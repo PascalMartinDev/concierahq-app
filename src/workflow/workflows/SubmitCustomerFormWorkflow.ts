@@ -1,20 +1,18 @@
 import type { IWorkflow } from '../context/workflowInterface';
 import { RaiseErrorWorkflow } from './RaiseErrorWorkflow';
-import { getGlobalAppCustomer } from '../context/workflowContextInstance';
+import { getGlobalAppCustomer, getGlobalWorkflowContext } from '../context/workflowContextInstance';
 import { CloseExtensionWorkflow } from './CloseExtensionWorkflow';
 import ApiGatewayClient from '../../services/api/ApiGatewayClient';
-import type { WorkflowContextType } from '../context/workflowContext';
+
 
 export class SubmitCustomerFormWorkflow implements IWorkflow {
-  private _workflowContext!: WorkflowContextType
   async execute(): Promise<void> {
     try {
-      this._workflowContext.setLoadingMessage('Updating Customer!')
-      this._workflowContext.setIsLoading(true);
-      const appCustomer = await this.validateDependencies();
+      const {workflowContext, appCustomer} = await this.validateDependencies();
+      workflowContext.setLoadingMessage("Updating Customer Details!");
+      workflowContext.setIsLoading(true);
       await this.executeWorkflowChain(appCustomer);
     } catch (error) {
-      this._workflowContext.setIsLoading(false);
       const errorMessage =
         error instanceof Error ? error.message : String(error);
       const errorWorkflow = new RaiseErrorWorkflow(
@@ -25,11 +23,16 @@ export class SubmitCustomerFormWorkflow implements IWorkflow {
   }
 
   private async validateDependencies() {
+    const workflowContext = getGlobalWorkflowContext();
+        if (!workflowContext) {
+          throw new Error('Workflow context not found');
+        }
+
     const appCustomer = getGlobalAppCustomer();
     if (!appCustomer?.customer) {
       throw new Error('No AppCustomer found in global storage');
     }
-    return appCustomer;
+    return {workflowContext, appCustomer };
   }
 
   private async executeWorkflowChain(appCustomer: {
