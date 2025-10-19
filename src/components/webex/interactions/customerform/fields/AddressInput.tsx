@@ -43,7 +43,7 @@ const AddressInput: React.FC<AddressFormProps> = ({
       {/* Street 1 */}
       <div className="sm:col-span-3">
         <label className="block text-sm/6 font-medium text-gray-900">
-          Street Address 1 {isRequired && "(required)"}
+          Street Address 1 {isRequired && <span className="text-red-600">Required*</span>}
         </label>
         <div className="mt-2">
           <input
@@ -72,7 +72,7 @@ const AddressInput: React.FC<AddressFormProps> = ({
       {/* City */}
       <div className="sm:col-span-3">
         <label className="block text-sm/6 font-medium text-gray-900">
-          City {isRequired && "(required)"}
+          City {isRequired && <span className="text-red-600">Required*</span>}
         </label>
         <div className="mt-2">
           <input
@@ -87,7 +87,7 @@ const AddressInput: React.FC<AddressFormProps> = ({
       {/* Country */}
       <div className="sm:col-span-3">
         <label className="block text-sm/6 font-medium text-gray-900">
-          Country {isRequired && "(required)"}
+          Country {isRequired && <span className="text-red-600">Required*</span>}
         </label>
         <div className="mt-2 grid grid-cols-1">
           <select
@@ -121,7 +121,7 @@ const AddressInput: React.FC<AddressFormProps> = ({
       {/* State */}
       <div className="sm:col-span-3">
         <label className="block text-sm/6 font-medium text-gray-900">
-          State / Region {isRequired && "(required)"}
+          State / Region {isRequired && <span className="text-red-600">Required*</span>}
         </label>
         <div className="mt-2 grid grid-cols-1">
           <select
@@ -146,7 +146,7 @@ const AddressInput: React.FC<AddressFormProps> = ({
       {/* Postcode */}
       <div className="sm:col-span-2">
         <label className="block text-sm/6 font-medium text-gray-900">
-          Postcode {isRequired && "(required)"}
+          Postcode {isRequired && <span className="text-red-600">Required*</span>}
         </label>
         <div className="mt-2">
           <input

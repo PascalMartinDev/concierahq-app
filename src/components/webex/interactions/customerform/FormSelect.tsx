@@ -24,13 +24,16 @@ const FormSelect: React.FC<FormSelectProps> = ({
   defaultValue,
   onChange
 }) => {
+  // Only show "Required*" if field is required AND has no default value
+  const showRequired = required && !defaultValue;
+
   return (
     <div className={colSpan}>
       <label
         htmlFor={id}
         className="block text-sm/6 font-medium text-gray-900"
       >
-        {label} {required && "(required)"}
+        {label} {showRequired && <span className="text-red-600">Required*</span>}
       </label>
       <div className="mt-2 grid grid-cols-1">
         <select

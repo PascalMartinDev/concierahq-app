@@ -21,7 +21,7 @@ export interface FormInputProps {
 interface FormInputLabelProps {
   id: string;
   label: string;
-  required?: boolean;
+  showRequired?: boolean;
 }
 
 interface FormInputErrorProps {
@@ -30,12 +30,12 @@ interface FormInputErrorProps {
   showError?: boolean;
 }
 
-const FormInputLabel: React.FC<FormInputLabelProps> = ({ id, label, required }) => (
+const FormInputLabel: React.FC<FormInputLabelProps> = ({ id, label, showRequired }) => (
   <label
     htmlFor={id}
     className="block text-sm/6 font-medium text-gray-900"
   >
-    {label} {required && "(required)"}
+    {label} {showRequired && <span className="text-red-600">Required*</span>}
   </label>
 );
 
@@ -65,9 +65,12 @@ const FormInput: React.FC<FormInputProps & { ref?: ForwardedRef<HTMLInputElement
   showError = false,
   ref
 }) => {
+  // Only show "Required*" if field is required AND has no default value
+  const showRequired = required && !defaultValue;
+
   return (
     <div className={colSpan}>
-      <FormInputLabel id={id} label={label} required={required} />
+      <FormInputLabel id={id} label={label} showRequired={showRequired} />
       <div className="mt-2">
         <input
           id={id}
