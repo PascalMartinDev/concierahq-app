@@ -48,13 +48,14 @@ export interface IBooking {
   booking_status?: string;
   booking_table_name_number?: string;
   booking_table_section?: string;
-  booking_tags_list?:string[];
+  booking_tags_list?: string[];
 }
 
 export interface ICommerceSeven {
   clubs?: string[];
   flags?: string[];
   groups?: string[];
+  notifications?: string[];
 }
 
 export interface IeCommerce {
@@ -80,8 +81,6 @@ export interface ICustomFields {
   custom_field_5?: string;
 }
 
-
-
 // Interface for Pricing Matrix strategy:
 export interface IProductPriceRecord {
   sku: string;
@@ -94,14 +93,13 @@ export interface IProductPriceRecord {
 export const DYNAMODB_TABLE_CONFIG = {
   CUSTOMER: {
     tableName: import.meta.env.VITE_DB_TABLE_CUSTOMER,
-    partitionKey: 'email'
+    partitionKey: 'email',
   },
   PRODUCT: {
     tableName: import.meta.env.VITE_DB_TABLE_PRICE_MATRIX,
-    partitionKey: 'sku' 
-  }
+    partitionKey: 'sku',
+  },
 } as const;
-
 
 export const createDynamoDBItem = (
   tableKey: keyof typeof DYNAMODB_TABLE_CONFIG,
@@ -109,6 +107,5 @@ export const createDynamoDBItem = (
 ) => ({
   tableName: DYNAMODB_TABLE_CONFIG[tableKey].tableName,
   partitionKey: DYNAMODB_TABLE_CONFIG[tableKey].partitionKey,
-  keyValue  
-})
-
+  keyValue,
+});

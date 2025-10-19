@@ -54,6 +54,10 @@ export class ECommerceMapper extends BaseCustomerMapper {
       if (commerce_seven.groups) {
         commerce7.groups = commerce_seven.groups;
       }
+      // Set Notifications:
+      if (commerce_seven.notifications) {
+        commerce7.notifications = commerce_seven.notifications;
+      }
     }
 
     // Credit Card Mapping
