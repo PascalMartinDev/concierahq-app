@@ -1,7 +1,7 @@
 // Database record interfaces:
 
 // DynamoDB raw credit card structure (snake_case from DB)
-export interface DynamoDBCreditCard {
+export interface CustomerCreditCard {
   card_id?: string;
   card_brand?: string;
   masked_card_number?: string;
@@ -21,12 +21,12 @@ export interface CustomerRecord {
   last_name?: string;
   phone?: string;
   group?: string;
-  tags?: string[];
-  address: ICustomerAddress;
-  booking: IBooking;
-  commerce_seven: ICommerceSeven;
-  ecommerce: IeCommerce;
-  custom_fields: ICustomFields;
+  address?: ICustomerAddress;
+  booking?: IBooking;
+  commerce_seven?: ICommerceSeven;
+  ecommerce?: IeCommerce;
+  custom_fields?: ICustomFields;
+  notes?: string;
 }
 
 export interface ICustomerAddress {
@@ -62,7 +62,7 @@ export interface IeCommerce {
   e_commerce_customer_id?: string;
   tags?: string[];
   subscription?: ISubscription;
-  credit_cards?: DynamoDBCreditCard[];
+  credit_cards?: CustomerCreditCard[];
 }
 
 export interface ISubscription {

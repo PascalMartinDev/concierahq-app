@@ -1,6 +1,6 @@
 import type { AppCustomer } from "../../models/webex/business/AppCustomer";
 import { BaseCustomerMapper } from "./BaseCustomerMapper";
-import type { DynamoDBCreditCard } from "../../services/db/dynamoDBTableConfiguration";
+import type { CustomerCreditCard } from "../../services/db/dynamoDBTableConfiguration";
 import type { CreditCard } from "../../models/webex/business/modules/CreditCards";
 
 export class ECommerceMapper extends BaseCustomerMapper {
@@ -64,7 +64,7 @@ export class ECommerceMapper extends BaseCustomerMapper {
     if (ecommerce.credit_cards && ecommerce.credit_cards.length > 0) {
       const ccList = target.creditCardList;
       // Transform snake_case DynamoDB fields to camelCase TypeScript properties
-      ccList.CreditCardList = ecommerce.credit_cards.map((card: DynamoDBCreditCard): CreditCard => ({
+      ccList.CreditCardList = ecommerce.credit_cards.map((card: CustomerCreditCard): CreditCard => ({
         cardId: card.card_id || '',
         cardBrand: card.card_brand || '',
         maskedCardNumber: card.masked_card_number || card.masked_Card_Number || '',

@@ -1,6 +1,5 @@
-import type { AppCustomer } from "../../models/webex/business/AppCustomer";
-import { BaseCustomerMapper } from "./BaseCustomerMapper";
-
+import type { AppCustomer } from '../../models/webex/business/AppCustomer';
+import { BaseCustomerMapper } from './BaseCustomerMapper';
 
 export class CRMMapper extends BaseCustomerMapper {
   public override map(): AppCustomer {
@@ -15,5 +14,6 @@ export class CRMMapper extends BaseCustomerMapper {
       appCustomer.crm.crmCustomerId = customerProfile.crm_customer_id;
     if (customerProfile.email_status)
       appCustomer.crm.emailStatus = customerProfile.email_status;
+    if (customerProfile.notes) appCustomer.crm.notes = customerProfile.notes;
   }
 }
