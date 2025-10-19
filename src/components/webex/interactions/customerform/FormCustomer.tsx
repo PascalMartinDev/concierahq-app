@@ -1,21 +1,20 @@
 // src/components/interactions/AddUpdateCustomerForm.tsx
 import React, { useRef } from 'react';
-import NameInput from './fields/NameInput';
-import EmailInput from './fields/EmailInput';
-import PhoneInput from './fields/PhoneInput';
-import PostcodeInput from './fields/PostcodeInput';
 import { useWorkflow } from '../../../../workflow/hooks/useWorkflow';
 import { useAppCustomer } from '../../../../workflow/hooks/useAppCustomer';
 import { SubmitCustomerFormWorkflow } from '../../../../workflow/workflows/SubmitCustomerFormWorkflow';
 import { setGlobalAppCustomer } from '../../../../workflow/context/workflowContextInstance';
 import { RaiseErrorWorkflow } from '../../../../workflow/workflows/RaiseErrorWorkflow';
 import CircleButton from '../../../ui/CircleButton';
-import StateSelectInput from './fields/StateSelectInput';
-import GroupSelectInput from './fields/GroupSelectInput';
 import FormHeading from './FormHeading';
+import NameInput from './fields/NameInput';
+import EmailInput from './fields/EmailInput';
+import PhoneInput from './fields/PhoneInput';
+import GroupSelectInput from './fields/GroupSelectInput';
+import AddressInput from './fields/AddressInput';
 
 
-const FormAddUpdateCustomer: React.FC = () => {
+const FormCustomer: React.FC = () => {
   // Use the custom hook to get current App Customer data
   const appCustomer = useAppCustomer();
   const { setShowCreateForm } = useWorkflow();
@@ -43,9 +42,18 @@ const FormAddUpdateCustomer: React.FC = () => {
   const formInputLastName = useRef<HTMLInputElement>(null);
   const formInputEmail = useRef<HTMLInputElement>(null);
   const formInputPhone = useRef<HTMLInputElement>(null);
-  const formInputState = useRef<HTMLSelectElement>(null);
-  const formInputPostcode = useRef<HTMLInputElement>(null);
   const formInputGroup = useRef<HTMLSelectElement>(null);
+  const formInputStreet1 = useRef<HTMLInputElement>(null);
+  const formInputStreet2 = useRef<HTMLInputElement>(null);
+  const formInputCity = useRef<HTMLInputElement>(null);
+  const formInputPostcode = useRef<HTMLInputElement>(null);
+  const [selectedCountry, setSelectedCountry] = React.useState<{ name: string; isoCode: string }>({
+    name: 'Australia',
+    isoCode: 'AU',  
+  });
+  const [selectedState, setSelectedState] = React.useState<string>('');
+
+
 
   const submitHandler = async (
     event: React.FormEvent<HTMLFormElement>
@@ -79,8 +87,12 @@ const FormAddUpdateCustomer: React.FC = () => {
     const lastName = formInputLastName.current?.value?.trim() || '';
     const email = formInputEmail.current?.value?.trim() || '';
     const phone = formInputPhone.current?.value?.trim() || '';
-    const state = formInputState.current?.value || '';
+    const address1 = formInputStreet1.current?.value?.trim() || '';
+    const address2 = formInputStreet2.current?.value?.trim() || '';
+    const city = formInputCity.current?.value?.trim() || '';
     const postcode = formInputPostcode.current?.value?.trim() || '';
+    const state = selectedState || '';
+    const country = selectedCountry || '';
     const group = formInputGroup.current?.value || '';
 
     return {
@@ -88,8 +100,12 @@ const FormAddUpdateCustomer: React.FC = () => {
       lastName,
       email,
       phone,
-      state,
       postcode,
+      address1,
+      address2,
+      city,
+      state,
+      country,
       group
     };
   };
@@ -132,7 +148,11 @@ const FormAddUpdateCustomer: React.FC = () => {
     appCustomer.group = data.group;
 
     // Update address information
+    appCustomer.customer.address.address1 = data.address1;
+    appCustomer.customer.address.address2 = data.address2;
+    appCustomer.customer.address.city = data.city;
     appCustomer.customer.address.state = data.state;
+    appCustomer.customer.address.country = data.country.name;
     appCustomer.customer.address.postcode = data.postcode;
 
     // Update global customer state
@@ -198,14 +218,21 @@ const FormAddUpdateCustomer: React.FC = () => {
                 <GroupSelectInput 
                   ref={formInputGroup} 
                 />
-                {/* State input field */}
-                <StateSelectInput 
-                  ref={formInputState} 
+                
+                {/* Address Component */}
+                <AddressInput
+                  isRequired={formInputGroup.current?.value !== "Loyalty"}
+                  formInputStreet1={formInputStreet1}
+                  formInputStreet2={formInputStreet2}
+                  formInputCity={formInputCity}
+                  formInputPostcode={formInputPostcode}
+                  selectedCountry={selectedCountry}
+                  setSelectedCountry={setSelectedCountry}
+                  selectedState={selectedState}
+                  setSelectedState={setSelectedState}
+                
                 />
-                {/* Postcode input field */}
-                <PostcodeInput 
-                  ref={formInputPostcode}
-                />
+                
               </div>
             </div>
           </div>
@@ -226,5 +253,5 @@ const FormAddUpdateCustomer: React.FC = () => {
   );
 };
 
-export default FormAddUpdateCustomer;
+export default FormCustomer;
 

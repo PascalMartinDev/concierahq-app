@@ -16,7 +16,7 @@ const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
       pattern="^\+?[0-9\s-]{10,20}$"
       title="Enter a valid phone number"
       defaultValue={defaultValue}
-      colSpan="sm:col-span-6"
+      colSpan="sm:col-span-3"
       ref={ref}
     />
   )

@@ -20,7 +20,9 @@
     "@aws-sdk/util-dynamodb": "^3.899.0",
     "@heroicons/react": "^2.2.0",
     "@tailwindcss/vite": "^4.1.13",
+    "country-state-city": "^3.2.1",
     "react": "^19.1.1",
+    "react-country-state-city": "^1.1.12",
     "react-dom": "^19.1.1",
     "react-router-dom": "^7.9.1",
     "tailwindcss": "^4.1.13"

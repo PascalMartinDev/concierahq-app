@@ -1,5 +1,5 @@
 import { useWorkflow } from '../../../workflow/hooks/useWorkflow';
-import FormAddUpdateCustomer from './customerform/FormAddUpdateCustomer';
+import FormCustomer from './customerform/FormCustomer';
 import LookupCustomerSearch from './customersearch/LookupCustomerSearch';
 
 
@@ -9,7 +9,7 @@ const CustomerManagementSection: React.FC = () => {
   return (
     <>
       {/* Display Add Update Customer Form when needed */}
-      {showCreateForm && <FormAddUpdateCustomer /> }
+      {showCreateForm && <FormCustomer /> }
       
       {/* Display Lookup Search Box when needed */}
       {showSearchBox && <LookupCustomerSearch /> }
