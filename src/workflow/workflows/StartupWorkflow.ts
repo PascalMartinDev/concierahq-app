@@ -29,7 +29,7 @@ export class StartupWorkflow implements IWorkflow {
     // Set loading to false after half second to allow everything to load
     setTimeout(() => {
       this.workflowContext.setIsLoading(false);
-    }, 500);
+    }, 600);
   }
 }
 

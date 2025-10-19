@@ -12,7 +12,7 @@ export class GetCustomerProfileWorkflow implements IWorkflow {
   async execute(): Promise<void> {
     try {
       const { workflowContext, appCustomer } = await this.validateDependencies();
-      
+      workflowContext.setIsLoading(true);
       const consumerEmail = this.extractConsumerEmail(appCustomer);
       if (!consumerEmail) {
         this.triggerSearchMode(workflowContext);
@@ -25,7 +25,10 @@ export class GetCustomerProfileWorkflow implements IWorkflow {
         return;
       }
 
-      this.updateCustomerData(customerProfile, appCustomer, workflowContext);  
+      this.updateCustomerData(customerProfile, appCustomer, workflowContext);
+      setTimeout(() => {
+        workflowContext.setIsLoading(false);
+      }, 500);
     } catch (error) {
       await this.handleError(error);
     }

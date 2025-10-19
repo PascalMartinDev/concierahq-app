@@ -3,13 +3,18 @@ import { RaiseErrorWorkflow } from './RaiseErrorWorkflow';
 import { getGlobalAppCustomer } from '../context/workflowContextInstance';
 import { CloseExtensionWorkflow } from './CloseExtensionWorkflow';
 import ApiGatewayClient from '../../services/api/ApiGatewayClient';
+import type { WorkflowContextType } from '../context/workflowContext';
 
 export class SubmitCustomerFormWorkflow implements IWorkflow {
+  private _workflowContext!: WorkflowContextType
   async execute(): Promise<void> {
     try {
+      this._workflowContext.setLoadingMessage('Updating Customer!')
+      this._workflowContext.setIsLoading(true);
       const appCustomer = await this.validateDependencies();
       await this.executeWorkflowChain(appCustomer);
     } catch (error) {
+      this._workflowContext.setIsLoading(false);
       const errorMessage =
         error instanceof Error ? error.message : String(error);
       const errorWorkflow = new RaiseErrorWorkflow(
