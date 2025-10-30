@@ -6,6 +6,10 @@ export interface WebexFormData {
   group: string;
 }
 
+export interface CreditCardUpdateData {
+  email: string;
+}
+
 export interface APIResponse<T = unknown> {
   success: boolean;
   data?: T;
