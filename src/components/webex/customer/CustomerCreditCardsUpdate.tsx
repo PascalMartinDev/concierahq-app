@@ -11,7 +11,6 @@ const CustomerCreditCardsUpdate: React.FC = () => {
   };
 
   const handleSendUpdateLink = async () => {
-    alert("This alert opens up!")
     try {
       setIsLoading(true);
       const apiClient = ApiGatewayClient.getInstance();
@@ -30,11 +29,6 @@ const CustomerCreditCardsUpdate: React.FC = () => {
       {/* CircleButton in top-right corner */}
       <div className="absolute top-5 right-10">
         <CircleButton onButtonClick={handleCircleButtonClick} />
-      </div>
-
-   
-      <div className="flex items-center justify-center">
-        <div className="text-gray-600 font-semibold">Credit Card Update</div>
       </div>
 
       {/* Send Update Link button */}

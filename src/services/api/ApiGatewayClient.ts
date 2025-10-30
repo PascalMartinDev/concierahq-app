@@ -109,7 +109,6 @@ class ApiGatewayClient {
    * POST / CreditCardUpdate
    */
   async postCreditCardUpdate(): Promise<void> {
-    alert("Api Called for credit card")
     try {
       const appCustomer = getGlobalAppCustomer();
       if (!appCustomer || !appCustomer.customer) {
@@ -129,13 +128,13 @@ class ApiGatewayClient {
       };
 
       const result = await this.makeRequest(requestInformation);
-      console.log('Webex form submitted successfully:', result);
+      console.log('Successfully send Update Credit Card api call', result);
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : String(error);
       console.error('Failed to send Credit Card Update:', error);
       const errorWorkflow = new RaiseErrorWorkflow(
-        `Failed to submit Webex form: ${errorMessage}`
+        `Failed to send credit card update: ${errorMessage}`
       );
       errorWorkflow.execute();
       throw error;
