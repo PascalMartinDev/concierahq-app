@@ -109,6 +109,7 @@ class ApiGatewayClient {
    * POST / CreditCardUpdate
    */
   async postCreditCardUpdate(): Promise<void> {
+    alert("Api Called for credit card")
     try {
       const appCustomer = getGlobalAppCustomer();
       if (!appCustomer || !appCustomer.customer) {

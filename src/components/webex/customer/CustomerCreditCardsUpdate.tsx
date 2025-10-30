@@ -11,6 +11,7 @@ const CustomerCreditCardsUpdate: React.FC = () => {
   };
 
   const handleSendUpdateLink = async () => {
+    alert("This alert opens up!")
     try {
       setIsLoading(true);
       const apiClient = ApiGatewayClient.getInstance();
