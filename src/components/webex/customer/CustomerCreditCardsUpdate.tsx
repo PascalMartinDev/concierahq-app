@@ -25,7 +25,7 @@ const CustomerCreditCardsUpdate: React.FC = () => {
   };
 
   return (
-    <div className="relative flex flex-col items-center justify-center bg-gray-100 p-4 border-b border-gray-200 min-h-20">
+    <div className="relative flex flex-col items-center justify-center p-2 min-h-20">
       {/* CircleButton in top-right corner */}
       <div className="absolute top-5 right-10">
         <CircleButton onButtonClick={handleCircleButtonClick} />
