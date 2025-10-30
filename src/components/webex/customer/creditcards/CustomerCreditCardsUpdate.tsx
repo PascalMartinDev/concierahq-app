@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import CircleButton from '../../ui/CircleButton';
-import ApiGatewayClient from '../../../services/api/ApiGatewayClient';
+import ApiGatewayClient from '../../../../services/api/ApiGatewayClient';
+import CircleButton from '../../../ui/CircleButton';
+
 
 const CustomerCreditCardsUpdate: React.FC = () => {
   const [showSendButton, setShowSendButton] = useState(false);

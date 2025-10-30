@@ -14,7 +14,7 @@ import CustomerPurchaseHistory from './CustomerPurchaseHistory';
 import CustomerCustomFields from './CustomerCustomFields';
 import CustomerBookings from './CustomerBookings';
 import CustomerSegments from './CustomerSegments';
-import CustomerCreditCards from './CustomerCreditCards';
+import CustomerCreditCards from './creditcards/CustomerCreditCards';
 import CustomerNotesAndNotifications from './CustomerNotesAndNotifications';
 
 // Type definitions
