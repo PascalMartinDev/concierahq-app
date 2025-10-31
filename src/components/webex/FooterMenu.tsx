@@ -29,8 +29,9 @@ const FooterMenu = () => {
   };
 
   return (
-    <div className="flex w-full my-10">
-      <div>
+    <section>
+      <div className="flex w-full my-10">
+      
         <Button
         buttonText="Close Profile Page"
         onButtonClick={handleCloseProfilePageClicked}
@@ -43,10 +44,12 @@ const FooterMenu = () => {
           buttonText="Open Customer Form"
           onButtonClick={handleOpenFormButtonClicked}
         />
-    </div>
-       {(showConciera) &&  <ConcieraAgent />}
       </div>
-      
+      <div>
+        {(showConciera) &&  <ConcieraAgent />}
+      </div>
+    </section>
+       
   );
 };
 

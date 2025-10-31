@@ -28,14 +28,14 @@ const ConcieraAgent: React.FC = () => {
   return (
     <div className="p-6 bg-white rounded-lg border border-gray-300 shadow-sm">
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Textbox */}
+        {/* Textarea */}
         <div>
-          <input
-            type="text"
+          <textarea
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             placeholder="Get a talking point and upsell suggestion!"
-            className="w-full border border-gray-300 rounded-md px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+            rows={4}
+            className="w-full border border-gray-300 rounded-md px-4 py-2 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
             disabled={isLoading}
           />
         </div>
