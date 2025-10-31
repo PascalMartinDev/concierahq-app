@@ -27,6 +27,7 @@ export class GetCustomerProfileWorkflow implements IWorkflow {
 
       this.updateCustomerData(customerProfile, appCustomer, workflowContext);
       setTimeout(() => {
+        workflowContext.setConcieraAccess(true);
         workflowContext.setIsLoading(false);
       }, 500);
     } catch (error) {

@@ -7,8 +7,8 @@ import ConcieraAgent from './concieraAgent/ConcieraAgent';
 
 const FooterMenu = () => {
   const [showConciera, setShowConciera] = useState(false);
-  // Destructure showCreateForm from useWorkflow hook
-  const { setShowCreateForm } = useWorkflow();
+  // Destructure showCreateForm, showConciera from useWorkflow hook
+  const { setShowCreateForm, concieraAccess } = useWorkflow();
 
   // Open Customer Form onButtonClick function:
   const handleOpenFormButtonClicked = () => setShowCreateForm(true);
@@ -36,11 +36,12 @@ const FooterMenu = () => {
         buttonText="Close Profile Page"
         onButtonClick={handleCloseProfilePageClicked}
         />
+        {(concieraAccess) &&
         <Button
         buttonText="Conciera AI"
         onButtonClick={handleOpenCloseConcieraAI}
-        />
-        <Button
+        />}
+         <Button
           buttonText="Open Customer Form"
           onButtonClick={handleOpenFormButtonClicked}
         />

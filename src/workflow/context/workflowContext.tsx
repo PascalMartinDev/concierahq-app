@@ -13,6 +13,7 @@ export interface WorkflowContextType {
   showError: boolean;
   showCreateForm: boolean;
   showSearchBox: boolean;
+  concieraAccess: boolean;
   loadingMessage: string;
 
   // Simple setters
@@ -23,6 +24,7 @@ export interface WorkflowContextType {
   setShowError: (show: boolean) => void;
   setShowCreateForm: (show: boolean) => void;
   setShowSearchBox: (show: boolean) => void;
+  setConcieraAccess: (show: boolean) => void;
   setLoadingMessage: (loadingMessage: string) => void;
   clearAll: () => void;
 }
@@ -40,6 +42,7 @@ export const WorkflowProvider = ({
   const [showError, setShowError] = useState(false);
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [showSearchBox, setShowSearchBox] = useState(false);
+  const [concieraAccess, setConcieraAccess] = useState(false);
   const [loadingMessage, setLoadingMessage] = useState('Loading Customer Profile');
 
   const clearAll = () => {
@@ -49,6 +52,7 @@ export const WorkflowProvider = ({
     setError("Unknown error!");
     setShowCreateForm(false);
     setShowSearchBox(false);
+    setConcieraAccess(false);
     setShowError(false);
     setLoadingMessage('Loading Customer Profile');
   };
@@ -64,12 +68,14 @@ export const WorkflowProvider = ({
         showError,
         showCreateForm,
         showSearchBox,
+        concieraAccess,
         setAppCustomer,
         setSearchResults,
         setIsLoading,
         setError,
         setShowCreateForm,
         setShowSearchBox,
+        setConcieraAccess,
         setLoadingMessage,
         setShowError,
         clearAll,
