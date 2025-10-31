@@ -190,7 +190,7 @@ class ApiGatewayClient {
         body: askConciera
       };
 
-      const endpoint = 'webex/notes';
+      const endpoint = 'webex/conciera';
       console.log('Calling endpoint:', endpoint);
       const requestInformation: RequestInformation = {
         pathway: endpoint,
