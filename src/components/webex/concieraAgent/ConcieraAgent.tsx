@@ -62,12 +62,12 @@ const ConcieraAgent: React.FC = () => {
       </form>
 
       {/* Response Display */}
-      {response && (
+     
         <div className="mt-4 p-4 bg-gray-50 border border-gray-200 rounded-md">
           <h3 className="text-sm font-semibold text-gray-700 mb-2">Conciera Response:</h3>
           <p className="text-sm text-gray-800 whitespace-pre-wrap">{response}</p>
         </div>
-      )}
+      
     </div>
   );
 };
