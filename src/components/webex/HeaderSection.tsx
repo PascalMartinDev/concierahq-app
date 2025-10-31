@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import logo from '../../assets/TheBrasserieVineyardLogo500x220.png';
-import concieraLog from '../../assets/Conciera_Profile_Placeholder.png';
+import concieraLog from '../../assets/ConcieraRoundedLogo.png';
 import CircleButton from '../ui/CircleButton';
 import { StartupWorkflow } from '../../workflow/workflows/StartupWorkflow';
 import { useWorkflow } from '../../workflow/hooks/useWorkflow';
@@ -45,7 +45,7 @@ const HeaderSection: React.FC<HeaderProps> = ({
   }, [workflowContext]); // Include dependency but prevent re-runs with ref
 
   return (
-    <header className="relative flex items-center justify-between bg-gray-100 p-4 border-b border-gray-200 h-20">
+    <header className="relative flex items-center justify-between bg-gray-100 p-4 border-b border-gray-200 h-25">
       {/* Conciera logo on the left */}
       <div className="flex items-center">
         <img src={logoConciera} alt={logoAltConciera} className="h-12 object-contain" />
