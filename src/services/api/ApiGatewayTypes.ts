@@ -23,6 +23,16 @@ export interface APIResponse<T = unknown> {
   statusCode?: number;
 }
 
+export interface AskConcieraData {
+  email: string;
+  body: string;
+}
+
+export interface ConcieraAiResponse {
+  statusCode: number;
+  body: string;
+}
+
 export interface RequestInformation {
   pathway: string;
   method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';

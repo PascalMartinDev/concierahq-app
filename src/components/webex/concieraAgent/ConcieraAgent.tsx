@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
+import ApiGatewayClient from '../../../services/api/ApiGatewayClient';
 
 const ConcieraAgent: React.FC = () => {
   const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [response, setResponse] = useState<string>('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -13,13 +15,20 @@ const ConcieraAgent: React.FC = () => {
 
     try {
       setIsLoading(true);
-      // TODO: Add API call here
-      console.log('Submitted text:', inputText);
+      setResponse(''); // Clear previous response
 
-      // Clear input after submission
+      const apiClient = ApiGatewayClient.getInstance();
+      const result = await apiClient.postConcieraAi(inputText);
+
+      // Extract the string from the body
+      const responseBody = result.body;
+      setResponse(responseBody);
+
+      // Clear input after successful submission
       setInputText('');
     } catch (error) {
       console.error('Error submitting to Conciera:', error);
+      setResponse('Error: Failed to get response from Conciera. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -51,6 +60,14 @@ const ConcieraAgent: React.FC = () => {
           </button>
         </div>
       </form>
+
+      {/* Response Display */}
+      {response && (
+        <div className="mt-4 p-4 bg-gray-50 border border-gray-200 rounded-md">
+          <h3 className="text-sm font-semibold text-gray-700 mb-2">Conciera Response:</h3>
+          <p className="text-sm text-gray-800 whitespace-pre-wrap">{response}</p>
+        </div>
+      )}
     </div>
   );
 };

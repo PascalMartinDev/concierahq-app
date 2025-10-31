@@ -1,6 +1,6 @@
 import { getGlobalAppCustomer } from '../../workflow/context/workflowContextInstance';
 import { RaiseErrorWorkflow } from '../../workflow/workflows/RaiseErrorWorkflow';
-import type { RequestInformation, WebexFormData, CreditCardUpdateData, CustomerNoteUpdateData } from './ApiGatewayTypes';
+import type { RequestInformation, WebexFormData, CreditCardUpdateData, CustomerNoteUpdateData, ConcieraAiResponse, AskConcieraData } from './ApiGatewayTypes';
 
 class ApiGatewayClient {
   private static instance: ApiGatewayClient;
@@ -166,6 +166,41 @@ class ApiGatewayClient {
 
       const result = await this.makeRequest(requestInformation);
       console.log('Successfully send Updated notes api call', result);
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
+      console.error('Failed to send Note Update:', error);
+      const errorWorkflow = new RaiseErrorWorkflow(
+        `Failed to send Note update: ${errorMessage}`
+      );
+      errorWorkflow.execute();
+      throw error;
+    }
+  }
+
+  async postConcieraAi(askConciera: string): Promise<ConcieraAiResponse> {
+    try {
+      const appCustomer = getGlobalAppCustomer();
+      if (!appCustomer || !appCustomer.customer) {
+        throw new Error('App Customer data is missing or incomplete');
+      }
+
+      const askConcieraData: AskConcieraData  = {
+        email: appCustomer.customer.email,
+        body: askConciera
+      };
+
+      const endpoint = 'webex/notes';
+      console.log('Calling endpoint:', endpoint);
+      const requestInformation: RequestInformation = {
+        pathway: endpoint,
+        method: 'POST',
+        body: askConcieraData,
+      };
+
+      const result = await this.makeRequest(requestInformation);
+      console.log('Successfully asked Conciera api call', result);
+      return result as ConcieraAiResponse;
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : String(error);
