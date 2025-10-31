@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ApiGatewayClient from '../../../services/api/ApiGatewayClient';
 
 const ConcieraAgent: React.FC = () => {
-  const [inputText, setInputText] = useState('Get a talking point and upsell suggestion!');
+  const [inputText, setInputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [response, setResponse] = useState<string>('');
 
@@ -10,7 +10,7 @@ const ConcieraAgent: React.FC = () => {
     e.preventDefault();
 
     if (!inputText.trim()) {
-      return;
+      setInputText('Get a talking point and upsell suggestion!');
     }
 
     try {
@@ -27,8 +27,7 @@ const ConcieraAgent: React.FC = () => {
       // Clear input after successful submission
       setInputText('');
     } catch (error) {
-      console.error('Error submitting to Conciera:', error);
-      setResponse('Error: Failed to get response from Conciera. Please try again.');
+      setResponse(`Error: Failed to get response from Conciera. Please try again. ${error}`);
     } finally {
       setIsLoading(false);
     }
@@ -59,7 +58,7 @@ const ConcieraAgent: React.FC = () => {
         <div className="flex justify-end">
           <button
             type="submit"
-            disabled={isLoading || !inputText.trim()}
+            disabled={isLoading}
             className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLoading ? 'Asking...' : 'Ask Conciera'}
