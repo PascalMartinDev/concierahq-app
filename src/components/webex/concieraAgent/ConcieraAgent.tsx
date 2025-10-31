@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ApiGatewayClient from '../../../services/api/ApiGatewayClient';
 
 const ConcieraAgent: React.FC = () => {
-  const [inputText, setInputText] = useState('');
+  const [inputText, setInputText] = useState('Get a talking point and upsell suggestion!');
   const [isLoading, setIsLoading] = useState(false);
   const [response, setResponse] = useState<string>('');
 
@@ -49,6 +49,12 @@ const ConcieraAgent: React.FC = () => {
           />
         </div>
 
+        {/* Response Display */}
+        {(response) && <div className="mt-4 p-4 bg-gray-50 border border-gray-200 rounded-md">
+              <h3 className="text-sm font-semibold text-gray-700 mb-2">Conciera Response:</h3>
+              <p className="text-sm text-gray-800 whitespace-pre-wrap">{response}</p>
+            </div>}
+      
         {/* Submit Button */}
         <div className="flex justify-end">
           <button
@@ -60,14 +66,6 @@ const ConcieraAgent: React.FC = () => {
           </button>
         </div>
       </form>
-
-      {/* Response Display */}
-     
-        <div className="mt-4 p-4 bg-gray-50 border border-gray-200 rounded-md">
-          <h3 className="text-sm font-semibold text-gray-700 mb-2">Conciera Response:</h3>
-          <p className="text-sm text-gray-800 whitespace-pre-wrap">{response}</p>
-        </div>
-      
     </div>
   );
 };
