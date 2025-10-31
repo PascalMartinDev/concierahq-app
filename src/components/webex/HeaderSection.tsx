@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import logo from '../../assets/TheBrasserieVineyardLogo500x220.png';
-import concieraLog from '../../assets/ConcieraRoundedLogo.png';
 import CircleButton from '../ui/CircleButton';
 import { StartupWorkflow } from '../../workflow/workflows/StartupWorkflow';
 import { useWorkflow } from '../../workflow/hooks/useWorkflow';
@@ -10,16 +9,12 @@ import { RaiseErrorWorkflow } from '../../workflow/workflows/RaiseErrorWorkflow'
 interface HeaderProps {
   logoSrc?: string;
   logoAlt?: string;
-  logoConciera?: string;
-  logoAltConciera?: string;
   onCloseWebExtension?: () => void;
 }
 
 const HeaderSection: React.FC<HeaderProps> = ({
   logoSrc = logo,
   logoAlt = 'logo',
-  logoConciera = concieraLog,
-  logoAltConciera = 'Conciera Logo',
   onCloseWebExtension = async () => {
     try {
 	  const closeWorkflow = new CloseExtensionWorkflow();
@@ -45,21 +40,14 @@ const HeaderSection: React.FC<HeaderProps> = ({
   }, [workflowContext]); // Include dependency but prevent re-runs with ref
 
   return (
-    <header className="relative flex items-center justify-between bg-gray-100 p-4 border-b border-gray-200 h-25">
-      {/* Conciera logo on the left */}
-      <div className="flex items-center">
-        <img src={logoConciera} alt={logoAltConciera} className="h-12 object-contain" />
+    <header className="relative flex items-center justify-center bg-gray-100 p-4 border-b border-gray-200 h-20">
+      {/* CircleButton in top-right corner */}
+      <div className="absolute top-5 right-10">
+        <CircleButton onButtonClick={onCloseWebExtension} />
       </div>
 
       {/* Centered logo */}
-      <div className="absolute left-1/2 transform -translate-x-1/2">
-        <img src={logoSrc} alt={logoAlt} className="h-12 object-contain" />
-      </div>
-
-      {/* CircleButton on the right */}
-      <div className="flex items-center">
-        <CircleButton onButtonClick={onCloseWebExtension} />
-      </div>
+      <img src={logoSrc} alt={logoAlt} className="h-12 object-contain" />
     </header>
   );
 };
@@ -82,10 +70,8 @@ KEY FEATURES:
 4. Error handling for workflow failures
 
 PROPS:
-- logoSrc (optional): Custom logo image source for center logo (defaults to TheBrasserieVineyardLogo500x220.png)
-- logoAlt (optional): Alt text for center logo (defaults to 'logo')
-- logoConciera (optional): Conciera logo image source for left logo (defaults to /ConcieraRoundedLogo.png from public folder)
-- logoAltConciera (optional): Alt text for Conciera logo (defaults to 'Conciera Logo')
+- logoSrc (optional): Custom logo image source (defaults to TheBrasserieVineyardLogo500x220.png)
+- logoAlt (optional): Alt text for logo (defaults to 'logo')
 - onCloseWebExtension (optional): Custom close handler function
 
 onCloseWebExtension IMPLEMENTATION PATTERN:
@@ -118,14 +104,11 @@ WORKFLOW EXECUTION:
 - RaiseErrorWorkflow: Executed when other workflows fail to provide error feedback
 
 USAGE EXAMPLES:
-// Basic usage (uses default close behavior and default logos)
+// Basic usage (uses default close behavior)
 <Header />
 
-// Custom center logo
+// Custom logo
 <Header logoSrc="/custom-logo.png" logoAlt="Custom Brand" />
-
-// Custom Conciera logo
-<Header logoConciera="/custom-conciera-logo.png" logoAltConciera="Custom Conciera" />
 
 // Custom close behavior
 <Header onCloseWebExtension={() => console.log('Custom close')} />

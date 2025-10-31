@@ -1,14 +1,18 @@
+import { useState } from 'react';
 import Button from '../ui/Button';
 import { useWorkflow } from '../../workflow/hooks/useWorkflow';
 import { CloseExtensionWorkflow } from '../../workflow/workflows/CloseExtensionWorkflow';
 import { RaiseErrorWorkflow } from '../../workflow/workflows/RaiseErrorWorkflow';
+import ConcieraAgent from './concieraAgent/ConcieraAgent';
 
 const FooterMenu = () => {
+  const [showConciera, setShowConciera] = useState(false);
   // Destructure showCreateForm from useWorkflow hook
   const { setShowCreateForm } = useWorkflow();
 
   // Open Customer Form onButtonClick function:
   const handleOpenFormButtonClicked = () => setShowCreateForm(true);
+  const handleOpenCloseConcieraAI = () => setShowConciera(!showConciera);
   // Close Profile Page onButtonClick function
   const handleCloseProfilePageClicked = async () => {
     try {
@@ -26,15 +30,23 @@ const FooterMenu = () => {
 
   return (
     <div className="flex w-full my-10">
-      <Button
+      <div>
+        <Button
         buttonText="Close Profile Page"
         onButtonClick={handleCloseProfilePageClicked}
-      />
-      <Button
-        buttonText="Open Customer Form"
-        onButtonClick={handleOpenFormButtonClicked}
-      />
+        />
+        <Button
+        buttonText="Conciera AI"
+        onButtonClick={handleOpenCloseConcieraAI}
+        />
+        <Button
+          buttonText="Open Customer Form"
+          onButtonClick={handleOpenFormButtonClicked}
+        />
     </div>
+       {(showConciera) &&  <ConcieraAgent />}
+      </div>
+      
   );
 };
 
