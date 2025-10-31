@@ -1,6 +1,6 @@
 import { getGlobalAppCustomer } from '../../workflow/context/workflowContextInstance';
 import { RaiseErrorWorkflow } from '../../workflow/workflows/RaiseErrorWorkflow';
-import type { RequestInformation, WebexFormData, CreditCardUpdateData } from './ApiGatewayTypes';
+import type { RequestInformation, WebexFormData, CreditCardUpdateData, CustomerNoteUpdateData } from './ApiGatewayTypes';
 
 class ApiGatewayClient {
   private static instance: ApiGatewayClient;
@@ -135,6 +135,43 @@ class ApiGatewayClient {
       console.error('Failed to send Credit Card Update:', error);
       const errorWorkflow = new RaiseErrorWorkflow(
         `Failed to send credit card update: ${errorMessage}`
+      );
+      errorWorkflow.execute();
+      throw error;
+    }
+  }
+
+  /**
+   * POST / CustomerNoteUpdate
+   */
+  async postCustomerNoteUpdate(): Promise<void> {
+    try {
+      const appCustomer = getGlobalAppCustomer();
+      if (!appCustomer || !appCustomer.customer) {
+        throw new Error('App Customer data is missing or incomplete');
+      }
+
+      const customerNoteUpdateData: CustomerNoteUpdateData = {
+        email: appCustomer.customer.email,
+        note: appCustomer.crm.notes
+      };
+
+      const endpoint = 'webex/notes';
+      console.log('Calling endpoint:', endpoint);
+      const requestInformation: RequestInformation = {
+        pathway: endpoint,
+        method: 'POST',
+        body: customerNoteUpdateData,
+      };
+
+      const result = await this.makeRequest(requestInformation);
+      console.log('Successfully send Updated notes api call', result);
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
+      console.error('Failed to send Note Update:', error);
+      const errorWorkflow = new RaiseErrorWorkflow(
+        `Failed to send Note update: ${errorMessage}`
       );
       errorWorkflow.execute();
       throw error;

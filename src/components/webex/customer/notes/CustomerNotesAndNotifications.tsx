@@ -1,7 +1,8 @@
 import React from 'react';
-import { useAppCustomer } from '../../../workflow/hooks/useAppCustomer';
-import TagList from '../../ui/TagList';
-import Notes from '../../ui/Notes';
+import { useAppCustomer } from '../../../../workflow/hooks/useAppCustomer';
+import TagList from '../../../ui/TagList';
+import CustomerNotes from './CustomerNotes';
+
 
 const CustomerNotesAndNotifications: React.FC = () => {
   const appCustomer = useAppCustomer();
@@ -14,7 +15,7 @@ const CustomerNotesAndNotifications: React.FC = () => {
       <div className="flex flex-col md:flex-row md:space-x-6 space-y-6 md:space-y-0">
 
         <div className="flex-1 space-y-2">
-          <Notes />
+          <CustomerNotes />
         </div>
 
         {/* Conditionally render the next 3 TagList sections if ecommerce is 'commerce7' */}

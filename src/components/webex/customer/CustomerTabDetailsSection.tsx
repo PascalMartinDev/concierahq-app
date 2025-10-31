@@ -15,7 +15,8 @@ import CustomerCustomFields from './CustomerCustomFields';
 import CustomerBookings from './CustomerBookings';
 import CustomerSegments from './CustomerSegments';
 import CustomerCreditCards from './creditcards/CustomerCreditCards';
-import CustomerNotesAndNotifications from './CustomerNotesAndNotifications';
+import CustomerNotesAndNotifications from './notes/CustomerNotesAndNotifications';
+
 
 // Type definitions
 interface Tab {

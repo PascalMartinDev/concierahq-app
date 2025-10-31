@@ -10,6 +10,11 @@ export interface CreditCardUpdateData {
   email: string;
 }
 
+export interface CustomerNoteUpdateData {
+  email: string;
+  note: string;
+}
+
 export interface APIResponse<T = unknown> {
   success: boolean;
   data?: T;
