@@ -9,16 +9,15 @@ const ConcieraAgent: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!inputText.trim()) {
-      setInputText('Get a talking point and upsell suggestion!');
-    }
-
     try {
       setIsLoading(true);
       setResponse(''); // Clear previous response
 
+      // Use "Get Talking Point" as default if no text is entered
+      const textToSend = inputText.trim() || 'Get Talking Point';
+
       const apiClient = ApiGatewayClient.getInstance();
-      const result = await apiClient.postConcieraAi(inputText);
+      const result = await apiClient.postConcieraAi(textToSend);
 
       // Extract the string from the body
       const responseBody = result.body;
