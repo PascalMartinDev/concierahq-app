@@ -24,6 +24,7 @@ export interface CustomerRecord {
   address?: ICustomerAddress;
   booking?: IBooking;
   commerce_seven?: ICommerceSeven;
+  shopify_store?: IShopify;
   ecommerce?: IeCommerce;
   custom_fields?: ICustomFields;
   notes?: string;
@@ -56,6 +57,13 @@ export interface ICommerceSeven {
   flags?: string[];
   groups?: string[];
   notifications?: string[];
+  email_marketing_status?: string;
+}
+
+export interface IShopify {
+  customer_state?: string;
+  marketing_opt_in_level?: string;
+  marketing_state?: string;
 }
 
 export interface IeCommerce {

@@ -11,7 +11,7 @@ export class ECommerceMapper extends BaseCustomerMapper {
   }
 
   private mapECommerce(): void {
-    const { ecommerce, commerce_seven } = this.customerProfile;
+    const { ecommerce, commerce_seven, shopify_store } = this.customerProfile;
     if (!ecommerce) return;
 
     const target = this.appCustomer.eCommerce;
@@ -37,6 +37,7 @@ export class ECommerceMapper extends BaseCustomerMapper {
 
     // Additonal ECommerce Domain Fields:
     const ecommerceIntegration = import.meta.env.VITE_INTEGRATION_ECOMMERCE;
+    // Commerce7 Mapping fields
     if (ecommerceIntegration == 'Commerce7') {
       if (!commerce_seven) return;
 
@@ -58,6 +59,30 @@ export class ECommerceMapper extends BaseCustomerMapper {
       if (commerce_seven.notifications) {
         commerce7.notifications = commerce_seven.notifications;
       }
+      // Set Email Marketing Status:
+      if (commerce_seven.email_marketing_status) {
+        commerce7.emailMarketingStatus = commerce_seven.email_marketing_status;
+      }
+    }
+
+    if (ecommerceIntegration == 'Shopify') {
+      if (!shopify_store) return;
+
+      const shopifyStore = this.appCustomer.shopify;
+      
+      // Set Customer State:
+      if (shopify_store.customer_state) {
+        shopifyStore.customerState = shopify_store.customer_state;
+      }
+      // Set Marketing Opt-In Level:
+      if (shopify_store.marketing_opt_in_level) {
+        shopifyStore.customerMarketingOptInLevel = shopify_store.marketing_opt_in_level;
+      }
+      // Set Marketing State:
+      if (shopify_store.marketing_state) {
+        shopifyStore.customerMarketingState = shopify_store.marketing_state;
+      }
+      
     }
 
     // Credit Card Mapping
