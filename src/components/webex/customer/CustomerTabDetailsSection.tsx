@@ -6,16 +6,16 @@ import {
   ShoppingCartIcon, 
   CalendarIcon, 
   AdjustmentsHorizontalIcon,
-  CreditCardIcon,
-  PencilSquareIcon
+  PencilSquareIcon,
+  ChartBarIcon
 } from '@heroicons/react/20/solid';
 import CustomerAddress from './CustomerAddress';
 import CustomerPurchaseHistory from './CustomerPurchaseHistory';
 import CustomerCustomFields from './CustomerCustomFields';
 import CustomerBookings from './CustomerBookings';
 import CustomerSegments from './CustomerSegments';
-import CustomerCreditCards from './creditcards/CustomerCreditCards';
 import CustomerNotesAndNotifications from './notes/CustomerNotesAndNotifications';
+import CustomerECommerce from './ecommerce/CustomerECommerce';
 
 
 // Type definitions
@@ -39,14 +39,11 @@ const CustomerTabDetailsSection: React.FC = () => {
   const tabs: Tab[] = [
     { name: 'Segments', component: CustomerSegments, icon: TagIcon },
     { name: 'Bookings', component: CustomerBookings, icon: CalendarIcon },
-    { name: 'Notes & Notifications', component: CustomerNotesAndNotifications, icon: PencilSquareIcon },
+    { name: 'Notes', component: CustomerNotesAndNotifications, icon: PencilSquareIcon },
+    { name: 'ECommerce', component: CustomerECommerce, icon:ShoppingCartIcon },
+    { name: 'History', component: CustomerPurchaseHistory, icon: ChartBarIcon },
     { name: 'Custom Fields', component: CustomerCustomFields, icon: AdjustmentsHorizontalIcon },
-    { name: 'Address', component: CustomerAddress, icon: MapPinIcon },
-    { name: 'Credit Cards', component: CustomerCreditCards, icon: CreditCardIcon },
-    { name: 'Purchase History', component: CustomerPurchaseHistory, icon: ShoppingCartIcon },
-    
-    
-    
+    { name: 'Address', component: CustomerAddress, icon: MapPinIcon },  
   ];
 
   const [currentTab, setCurrentTab] = useState<string>(tabs[0].name);
