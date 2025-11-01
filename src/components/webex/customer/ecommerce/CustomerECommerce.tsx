@@ -10,7 +10,6 @@ const CustomerECommerce: React.FC = () => {
   if (!ecommerceIntegration) {
     return null;
   }
-
   // Determine which ecommerce component to render
   const renderEcommerceComponent = () => {
     switch (ecommerceIntegration) {
