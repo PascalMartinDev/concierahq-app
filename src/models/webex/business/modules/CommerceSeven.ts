@@ -3,6 +3,7 @@ export class CommerceSeven {
   protected _groups: string[] = [];
   protected _clubs: string[] = [];
   protected _notifications: string[] = [];
+  protected _emailMarketingStatus: string = '';
 
   // Getters:
   get flags(): string[] {
@@ -19,6 +20,9 @@ export class CommerceSeven {
   get notifications(): string[] {
     return this._notifications;
   }
+  get emailMarketingStatus(): string {
+    return this._emailMarketingStatus;
+  }
 
   // Setters:
   set flags(value: string[]) {
@@ -34,5 +38,8 @@ export class CommerceSeven {
   }
   set notifications(value: string[]) {
     this._notifications = value;
+  }
+  set emailMarketingStatus(value: string) {
+    this._emailMarketingStatus = value;
   }
 }
